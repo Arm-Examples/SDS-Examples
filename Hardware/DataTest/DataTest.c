@@ -102,7 +102,7 @@ static void calc_cpu_usage(void) {
 }
 
 // Thread for generating simulated data
-__NO_RETURN void threadTestData(void *argument) {
+__NO_RETURN void threadDataTest(void *argument) {
   uint32_t n, timestamp;
   (void)argument;
 

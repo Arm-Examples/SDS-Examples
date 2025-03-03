@@ -41,7 +41,7 @@ solution:
 
   # List related projects.
   projects:
-    - project: TestData/TestData.cproject.yml
+    - project: DataTest/DataTest.cproject.yml
     - project: ModelTest/ModelTest.cproject.yml
     # - project: ModelSensor/ModelSensor.cproject.yml
 

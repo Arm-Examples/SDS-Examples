@@ -29,7 +29,7 @@ extern "C"
 #include "sds_rec.h"
 
 // Thread for generating simulated data
-extern void threadTestData (void *argument);
+extern void threadDataTest (void *argument);
 
 #ifdef  __cplusplus
 }

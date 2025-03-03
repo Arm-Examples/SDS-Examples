@@ -27,7 +27,7 @@
  *----------------------------------------------------------------------------*/
 int32_t app_main (void) {
   osKernelInitialize();
-  osThreadNew(threadTestData,      NULL, NULL);
+  osThreadNew(threadDataTest,      NULL, NULL);
   osThreadNew(threadRecManagement, NULL, NULL);
   osKernelStart();
   return 0;
