@@ -48,7 +48,6 @@ solution:
 
   # List related projects.
   projects:
-    - project: DataTest/DataTest.cproject.yml
     - project: Model1/Test/ModelTest.cproject.yml
     - project: Model1/Play/ModelPlay.cproject.yml
     - project: Model1/Sensor/ModelSensor.cproject.yml
