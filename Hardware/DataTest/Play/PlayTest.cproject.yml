@@ -1,5 +1,5 @@
 project:
-  description: Record test data to validate configuration
+  description: Playback and validate recorded test data
 
   connections:
     - connect: Test Data demo
