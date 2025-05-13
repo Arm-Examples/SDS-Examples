@@ -11,43 +11,33 @@ The example has a trained model for continuous motion recognition using an tutor
 
 Model input data:
 
-- recorded `DataInput.0.sds` file containing accelerometer data of recorded motion
+- const test accelerometer data of `wave` motion
 
 Model output data:
 
-- recorded `DataOutput.0.sds` file containing results of inference executed when 375 samples were available
-  (approx. 2.4 seconds), containing probabilities for 4 possible classification groups
+- results of inference executed when 375 samples are available (approx. 2.4 seconds), containing
+  probabilities for 4 possible classification groups
 
-Prerecorded SDS files used for playback are available in the `./SDS Recordings` sub-folder, containing
+Prerecorded SDS files containing approximately 50 seconds of recorded data are available in the `./SDS Recordings` sub-folder, containing
 also `.sds.yml` metadata files.
-
-During the example, the code compares results of ML inference with previously recorded one to ensure that
-they are the same or reports an error in the STDIO if they are different.
 
 # User Interface
 
-The playback is started by pressing a (VIO vioBUTTON0) push-button on the board.
+The recording is started by pressing a (VIO vioBUTTON0) push-button on the board.
 
 > Note: Depending on the selected Interface the SDSIO server has to be running on the Host machine.
->       Except for the FileSystem interface where media is the SD Card inserted on the board that
->       has to contain recorded .sds files.
+>       Except for the FileSystem interface where media is the SD Card inserted on the board and where
+>       new recorded .sds files will be created.
 
 ## Output
 
 The output in STDIO of this example running looks like below:
 
 ```txt
-Playback started
-Predictions (DSP: 1.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
-#Classification results:
-    idle: 0.000000
-    snake: 0.000000
-    updown: 0.003906
-    wave: 0.996094
-Anomaly prediction: -0.183448
-94% idle
+Recording started
+97% idle
 99% idle
-Predictions (DSP: 1.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+Predictions (DSP: 4.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
 #Classification results:
     idle: 0.000000
     snake: 0.000000
@@ -56,4 +46,11 @@ Predictions (DSP: 1.000000 ms., Classification: 0 ms., Anomaly: 0ms.):
 Anomaly prediction: -0.183448
 97% idle
 99% idle
+Predictions (DSP: 4.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.000000
+    snake: 0.000000
+    updown: 0.003906
+    wave: 0.996094
+Anomaly prediction: -0.183448
 ```
