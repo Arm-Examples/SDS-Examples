@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-#ifndef ALGORITHM_TEST_ML_H_
-#define ALGORITHM_TEST_ML_H_
+#ifndef ALGORITHM_ML_H_
+#define ALGORITHM_ML_H_
 
 #include "stdint.h"
 

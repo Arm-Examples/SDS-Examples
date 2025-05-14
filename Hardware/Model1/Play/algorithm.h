@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-#ifndef ALGORITHM_TEST_H_
-#define ALGORITHM_TEST_H_
+#ifndef ALGORITHM_H_
+#define ALGORITHM_H_
 
 #include "cmsis_compiler.h"
 
