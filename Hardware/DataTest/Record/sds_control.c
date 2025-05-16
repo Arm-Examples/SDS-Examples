@@ -17,7 +17,6 @@
  */
 
 #include <stdio.h>
-#include <stdbool.h>
 #include "cmsis_os2.h"
 #include "cmsis_vio.h"
 #include "sds_control.h"
@@ -34,23 +33,18 @@ volatile uint8_t sdsio_state = SDSIO_CLOSED;
 // Idle time counter
 static volatile  uint32_t idle_cnt;
 
-// Recorder event callback
+// Recorder/player event callback
 static void recorder_event_callback (sdsRecPlayId_t id, uint32_t event) {
-  if ((event & SDS_REC_PLAY_EVENT_ERROR_IO) != 0U) {
-    SDS_ASSERT(false);
-  }
-  if ((event & SDS_REC_EVENT_ERROR_NO_SPACE) != 0U) {
-    SDS_ASSERT(false);
-  }
-  if ((event & SDS_PLAY_EVENT_ERROR_NO_DATA) != 0U) {
-    SDS_ASSERT(false);
-  }
+  SDS_ASSERT((event & SDS_REC_PLAY_EVENT_ERROR_IO) == 0U);
+  SDS_ASSERT((event & SDS_REC_EVENT_ERROR_NO_SPACE)== 0U);
+  SDS_ASSERT((event & SDS_PLAY_EVENT_ERROR_NO_DATA)== 0U);
+  (void)id;
 }
 
-// Recorder control thread function.
-// Toggle recording via USER push-button.
+// Recorder/player control thread function.
+// Toggle recording/playback via USER push-button.
 // Toggle LED0 every 1 second to see that the thread is alive.
-// Turn on LED1 when recording is started, turn it off when recording is stopped.
+// Turn LED1 on when recording/playback is started and off when it is stopped.
 __NO_RETURN void sdsControlThread (void *argument) {
   uint8_t btn_val, keypress;
   uint8_t btn_prev = 0U;
@@ -58,6 +52,7 @@ __NO_RETURN void sdsControlThread (void *argument) {
   int32_t status;
   uint32_t no_load_cnt, prev_cnt;
   uint32_t interval_time, cnt = 0U;
+  (void)argument;
 
   // Initialize idle counter
   idle_cnt = 0U;
@@ -83,12 +78,11 @@ __NO_RETURN void sdsControlThread (void *argument) {
     keypress = btn_val & ~btn_prev;
     btn_prev = btn_val;
 
-    // Control SDS recorder
+    // Control SDS recorder/player
     switch (sdsio_state) {
       case SDSIO_CLOSED:
         if (!keypress) break;
 
-        // Start recording the data
         OpenStreams();
 
         // Turn LED1 on
@@ -104,12 +98,7 @@ __NO_RETURN void sdsControlThread (void *argument) {
         break;
 
       case SDSIO_HALTED:
-        // Stop recording the data
         CloseStreams();
-
-        if (sdsError.occurred) {
-          printf("Recording failed\n");
-        }
 
         // Turn LED1 off
         vioSetSignal(vioLED1, vioLEDoff);

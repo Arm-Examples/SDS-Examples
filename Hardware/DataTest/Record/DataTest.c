@@ -21,7 +21,7 @@
 #include "sds_control.h"
 #include "DataTest.h"
 
-// SDS Recorder data buffers
+// Buffer size configuration
 #ifndef STREAM_IN_BUF_SIZE
 #define STREAM_IN_BUF_SIZE              DATA_BUF_SIZE
 #endif
@@ -119,6 +119,10 @@ void CloseStreams (void) {
   SDS_ASSERT(status == SDS_REC_PLAY_OK);
 
   printf("Algorithm Recording Stopped\n");
+
+  if (sdsError.occurred) {
+    printf("Error: Recording Failed\n");
+  }
 }
 
 // Thread for generating simulated data
