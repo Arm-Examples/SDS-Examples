@@ -49,12 +49,12 @@ typedef struct {
 // Error information
 extern sdsError_t       sdsError;
 
-// Recorder active status
+// SDS IO active status
 extern volatile uint8_t sdsio_state;
 
-// Recorder identifiers
-extern sdsRecPlayId_t   recIdDataInput;
-extern sdsRecPlayId_t   recIdDataOutput;
+// Stream functions
+extern void OpenStreams (void);
+extern void CloseStreams (void);
 
 // SDS control thread function
 extern void sdsControlThread (void *argument);

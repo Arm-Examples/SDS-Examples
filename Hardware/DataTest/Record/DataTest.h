@@ -19,12 +19,12 @@
 #ifndef DATA_TEST_H_
 #define DATA_TEST_H_
 
-// Recording bandwidth in bytes/sec
+// Test bandwidth in bytes/sec
 #ifndef TEST_BANDWIDTH
 #define TEST_BANDWIDTH          100000U
 #endif
 
-// Recording interval in ms
+// Test interval in ms
 #ifndef TEST_INTERVAL
 #define TEST_INTERVAL           10U
 #endif

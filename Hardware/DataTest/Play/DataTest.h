@@ -46,7 +46,7 @@ extern "C"
 {
 #endif
 
-// Thread for verifying simulated data
+// Thread for generating simulated data
 extern void AlgorithmThread (void *argument);
 
 #ifdef  __cplusplus

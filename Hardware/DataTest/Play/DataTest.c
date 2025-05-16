@@ -16,62 +16,96 @@
  * limitations under the License.
  */
 
-#include <string.h>
+#include <stdio.h>
 #include "cmsis_os2.h"
 #include "sds_control.h"
 #include "DataTest.h"
 
+// SDS Recorder data buffers
+#ifndef STREAM_IN_BUF_SIZE
+#define STREAM_IN_BUF_SIZE              DATA_BUF_SIZE
+#endif
+
+#ifndef STREAM_OUT_BUF_SIZE
+#define STREAM_OUT_BUF_SIZE             4096U
+#endif
+
 // IMU sensor buffer
-struct IMU {
+static struct IMU {
   struct {
     uint16_t x;
     uint16_t y;
     uint16_t z;
   } accelerometer;
-} imu_buf[DATA_BLOCK_SIZE/6],
-  imu_play[DATA_BLOCK_SIZE/6];
+} imu_buf[DATA_BLOCK_SIZE/6];
 
 // ML output buffer
-struct OUT {
+static struct OUT {
   struct {
     uint16_t x;
     uint16_t y;
   } out;
-} ml_buf[10],
-  ml_play[10];
+} ml_buf[10];
 
-// Create test data indexes
-static uint16_t index_in;
-static uint16_t index_out;
+// Stream buffers
+static uint8_t stream_in_buf[STREAM_IN_BUF_SIZE];
+static uint8_t stream_out_buf[STREAM_OUT_BUF_SIZE];
 
-// Create dummy test data
-static void CreateTestData (void) {
-  uint16_t val;
+// Buffer identifiers
+static sdsRecPlayId_t IdInData  = NULL;
+static sdsRecPlayId_t IdOutData = NULL;
+
+// Calculate dummy inference
+static void sds_inference (void) {
+  uint32_t sum_x, sum_y, sum_z;
   int32_t i;
 
-  // Sensor input data
+  // Process input data
+  sum_x = sum_y = sum_z = 0U;
   for (i = 0; i < DATA_BLOCK_SIZE/6; i++) {
-    val = (index_in + i) % 3000;
-    imu_buf[i].accelerometer.x = val;
-    val = (val + 250) % 3000;
-    imu_buf[i].accelerometer.y = 2999 - val;
-    val = (val + 300) % 3000;
-    imu_buf[i].accelerometer.z = (val < 1500) ? val : (2999 - val);
+    sum_x += imu_buf[i].accelerometer.x;
+    sum_y += imu_buf[i].accelerometer.y;
+    sum_z += imu_buf[i].accelerometer.z;
   }
-  index_in = (index_in + i) % 3000;
+  sum_x = (sum_x & 0xFFFF) + (sum_x >> 16);
+  sum_y = (sum_y & 0xFFFF) + (sum_y >> 16);
+  sum_z = (sum_z & 0xFFFF) + (sum_z >> 16);
 
-  // ML output data
+  // Output data of Algorithm
   for (i = 0; i < 10; i++) {
-    val = (index_out + i) % 1000;
-    ml_buf[i].out.x = val;
-    ml_buf[i].out.y = val % 500;
+    ml_buf[i].out.x = (sum_x ^ sum_z) & 0xFFFF;
+    ml_buf[i].out.y = (sum_y ^ sum_z) & 0xFFFF;
+    sum_z += 12345U;
   }
-  index_out = (index_out + i) % 1000;
 }
 
-// Thread for verifying simulated data
+// Open SDS streams
+void OpenStreams (void) {
+  IdInData = sdsPlayOpen("DataInput", stream_in_buf, sizeof(stream_in_buf));
+  SDS_ASSERT(IdInData != NULL);
+
+  IdOutData = sdsRecOpen("DataOutputPlay", stream_out_buf, sizeof(stream_out_buf));
+  SDS_ASSERT(IdOutData != NULL);
+
+  printf("Algorithm Playback Started\n");
+}
+
+// Close SDS streams
+void CloseStreams (void) {
+  int32_t status;
+
+  status = sdsPlayClose(IdInData);
+  SDS_ASSERT(status == SDS_REC_PLAY_OK);
+
+  status = sdsRecClose(IdOutData);
+  SDS_ASSERT(status == SDS_REC_PLAY_OK);
+
+  printf("Algorithm Playback Stopped\n");
+}
+
+// Thread for generating simulated data
 __NO_RETURN void AlgorithmThread (void *argument) {
-  uint32_t interval_time;
+  uint32_t timestamp, interval_time;
   int32_t  retv;
   (void)argument;
 
@@ -79,25 +113,16 @@ __NO_RETURN void AlgorithmThread (void *argument) {
 
   for (;;) {
     if (sdsio_state == SDSIO_OPEN) {
-      CreateTestData();
-
-      retv = sdsPlayRead(playIdDataInput, NULL, &imu_play, sizeof(imu_play));
+      retv = sdsPlayRead(IdInData, &timestamp, &imu_buf, sizeof(imu_buf));
       if (retv >= 0) {
-        SDS_ASSERT(retv == sizeof(imu_play));
-        // Check if the received data matches the generated data
-        retv = memcmp(imu_play, imu_buf, sizeof(imu_play));
-        SDS_ASSERT(retv == 0);
-      }
-      else {
-        sdsio_state = SDSIO_CLOSING;
-      }
+        SDS_ASSERT(retv == sizeof(imu_buf));
 
-      retv = sdsPlayRead(playIdDataOutput, NULL, &ml_play, sizeof(ml_play));
-      if (retv >= 0) {
-        SDS_ASSERT(retv == sizeof(ml_play));
-        // Check if the received data matches the generated data
-        retv = memcmp(ml_play, ml_buf, sizeof(ml_play));
-        SDS_ASSERT(retv == 0);
+        // Execute Algorithm under test
+        sds_inference();
+
+        // Record output data of Algorithm
+        retv = sdsRecWrite(IdOutData, timestamp, &ml_buf, sizeof(ml_buf));
+        SDS_ASSERT(retv == sizeof(ml_buf));
       }
       else {
         sdsio_state = SDSIO_CLOSING;
@@ -107,9 +132,8 @@ __NO_RETURN void AlgorithmThread (void *argument) {
     if (sdsio_state == SDSIO_CLOSING) {
       // Algorithm execution stopped, transit to halted state
       sdsio_state = SDSIO_HALTED;
-      index_in = index_out = 0U;
     }
- 
+
     interval_time += TEST_INTERVAL;
     osDelayUntil(interval_time);
   }

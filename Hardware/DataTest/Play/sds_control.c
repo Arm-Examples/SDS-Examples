@@ -24,38 +24,25 @@
 #include "sds_rec_play.h"
 #include "DataTest.h"
 
-// Configuration
 
-// SDS Player data buffers
-#ifndef PLAY_BUF_SIZE_DATA_IN
-#define PLAY_BUF_SIZE_DATA_IN           DATA_BUF_SIZE
-#endif
-
-#ifndef PLAY_BUF_SIZE_DATA_OUT
-#define PLAY_BUF_SIZE_DATA_OUT          4096U
-#endif
-
-
-// Player error information
+// SDS error information
 sdsError_t       sdsError = { 0U, 0U, NULL, 0U };
 
-// Player active status
+// SDSIO active status
 volatile uint8_t sdsio_state = SDSIO_CLOSED;
-
-// Player identifiers
-sdsRecPlayId_t   playIdDataInput  = NULL;
-sdsRecPlayId_t   playIdDataOutput = NULL;
 
 // Idle time counter
 static volatile  uint32_t idle_cnt;
 
-// Player buffers
-static uint8_t   play_buf_data_in [PLAY_BUF_SIZE_DATA_IN];
-static uint8_t   play_buf_data_out[PLAY_BUF_SIZE_DATA_OUT];
-
 // Player event callback
 static void recorder_event_callback (sdsRecPlayId_t id, uint32_t event) {
   if ((event & SDS_REC_PLAY_EVENT_ERROR_IO) != 0U) {
+    SDS_ASSERT(false);
+  }
+  if ((event & SDS_REC_EVENT_ERROR_NO_SPACE) != 0U) {
+    SDS_ASSERT(false);
+  }
+  if ((event & SDS_PLAY_EVENT_ERROR_NO_DATA) != 0U) {
     SDS_ASSERT(false);
   }
 }
@@ -81,7 +68,11 @@ __NO_RETURN void sdsControlThread (void *argument) {
   status = sdsRecPlayInit(recorder_event_callback);
   SDS_ASSERT(status == SDS_REC_PLAY_OK);
 
-  osThreadNew(AlgorithmThread, NULL, NULL);
+  // Create algorithm thread
+  if (osThreadNew(AlgorithmThread, NULL, NULL) == NULL) {
+    printf("Algorithm Thread creation failed!\n");
+    osThreadExit();
+  }
 
   interval_time = osKernelGetTickCount();
   prev_cnt      = idle_cnt;
@@ -98,17 +89,7 @@ __NO_RETURN void sdsControlThread (void *argument) {
         if (!keypress) break;
 
         // Start playing the data
-        playIdDataInput  = sdsPlayOpen("DataInput",
-                                       play_buf_data_in,
-                                       sizeof(play_buf_data_in));
-        SDS_ASSERT(playIdDataInput != NULL);
-
-        playIdDataOutput = sdsPlayOpen("DataOutput",
-                                       play_buf_data_out,
-                                       sizeof(play_buf_data_out));
-        SDS_ASSERT(playIdDataOutput != NULL);
-
-        printf("Start Playing\n");
+        OpenStreams();
 
         // Turn LED1 on
         vioSetSignal(vioLED1, vioLEDon);
@@ -124,17 +105,11 @@ __NO_RETURN void sdsControlThread (void *argument) {
 
       case SDSIO_HALTED:
         // Stop playing the data
-        status = sdsPlayClose(playIdDataInput);
-        SDS_ASSERT(status == SDS_REC_PLAY_OK);
-
-        status = sdsPlayClose(playIdDataOutput);
-        SDS_ASSERT(status == SDS_REC_PLAY_OK);
+        CloseStreams();
 
         if (sdsError.occurred) {
-          printf("Verification failed\n");
+          printf("Playing failed\n");
         }
-
-        printf("Stop Playing\n");
 
         // Turn LED1 off
         vioSetSignal(vioLED1, vioLEDoff);

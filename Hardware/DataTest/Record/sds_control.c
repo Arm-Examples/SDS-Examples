@@ -24,43 +24,30 @@
 #include "sds_rec_play.h"
 #include "DataTest.h"
 
-// Configuration
 
-// SDS Recorder data buffers
-#ifndef REC_BUF_SIZE_DATA_IN
-#define REC_BUF_SIZE_DATA_IN            DATA_BUF_SIZE
-#endif
-
-#ifndef REC_BUF_SIZE_DATA_OUT
-#define REC_BUF_SIZE_DATA_OUT           4096U
-#endif
-
-
-// Recorder error information
+// SDS error information
 sdsError_t       sdsError = { 0U, 0U, NULL, 0U };
 
-// Recorder active status
+// SDSIO active status
 volatile uint8_t sdsio_state = SDSIO_CLOSED;
-
-// Recorder identifiers
-sdsRecPlayId_t   recIdDataInput  = NULL;
-sdsRecPlayId_t   recIdDataOutput = NULL;
 
 // Idle time counter
 static volatile  uint32_t idle_cnt;
-
-// Recorder buffers
-static uint8_t   rec_buf_data_in [REC_BUF_SIZE_DATA_IN];
-static uint8_t   rec_buf_data_out[REC_BUF_SIZE_DATA_OUT];
 
 // Recorder event callback
 static void recorder_event_callback (sdsRecPlayId_t id, uint32_t event) {
   if ((event & SDS_REC_PLAY_EVENT_ERROR_IO) != 0U) {
     SDS_ASSERT(false);
   }
+  if ((event & SDS_REC_EVENT_ERROR_NO_SPACE) != 0U) {
+    SDS_ASSERT(false);
+  }
+  if ((event & SDS_PLAY_EVENT_ERROR_NO_DATA) != 0U) {
+    SDS_ASSERT(false);
+  }
 }
 
-// Recording control thread function.
+// Recorder control thread function.
 // Toggle recording via USER push-button.
 // Toggle LED0 every 1 second to see that the thread is alive.
 // Turn on LED1 when recording is started, turn it off when recording is stopped.
@@ -81,7 +68,11 @@ __NO_RETURN void sdsControlThread (void *argument) {
   status = sdsRecPlayInit(recorder_event_callback);
   SDS_ASSERT(status == SDS_REC_PLAY_OK);
 
-  osThreadNew(AlgorithmThread, NULL, NULL);
+  // Create algorithm thread
+  if (osThreadNew(AlgorithmThread, NULL, NULL) == NULL) {
+    printf("Algorithm Thread creation failed!\n");
+    osThreadExit();
+  }
 
   interval_time = osKernelGetTickCount();
   prev_cnt      = idle_cnt;
@@ -98,17 +89,7 @@ __NO_RETURN void sdsControlThread (void *argument) {
         if (!keypress) break;
 
         // Start recording the data
-        recIdDataInput  = sdsRecOpen("DataInput",
-                                      rec_buf_data_in,
-                                      sizeof(rec_buf_data_in));
-        SDS_ASSERT(recIdDataInput != NULL);
-
-        recIdDataOutput = sdsRecOpen("DataOutput",
-                                      rec_buf_data_out,
-                                      sizeof(rec_buf_data_out));
-        SDS_ASSERT(recIdDataOutput != NULL);
-
-        printf("Start Recording\n");
+        OpenStreams();
 
         // Turn LED1 on
         vioSetSignal(vioLED1, vioLEDon);
@@ -124,13 +105,11 @@ __NO_RETURN void sdsControlThread (void *argument) {
 
       case SDSIO_HALTED:
         // Stop recording the data
-        status = sdsRecClose(recIdDataInput);
-        SDS_ASSERT(status == SDS_REC_PLAY_OK);
+        CloseStreams();
 
-        status = sdsRecClose(recIdDataOutput);
-        SDS_ASSERT(status == SDS_REC_PLAY_OK);
-
-        printf("Stop Recording\n");
+        if (sdsError.occurred) {
+          printf("Recording failed\n");
+        }
 
         // Turn LED1 off
         vioSetSignal(vioLED1, vioLEDoff);
