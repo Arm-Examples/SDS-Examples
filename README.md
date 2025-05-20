@@ -2,7 +2,7 @@
 
 This repository contains examples that show how to use the [Synchronous Data Streaming (SDS) Framework](https://github.com/ARM-software/SDS-Framework).
 
-The SDS examples use the [MDK-Middleware](https://www.keil.arm.com/packs/mdk-middleware-keil/overview/) for the [SDS Interface](https://arm-software.github.io/SDS-Framework/main/sds_interface/). New hardware targets can added easily using board layers that provide with required [CMSIS-Driver interfaces]().
+The SDS examples use the [MDK-Middleware](https://www.keil.arm.com/packs/mdk-middleware-keil/overview/) for the [SDS Interface](https://arm-software.github.io/SDS-Framework/main/sds_interface.html). New hardware targets can added easily using board layers that provide with required [CMSIS-Driver interfaces]().
 
 ## Directory Structure
 
