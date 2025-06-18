@@ -22,7 +22,7 @@ solution:
       device: AE722F80F55D5LS
       board: AppKit-E7-AIML:Gen 2
       variables:
-        - Board-Layer: $SolutionDir()$/Board/AppKit-E7_M55_HP/Board.clayer.yml
+        - Board-Layer: $SolutionDir()$/Board/AppKit-E7_M55_HP/Board_HP.clayer.yml
         - SDSIO-Layer: $SolutionDir()$/sdsio/usb/sdsio_usb.clayer.yml
       target-set:
         - set:

@@ -11,7 +11,7 @@ Refer to ["Alif Conductor Tool Manual"](https://conductor.alifsemi.com/Alif_HTML
 
 | System Component        | Setting
 |:------------------------|:----------------------------------------
-| Heap                    | 16 kB (configured in M55_HP linker file)
+| Heap                    | 32 kB (configured in M55_HP linker file)
 | Stack (MSP)             |  8 kB (configured in M55_HP linker file)
 
 ### STDIO mapping
@@ -20,14 +20,14 @@ Refer to ["Alif Conductor Tool Manual"](https://conductor.alifsemi.com/Alif_HTML
 
 ### CMSIS-Driver mapping
 
-| CMSIS-Driver           | Peripheral | Board connector/component     | Connection
-|:-----------------------|:-----------|:------------------------------|:----------------------
-| Driver_USART4          | UART4      | PRG USB connector (J3)        | STDIN, STDOUT, STDERR
-| Driver_USBD0           | USB        | SOC USB connector (J1)        | CMSIS_USB_Device
-| CMSIS-Driver VIO       | GPIO       | Buttons, RGB LED, Joystick    | CMSIS_VIO
-| Driver_vStreamAudioIn  | SAI3       | I2S Microphone (U13, U15)     | CMSIS_VSTREAM_AUDIO_IN
-| Driver_vStreamVideoIn  | MIPI CSI   | MIPI Camera (J10, J12)        | CMSIS_VSTREAM_VIDEO_IN
-| Driver_vStreamVideoOut | MIPI DSI   | GLCD Display (J18)            | CMSIS_VSTREAM_VIDEO_OUT
+| CMSIS-Driver           | Peripheral | Board connector/component  | Connection
+|:-----------------------|:-----------|:---------------------------|:----------------------
+| Driver_USART4          | UART4      | PRG USB connector (J3)     | STDIN, STDOUT, STDERR
+| Driver_USBD0           | USB        | SOC USB connector (J1)     | CMSIS_USB_Device
+| CMSIS-Driver VIO       | GPIO       | Buttons, RGB LED, Joystick | CMSIS_VIO
+| Driver_vStreamAudioIn  | SAI3       | I2S Microphone (U13, U15)  | CMSIS_VSTREAM_AUDIO_IN
+| Driver_vStreamVideoIn  | MIPI CSI   | MIPI Camera (J10, J12)     | CMSIS_VSTREAM_VIDEO_IN
+| Driver_vStreamVideoOut | MIPI DSI   | GLCD Display (J18)         | CMSIS_VSTREAM_VIDEO_OUT
 
 ### CMSIS-Driver Virtual I/O mapping
 

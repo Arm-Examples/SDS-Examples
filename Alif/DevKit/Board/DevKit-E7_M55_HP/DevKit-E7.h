@@ -49,14 +49,14 @@
 #define RETARGET_STDIO_UART             4
 
 // CMSIS Drivers
-extern ARM_DRIVER_ETH_MAC Driver_ETH_MAC0;        /* Ethernet         */
-extern ARM_DRIVER_I2C     Driver_I2C0;            /* mikroBUS I2C     */
-extern ARM_DRIVER_SAI     Driver_SAI3;            /* I2S Microphones  */
-extern ARM_DRIVER_SPI     Driver_SPI3;            /* mikroBUS SPI     */
-extern ARM_DRIVER_USART   Driver_USART0;          /* mikroBUS UART    */
-extern ARM_DRIVER_USART   Driver_USART4;          /* PRG USB          */
-extern ARM_DRIVER_USBD    Driver_USBD0;           /* USB Device       */
-extern vStreamDriver_t    Driver_vStreamAudioIn;  /* Audio In Stream  */
+extern ARM_DRIVER_ETH_MAC Driver_ETH_MAC0;        /* Ethernet        */
+extern ARM_DRIVER_I2C     Driver_I2C0;            /* mikroBUS I2C    */
+extern ARM_DRIVER_SAI     Driver_SAI3;            /* I2S Microphones */
+extern ARM_DRIVER_SPI     Driver_SPI3;            /* mikroBUS SPI    */
+extern ARM_DRIVER_USART   Driver_USART0;          /* mikroBUS UART   */
+extern ARM_DRIVER_USART   Driver_USART4;          /* PRG USB         */
+extern ARM_DRIVER_USBD    Driver_USBD0;           /* USB Device      */
+extern vStreamDriver_t    Driver_vStreamAudioIn;  /* Audio In Stream */
 
 #ifdef CMSIS_shield_header
 #include CMSIS_shield_header

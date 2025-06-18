@@ -23,7 +23,7 @@
 #include  CMSIS_shield_header
 #endif
 
-#include "conductor_board_config.h"
+#include "board_config.h"
 #include "ethosu_driver.h"
 #include "ext_init.h"
 #include "main.h"
@@ -147,7 +147,7 @@ static void CpuCacheEnable(void) {
 int main (void) {
 
   /* Apply pin configuration */
-  conductor_pins_config();
+  board_pins_config();
 
   se_services_port_init();
 
