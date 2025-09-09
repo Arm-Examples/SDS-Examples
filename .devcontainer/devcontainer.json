@@ -1,0 +1,11 @@
+{
+    "customizations": {
+      "vscode": {
+        "extensions": [
+            "Arm.cmsis-csolution",
+            "Arm.environment-manager",
+            "llvm-vs-code-extensions.vscode-clangd"
+        ]
+      }
+    }
+  }
