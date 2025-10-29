@@ -34,6 +34,25 @@ The board layer implements the Hardware Abstraction Layer (HAL) layer. Depending
 
 This layer contains the ML model that is used in the `AlgorithmTest.cproject.yml`.
 
+#### ML Model update procedure
+
+1.  **Clone the project**  
+    Clone the [**Tutorial: Continuous Motion
+    Recognition**](https://studio.edgeimpulse.com/public/14299/latest)
+    project from Edge Impulse.
+2.  **Build CMSIS pack**  
+    - Under **Time series data, Spectral Analysis, Classification, Anomaly Detection (K-means)**, select **Deployment**.
+    - Under **Search deployment options**, type `Open`, then choose **Open CMSIS pack (Generates a CMSIS Software Component pack)**.
+    - Click **Build** to generate the CMSIS pack.
+3.  **Download and extract**  
+    Once the build completes, download the generated ZIP file: `tutorial_-continuous-motion-recognition-cmsis-package-v<version>.zip`
+    Extract its contents locally.
+4.  **Copy updated packs**  
+    Copy the contents of the extracted `.pack` files into: `./algorithm/ML/Packs/EdgeImpulse`.
+    Maintain the same directory structure and organization as the existing packs.
+5.  **Update layer configuration**  
+    Edit the [**edgeimpulse.clayer.yml**](./algorithm/ML/EI/Layer/edgeimpulse.clayer.yml) file and update all version references to match the new pack versions.
+
 ## Projects
 
 - **`DataTest.cproject.yml`**: Verifies SDSIO interface on hardware.
