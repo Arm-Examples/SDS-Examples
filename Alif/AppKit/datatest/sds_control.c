@@ -18,11 +18,16 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
+#include "RTE_Components.h"
 #include "cmsis_os2.h"
 #include "cmsis_vio.h"
 #include "sds_main.h"
 #include "sds_control.h"
 #include "sds_rec_play.h"
+#ifdef   RTE_SDS_IO_SOCKET
+#include "sdsio_config_socket.h"
+#endif
 
 
 // AlgorithmThread thread attributes
@@ -88,6 +93,7 @@ __NO_RETURN void sdsControlThread (void *argument) {
   uint8_t led0_val = 0U;
   uint32_t no_load_cnt, prev_cnt;
   uint32_t interval_time, cnt = 0U;
+  int32_t ret;
 
   // Initialize idle counter
   idle_cnt = 0U;
@@ -95,11 +101,60 @@ __NO_RETURN void sdsControlThread (void *argument) {
   no_load_cnt = idle_cnt;
 
   // Initialize SDS recorder/player
-  if (sdsRecPlayInit(rec_play_event_callback) != SDS_REC_PLAY_OK) {
-    printf("SDS initialization failed!\n");
-#ifndef SIMULATOR
-    printf("Ensure that SDSIO Server is running and restart the application!\n");
+  ret = sdsRecPlayInit(rec_play_event_callback);
+
+  // Output a diagnostic message about initialization to the STDOUT channel
+  switch (ret) {
+    case SDS_REC_PLAY_OK:
+#if   defined(RTE_SDS_IO_VSI)
+      printf("SDS I/O VSI interface initialized successfully\n");
+#elif defined(RTE_SDS_IO_SOCKET)
+      printf("Connection to SDSIO-Server at %s:%d established\n", SDSIO_SOCKET_SERVER_IP, SDSIO_SOCKET_SERVER_PORT);
+#elif defined(RTE_SDS_IO_USB)
+      printf("Connection to SDSIO-Server established via USB interface\n");
+#elif defined(RTE_SDS_IO_SERIAL_CMSIS_USART)
+      printf("Connection to SDSIO-Server established via USART interface\n");
+#elif defined(RTE_SDS_IO_CUSTOM)
+      printf("Connection to SDSIO-Server established via custom interface\n");
+#elif defined(RTE_SDS_IO_FILE_SYSTEM_MDK_FS)
+      printf("SDS I/O File System (MDK-FS) interface initialized successfully\n");
+#elif defined(RTE_SDS_IO_FILE_SYSTEM_SEMIHOSTING)
+      printf("SDS I/O File System (SemiHosting) interface initialized successfully\n");
 #endif
+      break;
+
+    case SDS_REC_PLAY_ERROR_IO:
+#if   defined(RTE_SDS_IO_VSI)
+      printf("SDS I/O VSI interface initialization failed!\n");
+#elif defined(RTE_SDS_IO_SOCKET)
+      if (strcmp(SDSIO_SOCKET_SERVER_IP, "0.0.0.0") == 0) {
+        printf("SDSIO_SOCKET_SERVER_IP address not configured (see sdsio_config_socket.h)!\n");
+      } else {
+        printf("SDS I/O Network interface initialization failed or 'sdsio-server socket' unavailable at %s:%d !\n", SDSIO_SOCKET_SERVER_IP, SDSIO_SOCKET_SERVER_PORT);
+        printf("Ensure that SDSIO-Server is running, then restart the application!\n");
+      }
+#elif defined(RTE_SDS_IO_USB)
+      printf("SDS I/O USB interface initialization failed or 'sdsio-server usb' unavailable!\n");
+      printf("Ensure that SDSIO-Server is running, then restart the application!\n");
+#elif defined(RTE_SDS_IO_SERIAL_CMSIS_USART)
+      printf("SDS I/O USART interface initialization failed or 'sdsio-server serial' unavailable!\n");
+      printf("Ensure that SDSIO-Server is running, then restart the application!\n");
+#elif defined(RTE_SDS_IO_CUSTOM)
+      printf("SDS I/O Custom interface initialization failed!\n");
+#elif defined(RTE_SDS_IO_FILE_SYSTEM_MDK_FS)
+      printf("SDS I/O File System MDK-FS interface initialization failed!\n");
+#elif defined(RTE_SDS_IO_FILE_SYSTEM_SEMIHOSTING)
+      printf("SDS I/O File System SemiHosting interface initialization failed!\n");
+#endif
+      break;
+
+    case SDS_REC_PLAY_ERROR:
+      printf("SDS initialization failed to create necessary threads or event flags!\n");
+      break;
+
+    default:
+      printf("SDS initialization failed with error code: %d\n", ret);
+      break;
   }
 
   // Create algorithm thread
