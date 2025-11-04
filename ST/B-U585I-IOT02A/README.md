@@ -158,9 +158,12 @@ For executing the **playback** test, follow the steps below:
 6. Press a User button on the ST B-U585I-IOT02A board to start playback of `DataInput` and recording of `DataOutput`.
 7. Wait for playback to finish, it will finish automatically when all data from `DataInput.0.sds` SDS file was played back.
 
-The stream `DataInput.<n>.sds` is read back and the algorithm processes this data. The stream `DataOutput.<m>.sds` is written whereby `<m>` is the next available file index. 
+The stream `DataInput.<n>.sds` is read back and the algorithm processes this data. The stream `DataOutput.<m>.sds` is written whereby `<m>` is the next available file index.
 
 To verify that the SDS component usage on hardware is reliable the two algorithm output data generated during recording and playback: the files `DataOutput.<n>.sds` and `DataOutput.<m>.sds` should be identical, e.g. `DataOutput.0.sds` and `DataOutput.1.sds` should be binary identical.
+
+> **Note:** The playback implementation replays recordings as quickly as possible and does not account for timestamp data.
+>           During playback, the ML system receives the same recorded input data, so timing information is not relevant in this context.
 
 **Output of SDSIO Server**
 

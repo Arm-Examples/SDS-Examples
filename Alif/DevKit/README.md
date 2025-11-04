@@ -141,6 +141,9 @@ For executing the **playback** test, follow the steps below:
 
 The stream `DataInput.<n>.sds` is read back and the algorithm processes this data. The stream `DataOutput.<m>.sds` is written whereby `<m>` is the next available file index.
 
+> **Note:** The playback implementation replays recordings as quickly as possible and does not account for timestamp data.
+>           During playback, the ML system receives the same recorded input data, so timing information is not relevant in this context.
+
 **Output of SDSIO Server**
 
 ```txt
