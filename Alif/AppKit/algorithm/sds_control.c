@@ -58,25 +58,35 @@ static void rec_play_event_callback (sdsRecPlayId_t id, uint32_t event) {
 }
 
 #ifdef SIMULATOR
+static uint32_t key_cnt = 0U;
+
 // Simulate keypress
 static uint32_t simGetSignal (uint32_t mask) {
-  static uint32_t key_cnt = 0U;
-         uint32_t ret     = 0U;
+  uint32_t ret = 0U;
 
   switch (key_cnt) {
+#if SDS_PLAY
     case 20U:                           // At 2 seconds
       ret = mask;                       // Simulate keypress
       break;
-#ifndef SDS_PLAY
-    case 120U:                          // At 12 seconds
-      ret = mask;                       // Simulate keypress
-      break;
-#endif
-    case 150U:                          // At 15 seconds
+
+    case 1000U:                         // At 100 seconds
       putchar(0x04);                    // Send signal to simulator to shutdown
       break;
-  }
+#else
+    case 10U:                           // At 1 second
+      ret = mask;                       // Simulate keypress
+      break;
 
+    case 110U:                          // At 11 seconds
+      ret = mask;                       // Simulate keypress
+      break;
+
+    case 120U:                          // At 12 seconds
+      putchar(0x04);                    // Send signal to simulator to shutdown
+      break;
+#endif
+  }
   key_cnt++;
 
   return ret;
@@ -201,6 +211,17 @@ __NO_RETURN void sdsControlThread (void *argument) {
           vioSetSignal(vioLED1, vioLEDoff);
           sdsStreamingState = SDS_STREAMING_INACTIVE;
         }
+#ifdef SIMULATOR
+        // Start next SDS stream
+        key_cnt = 0U;
+#endif
+        break;
+
+      case SDS_STREAMING_END:
+#ifdef SIMULATOR
+        // Send signal to simulator to shutdown
+        putchar(0x04);
+#endif
         break;
     }
 

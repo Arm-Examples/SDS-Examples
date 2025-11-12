@@ -17,6 +17,7 @@
  */
 
 #include <stdio.h>
+#include "RTE_Components.h"
 #include "cmsis_os2.h"
 #include "sds_main.h"
 #include "sds_control.h"
@@ -50,7 +51,8 @@ static sdsRecPlayId_t recIdDataInput  = NULL;
 #endif
 static sdsRecPlayId_t recIdDataOutput = NULL;
 
-static uint32_t sequence_num = 0;      // SDS file sequence number
+// SDS file sequence number
+static uint32_t sequence_num = 0;
 
 // Public functions
 
@@ -98,7 +100,7 @@ int32_t OpenStreams (void) {
   } else {
     if (sequence_num == 0) {
       printf("ERROR: SDS playback and recording start failed!\n");
-#ifndef SIMULATOR
+#if defined(RTE_SDS_IO_SOCKET) || defined(RTE_SDS_IO_USB) || defined(RTE_SDS_IO_SERIAL) || defined(RTE_SDS_IO_CUSTOM)
       printf("Ensure that SDSIO Server is running and restart the application!\n");
 #endif
     }
@@ -109,7 +111,7 @@ int32_t OpenStreams (void) {
   } else {
     if (sequence_num == 0) {
       printf("ERROR: SDS recording start failed!\n");
-#ifndef SIMULATOR
+#if defined(RTE_SDS_IO_SOCKET) || defined(RTE_SDS_IO_USB) || defined(RTE_SDS_IO_SERIAL) || defined(RTE_SDS_IO_CUSTOM)
       printf("Ensure that SDSIO Server is running and restart the application!\n");
 #endif
     }

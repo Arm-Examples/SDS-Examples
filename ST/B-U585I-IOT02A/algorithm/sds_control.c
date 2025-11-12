@@ -62,20 +62,18 @@ static uint32_t key_cnt = 0U;
 
 // Simulate keypress
 static uint32_t simGetSignal (uint32_t mask) {
-         uint32_t ret     = 0U;
+  uint32_t ret = 0U;
 
-#if SDS_PLAY
   switch (key_cnt) {
-    case 20U:                           // At 1 second
+#if SDS_PLAY
+    case 20U:                           // At 2 seconds
       ret = mask;                       // Simulate keypress
       break;
-      
-    case 1000U:                         // At 1000 seconds
+
+    case 1000U:                         // At 100 seconds
       putchar(0x04);                    // Send signal to simulator to shutdown
       break;
-  }
 #else
-switch (key_cnt) {
     case 10U:                           // At 1 second
       ret = mask;                       // Simulate keypress
       break;
@@ -87,8 +85,8 @@ switch (key_cnt) {
     case 120U:                          // At 12 seconds
       putchar(0x04);                    // Send signal to simulator to shutdown
       break;
-  }
 #endif
+  }
   key_cnt++;
 
   return ret;
@@ -214,12 +212,16 @@ __NO_RETURN void sdsControlThread (void *argument) {
           sdsStreamingState = SDS_STREAMING_INACTIVE;
         }
 #ifdef SIMULATOR
-        key_cnt = 0U;                     // Start next SDS stream
+        // Start next SDS stream
+        key_cnt = 0U;
 #endif
         break;
 
       case SDS_STREAMING_END:
-        putchar(0x04);                    // Send signal to simulator to shutdown
+#ifdef SIMULATOR
+        // Send signal to simulator to shutdown
+        putchar(0x04);
+#endif
         break;
     }
 
