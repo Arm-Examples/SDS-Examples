@@ -65,7 +65,7 @@ static uint32_t simGetSignal (uint32_t mask) {
   uint32_t ret = 0U;
 
   switch (key_cnt) {
-#if SDS_PLAY
+#ifdef SDS_PLAY
     case 20U:                           // At 2 seconds
       ret = mask;                       // Simulate keypress
       break;
@@ -211,9 +211,11 @@ __NO_RETURN void sdsControlThread (void *argument) {
           vioSetSignal(vioLED1, vioLEDoff);
           sdsStreamingState = SDS_STREAMING_INACTIVE;
         }
+#ifdef SDS_PLAY
 #ifdef SIMULATOR
         // Start next SDS stream
         key_cnt = 0U;
+#endif
 #endif
         break;
 
