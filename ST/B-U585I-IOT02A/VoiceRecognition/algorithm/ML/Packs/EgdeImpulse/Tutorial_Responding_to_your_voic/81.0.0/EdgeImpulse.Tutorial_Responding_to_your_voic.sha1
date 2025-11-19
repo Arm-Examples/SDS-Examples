@@ -1,0 +1,7 @@
+13250bf65bc2a694b09fb99cacd9abe367ad9793 *./EdgeImpulse.Tutorial_Responding_to_your_voic.pdsc
+37ecd60f6e1561bb77f7dfe074023ac72e4bf610 *./edgeimpulse/model-parameters/model_metadata.h
+4fc7e2683c103951e4ac68b293dd7dfdf6a5f0f4 *./edgeimpulse/model-parameters/model_variables.h
+23c8d615657db3a1b6bfa9e4e92acda5eceb7fc3 *./edgeimpulse/tflite-model/tflite_learn_822699_5_compiled.h
+688a81251ab7fdd3e77fc703c4ee541827051efd *./edgeimpulse/tflite-model/tflite_learn_822699_5_compiled.cpp
+e20907253360c6525a64072a91f379e6a4cc3d04 *./edgeimpulse/tflite-model/trained_model_ops_define.h
+9d4dab3e540ebcd04f5da8a89c8834646a1af5d3 *./LICENSE.3-clause-bsd-clear

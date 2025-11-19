@@ -1,0 +1,84 @@
+solution:
+  description: SDS recorder/player reference example
+  created-for: CMSIS-Toolbox@2.12.0
+  cdefault:
+
+  # List of tested compilers that can be selected
+  select-compiler:
+    - compiler: AC6
+
+  compiler: AC6 # select compiler for solution
+
+  # This is a CMSIS-Toolbox Reference Application that requires a compatible board layer
+  # Refer to https://open-cmsis-pack.github.io/cmsis-toolbox/ReferenceApplications/ for more information
+
+  packs:
+    - pack: ARM::SDS
+    - pack: Keil::B-U585I-IOT02A_BSP
+    - pack: Keil::STM32U5xx_DFP
+
+  # List different hardware targets that are used to deploy the solution.
+  target-types:
+    - type: STM32U585AIIx
+      device: STM32U585AIIx
+      board: B-U585I-IOT02A:Rev.C
+      variables:
+        - Board-Layer: $SolutionDir()$/Board/B-U585I-IOT02A/Board.clayer.yml
+        - SDSIO-Layer: $SolutionDir()$/sdsio/usb/sdsio_usb.clayer.yml
+      target-set:
+        - set:
+          images:
+            - project-context: DataTest.DebugRec
+          debugger:
+            name: ST-Link@pyOCD
+            port: 3333
+            protocol: swd
+            clock: 10000000
+
+    - type: AVH-SSE-300 # simulator target
+      board: ARM::V2M-MPS3-SSE-300-FVP
+      device: ARM::SSE-300-MPS3
+      define:
+        - SIMULATOR
+      variables:
+        - Board-Layer: $SolutionDir()$/Board/Corstone-300/Board.clayer.yml
+        - SDSIO-Layer: $SolutionDir()$/sdsio/fvp/sdsio_fvp.clayer.yml
+      target-set:
+        - set:
+          images:
+            - project-context: DataTest.DebugPlay
+          debugger:
+            name: AVH-FVP
+            model: FVP_Corstone_SSE-300
+            config: Board/Corstone-300/fvp_config.txt
+            args: []
+
+  # List of different build configurations.
+  build-types:
+    - type: DebugRec
+      debug: on
+      optimize: debug
+
+    - type: DebugPlay
+      debug: on
+      optimize: debug
+      define:
+        - SDS_PLAY: 1
+
+    - type: ReleaseRec
+      debug: off
+      optimize: balanced
+
+    - type: ReleasePlay
+      debug: off
+      optimize: balanced
+      define:
+        - SDS_PLAY: 1
+
+  # List related projects.
+  projects:
+    - project: datatest/DataTest.cproject.yml
+    - project: algorithm/AlgorithmTest.cproject.yml
+      not-for-context:
+        - .DebugRec+AVH-SSE-300
+        - .ReleaseRec+AVH-SSE-300

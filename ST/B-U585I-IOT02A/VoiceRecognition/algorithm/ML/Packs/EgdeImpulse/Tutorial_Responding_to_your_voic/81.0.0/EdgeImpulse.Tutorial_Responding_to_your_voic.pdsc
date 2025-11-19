@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<package schemaVersion="1.7.7" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Open-CMSIS-Pack/Open-CMSIS-Pack-Spec/v1.7.7/schema/PACK.xsd">
+	<vendor>EdgeImpulse</vendor>
+	<name>Tutorial_Responding_to_your_voic</name>
+	<license>LICENSE.3-clause-bsd-clear</license>
+	<description>Tutorial_Responding_to_your_voic machine learning model</description>
+	<url></url>
+	<supportContact>hello@edgeimpulse.com</supportContact>
+	<releases>
+		<release version="81.0.0" tag="v81.0.0" date="2025-11-10">
+			Tutorial_Responding_to_your_voic
+		</release>
+	</releases>
+	<keywords>
+		<keyword>EdgeImpulse</keyword>
+		<keyword>Edge Impulse SDK</keyword>
+	</keywords>
+    <conditions>    
+	<condition id="Cortex-M core">
+		<description>True if using one of the Cortex-M core</description>
+		<accept Dcore="Cortex-M0"/>
+        <accept Dcore="Cortex-M0+"/>
+        <accept Dcore="Cortex-M3"/>
+		<accept Dcore="Cortex-M4"/>
+		<accept Dcore="Cortex-M7"/>
+        <accept Dcore="Cortex-M23"/>
+		<accept Dcore="Cortex-M33"/>
+        <accept Dcore="Cortex-M55"/>
+        <accept Dcore="Cortex-M85"/>
+  	</condition>
+	<condition id="CMSIS packages">
+		<description>True if CMSIS Core and CMSIS DSP and CMSIS NN are in use</description>
+		<require condition="Cortex-M core"/>
+		<require Cclass="CMSIS" Cgroup="CORE"/>
+        <require Cclass="CMSIS" Cgroup="DSP"/>
+        <require Cclass="CMSIS" Cgroup="NN Lib"/>
+		<require Cclass="EdgeImpulse" Cgroup="SDK"/>
+  	</condition>      
+    </conditions>
+    <requirements>
+    <languages>
+      <language name="C" version="99"/>
+      <language name="C++" version="11"/>
+    </languages>
+	<packages>
+      <package name="CMSIS" vendor="ARM" version="5.9.0:6.1.0"/>
+      <package name="CMSIS-DSP" vendor="ARM" version="1.11.0:1.15.0"/>
+      <package name="CMSIS-NN" vendor="ARM" version="4.0.0:4.1.0"/>
+	  <package name="EI-SDK" vendor="EdgeImpulse" version="1.78.0"/>
+    </packages>
+    </requirements>
+	<components>
+		<component Cclass="EdgeImpulse" Cgroup="model" Csub="Tutorial_Responding_to_your_voic" Cversion="81.0.0" condition="CMSIS packages">
+			<description>Tutorial_Responding_to_your_voic (Edge Impulse)</description>	
+				<!-- short component description -->
+				<files>
+                <file category="include" name="edgeimpulse/"/>
+					<file category="header" name="edgeimpulse/model-parameters/model_metadata.h"/>
+					<file category="header" name="edgeimpulse/model-parameters/model_variables.h"/>
+					<file category="source" name="edgeimpulse/tflite-model/tflite_learn_822699_5_compiled.cpp"/>
+					<file category="header" name="edgeimpulse/tflite-model/tflite_learn_822699_5_compiled.h"/>
+					<file category="header" name="edgeimpulse/tflite-model/trained_model_ops_define.h"/>
+				</files>
+		</component>
+	</components>
+</package>

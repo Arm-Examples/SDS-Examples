@@ -1,0 +1,11 @@
+sds:
+  name: ML Model Data Output
+  description: Classification results
+  frequency: 4.0
+  content:
+  - value: helloworld
+    type:  float
+  - value: noise
+    type:  float
+  - value: unknown
+    type:  float
