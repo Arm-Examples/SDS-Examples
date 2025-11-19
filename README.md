@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/github/license/Arm-Examples/Safety-Example-STM32?label)](https://github.com/Arm-Examples/Safety-Example-STM32/blob/main/LICENSE)
-[![Algorithm Test ST/B-U585I-IOT02A](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/AlgorithmTest_ST_B-U585I-IOT02A.yaml?logo=arm&logoColor=0091bd&label=Algorithm%20Test%20ST/B-U585I-IOT02A)](./.github/workflows/AlgorithmTest_ST_B-U585I-IOT02A.yaml)
+[![Algorithm Test ST/B-U585I-IOT02A/MotionRecognition](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/AlgorithmTest_ST_B-U585I-IOT02A_MR.yaml?logo=arm&logoColor=0091bd&label=Algorithm%20Test%20ST/B-U585I-IOT02A/MotionRecognition)](./.github/workflows/AlgorithmTest_ST_B-U585I-IOT02A_MR.yaml)
 [![AC6 Test build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/AC6_test_build.yaml?logo=arm&logoColor=0091bd&label=AC6_Test_build)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/AC6_test_build.yaml)
 [![GCC Test build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/GCC_test_build.yaml?logo=arm&logoColor=0091bd&label=GCC_Test_build)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/GCC_test_build.yaml)
 
@@ -37,7 +37,7 @@ Run a blinky example for the related board first to verify tool installation.
 |---                                                         |---            |
 | [Alif/AppKit](./Alif/AppKit/SDS.csolution.yml)             | [SDS Application on Alif AppKit board with SDSIO using USB interface](./Alif/AppKit/README.md). [Alif AppKit board](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e7-aiml-gen-2-140e28d/guide/)              |
 | [Alif/DevKit](./Alif/DevKit/SDS.csolution.yml)             | [SDS Application on Alif DevKit board with SDSIO using Ethernet interface](./Alif/DevKit/README.md). [Alif DevKit board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e7-gen-2-92ef25f/guide/) |
-| [ST/B-U585I-IOT02A/MotionRecognition](./ST/B-U585I-IOT02A/MotionRecognition/SDS.csolution.yml) | [SDS application for motion recognition on STMicroelectronics B-U585I-IOT02A board with SDSIO using the USB interface](./ST/B-U585I-IOT02A/README.md). [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/) |
+| [ST/B-U585I-IOT02A/MotionRecognition](./ST/B-U585I-IOT02A/MotionRecognition/SDS.csolution.yml) | [SDS application for motion recognition on STMicroelectronics B-U585I-IOT02A board with SDSIO using the USB interface](./ST/B-U585I-IOT02A/MotionRecognition/README.md). [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/) |
 
 
 ## Directory Structure
