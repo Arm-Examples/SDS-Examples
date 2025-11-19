@@ -24,65 +24,24 @@
 #include "cmsis_compiler.h"
 #include "vstream_accelerometer.h"
 
+// Flag for signaling block of (accelerometer) data was captured
+#define DATA_BLOCK_READY_FLAG           1U
 
-// Configuration
+// Accelerometer sensor raw data buffer, size = (input raw data block size in bytes * 2), for double buffering
+static uint8_t vstream_buf[(EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE * sizeof(int16_t)) * 2] __ALIGNED(4);
 
-#ifndef SENSOR_RAW_ITEMS_PER_SAMPLE
-#define SENSOR_RAW_ITEMS_PER_SAMPLE     (3)     // For raw accelerometer data there are x, y, z (3) items
-#endif
-
-#ifndef SENSOR_RAW_BYTES_PER_SAMPLE
-#define SENSOR_RAW_BYTES_PER_SAMPLE     (6)     // For raw accelerometer data there are 3 items of 2 bytes per sample
-#endif
-
-#ifndef SENSOR_COND_BYTES_PER_SAMPLE
-#define SENSOR_COND_BYTES_PER_SAMPLE    (12)    // For conditioned sensor data there are 3 items of 1 float per sample
-#endif
-
-#ifndef SENSOR_SAMPLES_PER_SLICE
-#define SENSOR_SAMPLES_PER_SLICE        (125)   // Number of samples per inference slice (raw or conditioned)
-#endif
-
-// Constants
-
-// Number of items per inference slice
-#define SENSOR_SLICE_SIZE_IN_ITEMS      (SENSOR_SAMPLES_PER_SLICE * SENSOR_RAW_ITEMS_PER_SAMPLE)
-
-// Number of bytes per inference slice of raw sensor data
-#define SENSOR_RAW_SLICE_SIZE_IN_BYTES  (SENSOR_SAMPLES_PER_SLICE * SENSOR_RAW_BYTES_PER_SAMPLE)
-
-// Number of bytes per inference slice for sensor data acquisition
-#define SENSOR_COND_SLICE_SIZE_IN_BYTES (SENSOR_SAMPLES_PER_SLICE * SENSOR_COND_BYTES_PER_SAMPLE)
-
-// Thread flag for signaling sensor data available
-#define SENSOR_DATA_READY_FLAG          1U
-
-
-// Raw sensor data sample structure
-typedef struct {
-  int16_t x;
-  int16_t y;
-  int16_t z;
-} accelerometer_sample_t;
-
-// Raw sensor data (2 * slice)
-static uint8_t vstream_buf[SENSOR_RAW_SLICE_SIZE_IN_BYTES*2] __ALIGNED(4);
-
-// ML input data (1 slice of items in float format)
-static float scaled_sensor_data[SENSOR_SLICE_SIZE_IN_ITEMS];
-
-// Event flags
+// Event flag for signaling that block of (accelerometer) data was captured
 static osEventFlagsId_t evt_id_EventFlags = NULL;
 
-// Pointer to vStream driver
-static vStreamDriver_t *ptrDriver_vStreamAccelerometer = &Driver_vStreamAccelerometer;
+// Pointer to accelerometer vStream driver
+static vStreamDriver_t *ptrDriver_vStreamAccel = &Driver_vStreamAccelerometer;
 
-// Function that sends event when data is available with vStream
-static void vStreamSensorEvent (uint32_t event_flags) {
+// Function that handles accelerometer stream events
+static void vStreamAccelEvent (uint32_t event_flags) {
 
   if ((event_flags & VSTREAM_EVENT_DATA) != 0U) {
     // New block of data is ready
-    osEventFlagsSet(evt_id_EventFlags, SENSOR_DATA_READY_FLAG);
+    osEventFlagsSet(evt_id_EventFlags, DATA_BLOCK_READY_FLAG);
   }
   if ((event_flags & VSTREAM_EVENT_OVERFLOW) != 0U) {
     printf("Warning: Accelerometer overflow event!\r\n");
@@ -100,13 +59,13 @@ int32_t InitInputData (void) {
   if (evt_id_EventFlags == NULL) {
     return -1;
   }
-  if (ptrDriver_vStreamAccelerometer->Initialize(vStreamSensorEvent) != 0) {
+  if (ptrDriver_vStreamAccel->Initialize(vStreamAccelEvent) != 0) {
     return -1;
   }
-  if (ptrDriver_vStreamAccelerometer->SetBuf(&vstream_buf, sizeof(vstream_buf), SENSOR_RAW_SLICE_SIZE_IN_BYTES) != 0) {
+  if (ptrDriver_vStreamAccel->SetBuf(&vstream_buf, sizeof(vstream_buf), sizeof(vstream_buf) / 2) != 0) {
     return -1;
   }
-  if (ptrDriver_vStreamAccelerometer->Start(VSTREAM_MODE_CONTINUOUS) != 0) {
+  if (ptrDriver_vStreamAccel->Start(VSTREAM_MODE_CONTINUOUS) != 0) {
     return -1;
   }
 
@@ -122,8 +81,10 @@ int32_t InitInputData (void) {
   \return       number of data bytes returned; -1 on error
 */
 int32_t GetInputData (uint8_t *buf, uint32_t max_len) {
-  accelerometer_sample_t *ptr_acc_sample;
-  float                  *ptr_scaled_sensor_data;
+  int16_t *ptr_accel_data_raw;
+  float   *ptr_buf;
+
+  // Input data used for SDS recording are accelerometer data scaled and converted to float values
 
   // Check input parameters
   if ((buf == NULL) || (max_len == 0U)) {
@@ -131,38 +92,35 @@ int32_t GetInputData (uint8_t *buf, uint32_t max_len) {
   }
 
   // Check if buffer can fit expected data
-  if (max_len < SENSOR_COND_SLICE_SIZE_IN_BYTES) {
+  if (max_len < SDS_ALGO_DATA_IN_BLOCK_SIZE) {
     return -1;
   }
 
-  uint32_t flags = osEventFlagsWait(evt_id_EventFlags, SENSOR_DATA_READY_FLAG, osFlagsWaitAny, osWaitForever);
+  uint32_t flags = osEventFlagsWait(evt_id_EventFlags, DATA_BLOCK_READY_FLAG, osFlagsWaitAny, osWaitForever);
 
-  if (((flags & osFlagsError)           == 0U) &&         // If not an error and
-      ((flags & SENSOR_DATA_READY_FLAG) != 0U)) {         // if flag is sensor data ready
+  if (((flags & osFlagsError)          == 0U) &&        // If not an error and
+      ((flags & DATA_BLOCK_READY_FLAG) != 0U)) {        // if flag is data block ready
 
-    // Get pointer to sensor data
-    ptr_acc_sample = (accelerometer_sample_t *)ptrDriver_vStreamAccelerometer->GetBlock();
-
-    // Set pointer for scaled sensor data
-    ptr_scaled_sensor_data = (float *)buf;
-
-    for (uint32_t i = 0U; i < SENSOR_SAMPLES_PER_SLICE; i++) {
-      // Convert each sample value for x, y, z from int16 to float scaled to range used during model training
-      ptr_scaled_sensor_data[0]  = ((float)ptr_acc_sample->x) / 1638.4f;
-      ptr_scaled_sensor_data[1]  = ((float)ptr_acc_sample->y) / 1638.4f;
-      ptr_scaled_sensor_data[2]  = ((float)ptr_acc_sample->z) / 1638.4f;
-      ptr_acc_sample            += 1U;
-      ptr_scaled_sensor_data    += SENSOR_RAW_ITEMS_PER_SAMPLE;
-
-      // Used for debugging, to visually check that data is plausible
-      // printf("Acc x=%i, y=%i, z=%i\r\n",         ptr_acc_sample->x           ,         ptr_acc_sample->y           ,         ptr_acc_sample->z           );
-      // printf("Acc x=%f, y=%f, z=%f\r\n", ((float)ptr_acc_sample->x) / 1638.4f, ((float)ptr_acc_sample->y) / 1638.4f, ((float)ptr_acc_sample->z) / 1638.4f);
+    // Get pointer to captured accelerometer data
+    ptr_accel_data_raw = (int16_t *)ptrDriver_vStreamAccel->GetBlock();
+    if (ptr_accel_data_raw == NULL) {
+      return -1;
     }
 
-    // Release data block
-    ptrDriver_vStreamAccelerometer->ReleaseBlock();
+    // Convert each sample from int16 to float scaled to range used during model training and
+    // put that data into `buf` buffer
+    ptr_buf = (float *)buf;
+    for (uint16_t i = 0U; i < EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE; i++) {
+      ptr_buf[i] = ((float)(ptr_accel_data_raw[i])) / 1638.4f;
 
-    return SENSOR_COND_SLICE_SIZE_IN_BYTES;
+      // Debug print, to check raw and converted data
+      // printf("raw = %6i, cvt = %2.4f\n", ptr_accel_data_raw[i], ptr_buf[i]);
+    }
+
+    // Release captured and proessed data block
+    ptrDriver_vStreamAccel->ReleaseBlock();
+
+    return SDS_ALGO_DATA_IN_BLOCK_SIZE;
   }
 
   return -1;

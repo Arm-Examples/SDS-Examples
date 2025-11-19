@@ -19,14 +19,16 @@
 #ifndef SDS_ALGORITHM_CONFIG_H_
 #define SDS_ALGORITHM_CONFIG_H_
 
+#include "model_metadata.h"
+
 // Input Data block size, in bytes
 #ifndef SDS_ALGO_DATA_IN_BLOCK_SIZE
-#define SDS_ALGO_DATA_IN_BLOCK_SIZE     (1500)
+#define SDS_ALGO_DATA_IN_BLOCK_SIZE     (EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE * sizeof(float))
 #endif
 
 // Output Data block size, in bytes
 #ifndef SDS_ALGO_DATA_OUT_BLOCK_SIZE
-#define SDS_ALGO_DATA_OUT_BLOCK_SIZE    (16)
+#define SDS_ALGO_DATA_OUT_BLOCK_SIZE    (EI_CLASSIFIER_NN_OUTPUT_COUNT * sizeof(float))
 #endif
 
 #endif

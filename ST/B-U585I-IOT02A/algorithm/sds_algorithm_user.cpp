@@ -26,18 +26,21 @@
 
 
 static const uint8_t *ptr_in_data = NULL;
-static signal_t features_signal;
+static signal_t frame_signal;
 
 
-// Get sensor data for inference
-int sensor_get_data (size_t offset, size_t length, float *out_ptr) {
+// Get accelerometer data for inference.
+// Accelerometer data is already scaled and converted to float so it is just copied to `out_ptr`.
+int get_data (size_t offset, size_t length, float *out_ptr) {
+
+  // Debug print, to check data offsets and lengths
+  // printf("ofs = %4i, len = %4i\n", offset, length);
 
   if (ptr_in_data == NULL) {
     return -1;
   }
 
   memcpy(out_ptr, ptr_in_data + (offset * sizeof(float)), length * sizeof(float));
-  ptr_in_data = NULL;
 
   return 0;
 }
@@ -49,8 +52,8 @@ int sensor_get_data (size_t offset, size_t length, float *out_ptr) {
 */
 extern "C" int32_t InitAlgorithm (void) {
 
-  features_signal.total_length = EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE;
-  features_signal.get_data = &sensor_get_data;
+  frame_signal.total_length = EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE;
+  frame_signal.get_data = &get_data;
 
   return 0;
 }
@@ -72,11 +75,11 @@ extern "C" int32_t ExecuteAlgorithm (const uint8_t *in_buf, uint32_t in_num, uin
     return -1;
   }
 
-  // Register input data for sensor_get_data callback
+  // Register input data for `get_data` callback
   ptr_in_data = in_buf;
 
   // Run the classifier
-  EI_IMPULSE_ERROR res = run_classifier(&features_signal, &result, false);
+  EI_IMPULSE_ERROR res = run_classifier(&frame_signal, &result, false);
 
   if (res != 0) {
     ei_printf("ERR: Failed to run classifier\n");
@@ -87,12 +90,15 @@ extern "C" int32_t ExecuteAlgorithm (const uint8_t *in_buf, uint32_t in_num, uin
   display_results(&ei_default_impulse, &result);
 
   // Output, for example:
-  // idle: 0.996094
-  // snake: 0.000000
-  // updown: 0.000000
-  // wave: 0.000000
+  // Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
+  // #Classification results:
+  //     idle: 0.996094
+  //     snake: 0.000000
+  //     updown: 0.000000
+  //     wave: 0.000000
+  // Anomaly prediction: -0.231148
 
-  if ((out_buf != NULL) && (out_num >= (EI_CLASSIFIER_NN_OUTPUT_COUNT * sizeof(float)))) {
+  if ((out_buf != NULL) && (out_num >= SDS_ALGO_DATA_OUT_BLOCK_SIZE)) {
     ptr_out_data = (float *)out_buf;
     for (uint8_t i = 0U; i < EI_CLASSIFIER_NN_OUTPUT_COUNT; i++) {
       ptr_out_data[i] = result.classification[i].value;

@@ -18,10 +18,12 @@ The [STMicroelectronics B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroe
 
 ## Projects
 
-The `SDS.csolution.yml` application is configured for the targets [ST B-U585I-IOT02A board-E7-AIML](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e7-aiml-gen-2-140e28d/guide/) or [AVH-SSE-300](https://github.com/ARM-software/AVH) FVP simulation models. It contains wto projects.
+The `SDS.csolution.yml` application is configured for the targets [ST B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/guide/) or [AVH-SSE-300](https://github.com/ARM-software/AVH) FVP simulation models.
+
+It contains two projects:
 
 - **`DataTest.cproject.yml`**: Verifies the SDSIO interface on hardware.
-- **`AlgorithmTest.cproject.yml`**: Verifies a Motion Recognition ML algorithm with recording and playback of SDS data files.
+- **`AlgorithmTest.cproject.yml`**: Verifies a Continuous Motion Recognition ML algorithm with recording and playback of SDS data files.
 
 ## Layer Type: Board and Layer Type: SDSIO
 
@@ -37,8 +39,7 @@ This layer contains the ML model that is used in the `AlgorithmTest.cproject.yml
 #### ML Model update procedure
 
 1.  **Clone the project**  
-    Clone the [**Tutorial: Continuous Motion
-    Recognition**](https://studio.edgeimpulse.com/public/14299/latest)
+    Clone the [**Tutorial: Continuous motion recognition**](https://studio.edgeimpulse.com/public/14299/latest)
     project from Edge Impulse.
 2.  **Build CMSIS pack**  
     - Under **Time series data, Spectral Analysis, Classification, Anomaly Detection (K-means)**, select **Deployment**.
@@ -56,7 +57,7 @@ This layer contains the ML model that is used in the `AlgorithmTest.cproject.yml
 ## Projects
 
 - **`DataTest.cproject.yml`**: Verifies SDSIO interface on hardware.
-- **`AlgorithmTest.cproject.yml`**: Verifies a Continuous Motion Recognition algorithm with recording (on hardware only) and playback of SDS data files.
+- **`AlgorithmTest.cproject.yml`**: Verifies a Continuous Motion Recognition ML algorithm with recording (on hardware only) and playback of SDS data files.
 
 ## Build Targets
 
@@ -71,7 +72,9 @@ For more details, refer to the [SDS Template Application](https://arm-software.g
 
 ## DataTest Project on ST B-U585I-IOT02A board
 
-The DataTest project allows you to verify the SDS I/O communication and it is recommended to use this project first.  Build and run this project in VS Code using the following steps:
+The DataTest project allows you to verify the SDS I/O communication and it is recommended to use this project first.
+
+Build and run this project in VS Code using the following steps:
 
 1. Use **Manage Solution Settings** and select as Active Project **DataTest** with Build Type **DebugRec**.
 2. **Build solution** creates the executable image.
@@ -80,8 +83,8 @@ The DataTest project allows you to verify the SDS I/O communication and it is re
 5. Use the VS Code **Serial Monitor** to observe the output below.
 
 ```txt
-SDS initialization failed!
-For Network and USB SDSIO Interfaces ensure that SDSIO Server is running and restart the application!
+SDS I/O USB interface initialization failed or 'sdsio-server usb' unavailable!
+Ensure that SDSIO-Server is running, then restart the application!
 99% idle
 99% idle
 ```
@@ -96,7 +99,7 @@ For Network and USB SDSIO Interfaces ensure that SDSIO Server is running and res
 For executing the **recording** test, follow the steps below:
 
 1. Connect a second USB cable between Host and ST B-U585I-IOT02A board USB-C connector.
-2. Open in VS Code a Terminal Window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server.py usb`
+2. Open in VS Code a Terminal Window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server usb`
 3. Open the VS Code **Serial Monitor** and Start Monitoring the UART output.
 4. **Load and Run** the application on the ST B-U585I-IOT02A board.
 5. Press the **User** button on the ST B-U585I-IOT02A board to start recording.
@@ -104,28 +107,32 @@ For executing the **recording** test, follow the steps below:
 
 **Output of SDSIO Server**
 
-```bash
->sdsio-server.py usb 
+```txt
+>sdsio-server usb 
 Press Ctrl+C to exit.
 Starting USB Server...
+Waiting for SDSIO Client USB device...
 USB Server running.
-Stream opened: DataInput (DataInput.0.sds).
-Stream opened: DataOutput (DataOutput.0.sds).
+Ping received.
+Record:   DataInput (.\DataInput.0.sds).
+Record:   DataOutput (.\DataOutput.0.sds).
 ..........
-Stream closed: DataInput (DataInput.0.sds).
-Stream closed: DataOutput (DataOutput.0.sds).
-Stream opened: DataInput (DataInput.1.sds).
-Stream opened: DataOutput (DataOutput.1.sds).
+Closed:   DataInput (.\DataInput.0.sds).
+Closed:   DataOutput (.\DataOutput.0.sds).
+Record:   DataInput (.\DataInput.1.sds).
+Record:   DataOutput (.\DataOutput.1.sds).
 ```
 
 **Output of Serial Monitor**
 
 ```txt
-SDS recording started
+SDS recording (#0) started
+98% idle
+SDS recording (#0) stopped
+====
+
 99% idle
-SDS recording stopped
-99% idle
-SDS recording started
+SDS recording (#1) started
 ```
 
 Each run records two files: `DataInput.<n>.sds` and `DataOutput.<n>.sds` in the folder where SDSIO-Server was started. `<n>` is a sequential number.
@@ -135,7 +142,7 @@ Each run records two files: `DataInput.<n>.sds` and `DataOutput.<n>.sds` in the 
 The [SDS-Check](https://arm-software.github.io/SDS-Framework/main/utilities.html#sds-check) utility verifies SDS files for consistency. For example:
 
 ```bash
->sds-check.py -s DataInput.0.sds
+>sds-check -s DataInput.0.sds
 File     : DataInput.0.sds
 DataSize : 351.400 bytes
 Records  : 350
@@ -153,10 +160,11 @@ For executing the **playback** test, follow the steps below:
 1. Use **Manage Solution Settings** and select as Active Project **DataTest** with Build Type **DebugPlay**.
 2. **Build solution** creates the executable image.
 3. Connect a second USB cable between Host and ST B-U585I-IOT02A board STLK USB connector.
-4. Open in VS Code a Terminal Window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server.py usb`
+4. Open in VS Code a Terminal Window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server usb`
 5. **Load and Run** the application on the ST B-U585I-IOT02A board hardware.
 6. Press a User button on the ST B-U585I-IOT02A board to start playback of `DataInput` and recording of `DataOutput`.
-7. Wait for playback to finish, it will finish automatically when all data from `DataInput.0.sds` SDS file was played back.
+7. Wait for playback to finish, it will finish automatically when all data from `DataInput.<n>.sds` SDS file was played back.
+8. If more `DataInput` files exist repeat from step 6.
 
 The stream `DataInput.<n>.sds` is read back and the algorithm processes this data. The stream `DataOutput.<m>.sds` is written whereby `<m>` is the next available file index.
 
@@ -169,18 +177,21 @@ To verify that the SDS component usage on hardware is reliable the two algorithm
 
 ```txt
 >sdsio-server usb
-SDSIO-Server USB running... Press Ctrl+C to exit.
-Stream opened: DataInput (DataInput.0.sds).
-Stream opened: DataOutput (DataOutput.2.sds).
-...........
-Stream closed: DataInput (DataInput.0.sds).
-Stream closed: DataOutput (DataOutput.2.sds).
-Stream opened: DataInput (DataInput.1.sds).
-.
-Stream opened: DataOutput (DataOutput.3.sds).
-.......
-Stream closed: DataInput (DataInput.1.sds).
-Stream closed: DataOutput (DataOutput.3.sds).
+Press Ctrl+C to exit.
+Starting USB Server...
+Waiting for SDSIO Client USB device...
+USB Server running.
+Ping received.
+Playback: DataInput (.\DataInput.0.sds).
+Record:   DataOutput (.\DataOutput.2.sds).
+............
+Closed:   DataInput (.\DataInput.0.sds).
+Closed:   DataOutput (.\DataOutput.2.sds).
+Playback: DataInput (.\DataInput.1.sds).
+Record:   DataOutput (.\DataOutput.3.sds).
+............
+Closed:   DataInput (.\DataInput.1.sds).
+Closed:   DataOutput (.\DataOutput.3.sds).
 ```
 
 ## DataTest Project on AVH-FVP Simulation
@@ -191,7 +202,7 @@ The DataTest can be also executed on [AVH-FVP](https://github.com/ARM-software/A
      - Active target `AVH-SSE-300`
      - Active Project **DataTest** with Build Type **DebugRec** or **DebugPlay**.
 2. **Build solution** to create an executable image.
-3. **Load and Run** starts the application on the AVH-FVP simulation.  The output is shown in the Terminal console.
+3. **Load and Run** starts the application on the AVH-FVP simulation. The output is shown in the Terminal console.
 
 > NOTE
 >
@@ -204,11 +215,13 @@ The DataTest can be also executed on [AVH-FVP](https://github.com/ARM-software/A
 
 97% idle
 97% idle
-SDS recording started
+SDS recording (#0) started
 97% idle
   :
-SDS recording stopped
- :
+SDS recording (#0) stopped
+====
+
+  :
 Info: /OSCI/SystemC: Simulation stopped by user.
 Stream closed: DataOutput (DataOutput.3.sds).
 ```
@@ -220,10 +233,10 @@ Stream closed: DataOutput (DataOutput.3.sds).
 
 100% idle
 100% idle
-SDS playback and recording started
+SDS playback and recording (#0) started
 98% idle
   :
-SDS playback and recording stopped
+SDS playback and recording (#0) stopped
 99% idle
   :
 Info: /OSCI/SystemC: Simulation stopped by user.
@@ -231,7 +244,9 @@ Info: /OSCI/SystemC: Simulation stopped by user.
 
 ## AlgorithmTest Project on ST B-U585I-IOT02A board
 
-The AlgorithmTest project includes an EdgeImpulse Motion Recognition ML model that you can verify using the SDS-Framework.  Build and run this project in VS Code using the following steps:
+The **AlgorithmTest** project includes an **Edge Impulse Motion Recognition ML model** that you can verify using the SDS-Framework.
+
+Build and run this project in VS Code using the following steps:
 
 1. Use **Manage Solution Settings** and select Active Target `B-U585-IOT02A board`, Active Project **AlgorithmTest** with Build Type **DebugRec**.
 2. **Build solution** creates the executable image.
@@ -242,78 +257,76 @@ The AlgorithmTest project includes an EdgeImpulse Motion Recognition ML model th
 
 **Terminal shows sdsio-server output**
 
-```bash
-PS C:\SDS-Ex\SDS-Examples> sdsio-server usb
+```txt
+> sdsio-server usb
 Press Ctrl+C to exit.
 Starting USB Server...
+Waiting for SDSIO Client USB device...
 USB Server running.
-Stream opened: DataInput (DataInput.0.sds).
-Stream opened: DataOutput (DataOutput.0.sds).
-......
-Stream closed: DataInput (DataInput.0.sds).
-Stream closed: DataOutput (DataOutput.0.sds).
+Ping received.
+Record:   DataInput (.\DataInput.0.sds).
+Record:   DataOutput (.\DataOutput.1.sds).
+.
+Closed:   DataInput (.\DataInput.0.sds).
+Closed:   DataOutput (.\DataOutput.1.sds).
 ```
 
 
 **Serial Monitor shows application output**
 
 ```bash
----- Opened the serial port COM5 ----
-Predictions (DSP: 19.000000 ms., Classification: 0 ms., Anomaly: 1.000000ms.): 
-#Classification results:
-    idle: 0.996094
-    snake: 0.000000
-    updown: 0.000000
-    wave: 0.000000
-Anomaly prediction: -0.356135
-92% idle
+Connection to SDSIO-Server established via USB interface
 96% idle
-Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
-#Classification results:
-    idle: 0.996094
-    snake: 0.000000
-    updown: 0.000000
-    wave: 0.000000
-Anomaly prediction: -0.352785
-93% idle
-96% idle
-96% idle
-Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
-#Classification results:
-    idle: 0.003906
-    snake: 0.996094
-    updown: 0.000000
-    wave: 0.000000
-Anomaly prediction: -0.268574
-92% idle
-96% idle
-Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
-#Classification results:
-    idle: 0.000000
-    snake: 0.992188
-    updown: 0.007812
-    wave: 0.000000
-Anomaly prediction: 0.010583
-92% idle
-96% idle
-Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
-#Classification results:
-    idle: 0.000000
-    snake: 0.894531
-    updown: 0.101562
-    wave: 0.000000
-Anomaly prediction: -0.018911
-92% idle
 96% idle
 Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 1.000000ms.): 
 #Classification results:
-    idle: 0.187500
-    snake: 0.812500
+    idle: 0.996094
+    snake: 0.000000
     updown: 0.000000
     wave: 0.000000
-Anomaly prediction: 0.209035
+Anomaly prediction: -0.353435
 92% idle
 96% idle
+Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.419379
+93% idle
+96% idle
+SDS recording (#0) started
+Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.378370
+92% idle
+96% idle
+96% idle
+Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.406737
+93% idle
+96% idle
+Predictions (DSP: 18.000000 ms., Classification: 1.000000 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.234360
+SDS recording (#0) stopped
+====
+
+92% idle
 ```
 ## AlgorithmTest Playback on AVH-FVP Simulation
 
@@ -330,7 +343,7 @@ Executing task: FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out
 
 100% idle
 100% idle
-SDS playback and recording started
+SDS playback and recording (#0) started
 Predictions (DSP: 3.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
 #Classification results:
     idle: 0.527344
@@ -352,7 +365,7 @@ Predictions (DSP: 3.000000 ms., Classification: 0 ms., Anomaly: 0ms.):
     updown: 0.003906
     wave: 0.000000
 Anomaly prediction: -0.294227
-SDS playback and recording stopped
+SDS playback and recording (#0) stopped
 93% idle
 100% idle
 100% idle
