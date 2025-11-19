@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright 2022-2025 Arm Limited and/or its
+﻿# SPDX-FileCopyrightText: Copyright 2022-2025 Arm Limited and/or its
 # affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -14,7 +14,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-name: Algorithm Test ST B-U585I-IOT02A
+name: Algorithm Test ST B-U585I-IOT02A (Motion Recognition)
 on:
 
   workflow_dispatch:
@@ -58,7 +58,7 @@ jobs:
         path: /home/runner/.cache/arm/packs/.Download
 
     - name: Rename DataOutput.N.sds -> DataOutput.N.ref.sds
-      working-directory: ./ST/B-U585I-IOT02A/algorithm/SDS Recordings
+      working-directory: ./ST/B-U585I-IOT02A/MotionRecognition/algorithm/SDS Recordings
       run: |
 
         for file in DataOutput.*.sds; do
@@ -75,20 +75,20 @@ jobs:
         done
 
     - name: Build AlgorithmTest for ST B-U585I-IOT2A
-      working-directory: ./ST/B-U585I-IOT02A
+      working-directory: ./ST/B-U585I-IOT02A/MotionRecognition
       run: |
         cbuild SDS.csolution.yml --context AlgorithmTest.DebugPlay+AVH-SSE-300 --packs
 
     - name: Execute Test cases
-      working-directory: ./ST/B-U585I-IOT02A
+      working-directory: ./ST/B-U585I-IOT02A/MotionRecognition
       env: 
         PYTHONPATH: ${{ github.workspace }}/.python_deps
       run: |
-        cp ../../.ci/sdsio.yml .               # configure test case execution
+        cp ../../../.ci/sdsio.yml .               # configure test case execution
         FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/AVH-SSE-300/DebugPlay/AlgorithmTest.axf
 
     - name: Compare SDS output files
-      working-directory: ./ST/B-U585I-IOT02A/algorithm/SDS Recordings
+      working-directory: ./ST/B-U585I-IOT02A/MotionRecognition/algorithm/SDS Recordings
       run: |
 
         mkdir -p ../diff_artifacts   # Create folder outside the recordings directory
@@ -113,10 +113,10 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: sds-diff-files
-        path: ST/B-U585I-IOT02A/algorithm/diff_artifacts
+        path: ST/B-U585I-IOT02A/MotionRecognition/algorithm/diff_artifacts
 
     - name: Fail if diffs found
-      working-directory: ./ST/B-U585I-IOT02A/algorithm
+      working-directory: ./ST/B-U585I-IOT02A/MotionRecognition/algorithm
       run: |
         if [ -n "$(ls -A diff_artifacts)" ]; then
           echo "❌ Differences found in SDS files!"

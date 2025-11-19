@@ -37,7 +37,7 @@ Run a blinky example for the related board first to verify tool installation.
 |---                                                         |---            |
 | [Alif/AppKit](./Alif/AppKit/SDS.csolution.yml)             | [SDS Application on Alif AppKit board with SDSIO using USB interface](./Alif/AppKit/README.md). [Alif AppKit board](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e7-aiml-gen-2-140e28d/guide/)              |
 | [Alif/DevKit](./Alif/DevKit/SDS.csolution.yml)             | [SDS Application on Alif DevKit board with SDSIO using Ethernet interface](./Alif/DevKit/README.md). [Alif DevKit board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e7-gen-2-92ef25f/guide/) |
-| [ST/B-U585I-IOT02A](./ST/B-U585I-IOT02A/SDS.csolution.yml) | [SDS application on STMicroelectronics B-U585I-IOT02A board with SDSIO using the USB interface](./ST/B-U585I-IOT02A/README.md). [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/) |
+| [ST/B-U585I-IOT02A/MotionRecognition](./ST/B-U585I-IOT02A/MotionRecognition/SDS.csolution.yml) | [SDS application for motion recognition on STMicroelectronics B-U585I-IOT02A board with SDSIO using the USB interface](./ST/B-U585I-IOT02A/README.md). [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/) |
 
 
 ## Directory Structure
@@ -48,7 +48,7 @@ Run a blinky example for the related board first to verify tool installation.
 | [.github/workflows](./.github/workflows)  | [GitHub Actions](#github-actions) scripts for build and execution tests. |
 | [Alif/AppKit](./Alif/AppKit)              | SDS Framework deployed to Alif AppKit using USB communication. |
 | [Alif/DevKit](./Alif/DevKit)              | SDS Framework deployed to Alif DevKit using Ethernet communication. |
-| [ST/B-U585I-IOT02A](./ST/B-U585I-IOT02A)  | SDS Framework deployed to [ST B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599) using USB communication. |
+| [ST/B-U585I-IOT02A/MotionRecognition](./ST/B-U585I-IOT02A/MotionRecognition)  | SDS Framework deployed to [ST B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599) using USB communication. |
 | [Jupyter](./Jupyter)                      | Display SDS data files using a Jupyter notebook. |
 
 
@@ -69,7 +69,7 @@ Refer to [Understanding GitHub Actions](https://docs.github.com/en/actions/get-s
 |---                                                            |---  |
 | [AC6_test_build](./.github/workflows/AC6_test_build.yaml)     | Use Arm Compiler for Embedded (AC6) to create binaries for different configuration of targets, build types, and boards. After successful generation these are stored as artifacts. |
 | [GCC_test_build](./.github/workflows/GCC_test_build.yaml)     | Use GCC build tools to create binaries for different configuration of targets, build types, and boards. After successful generation these are stored as artifacts. |
-| [AlgorithmTest_ST_B-U585I-IOT02A](./.github/workflows/AlgorithmTest_ST_B-U585I-IOT02A.yaml)  | Build the binary of a motion detection algorithm and execute a regression test by using an FVP model and prerecorded SDS files. Regressions are stored as artifacts. |
+| [AlgorithmTest_ST_B-U585I-IOT02A_MR](./.github/workflows/AlgorithmTest_ST_B-U585I-IOT02A_MR.yaml)  | Build the binary of a motion recognition algorithm and execute a regression test by using an FVP model and prerecorded SDS files. Regressions are stored as artifacts. |
 
 
 ## Issues or Questions
