@@ -211,34 +211,41 @@ The DataTest can be also executed on [AVH-FVP](https://github.com/ARM-software/A
 **Output of DebugRec**
 
 ```txt
-*  Executing task: FVP_Corstone_SSE-300_Ethos-U55 -f Board/Corstone-300/fvp_config.txt -a out\DataTest\AVH-SSE-300\DebugRec\DataTest.axf  
+*  Executing task: FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/DataTest/AVH-SSE-300/DebugRec/DataTest.axf  
 
-97% idle
+SDS I/O VSI interface initialized successfully
 97% idle
 SDS recording (#0) started
 97% idle
   :
+97% idle
 SDS recording (#0) stopped
 ====
 
-  :
+97% idle
+
 Info: /OSCI/SystemC: Simulation stopped by user.
-Stream closed: DataOutput (DataOutput.3.sds).
 ```
 
 **Output of DebugPlay**
 
 ```txt
-*  Executing task: FVP_Corstone_SSE-300_Ethos-U55 -f Board/Corstone-300/fvp_config.txt -a out\DataTest\AVH-SSE-300\DebugPlay\DataTest.axf  
+*  Executing task: FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/DataTest/AVH-SSE-300/DebugPlay/DataTest.axf  
 
+SDS I/O VSI interface initialized successfully
 100% idle
 100% idle
 SDS playback and recording (#0) started
 98% idle
   :
-SDS playback and recording (#0) stopped
 99% idle
-  :
+SDS playback and recording (#0) stopped
+====
+
+99% idle
+100% idle
+No more SDS data files for playback of input data!
+
 Info: /OSCI/SystemC: Simulation stopped by user.
 ```
 
@@ -310,38 +317,64 @@ To playback the recorded SDS data files use in VS Code the following steps:
 2. **Build solution** creates the executable image.
 3. **Load and Run** to runs the application on the simulator and uses the SDS datafiles previous captured.
 
+> NOTE
+>
+> To playback existing algorithm recordings from `./algorithm/SDS Recordings` subfolder,
+> create a file with name `sdsio.yml` in the same folder where `SDS.csolution.yml` file is
+> and add the following content into it:
+> ```
+> dir: ./algorithm/SDS Recordings         # directory that stores SDS files
+> idx-start: 0                            # start index for files (default 0)
+> ```
+
 **Terminal shows FVP simulation output**
 
 ```txt
-Executing task: FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out\AlgorithmTest\AVH-SSE-300\DebugPlay\AlgorithmTest.axf  
+*  Executing task: FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/AVH-SSE-300/DebugPlay/AlgorithmTest.axf  
 
+SDS I/O VSI interface initialized successfully
 100% idle
 100% idle
 SDS playback and recording (#0) started
-Timing: DSP 20 ms, inference 9 ms, anomaly 0 ms
+Timing: DSP 53 ms, inference 13 ms, anomaly 0 ms
 Classification predictions:
-  helloworld: 0.621094
-  noise: 0.332031
+  helloworld: 0.996094
+  noise: 0.000000
+  unknown: 0.000000
+Timing: DSP 55 ms, inference 13 ms, anomaly 0 ms
+Classification predictions:
+  helloworld: 0.996094
+  noise: 0.000000
+  unknown: 0.000000
+Timing: DSP 52 ms, inference 13 ms, anomaly 0 ms
+Classification predictions:
+  helloworld: 0.996094
+  noise: 0.000000
+  unknown: 0.000000
+22% idle
+Timing: DSP 53 ms, inference 13 ms, anomaly 0 ms
+Classification predictions:
+  helloworld: 0.824219
+  noise: 0.125000
   unknown: 0.046875
-Timing: DSP 19 ms, inference 10 ms, anomaly 0 ms
+Timing: DSP 53 ms, inference 13 ms, anomaly 0 ms
 Classification predictions:
-  helloworld: 0.828125
-  noise: 0.171875
+  helloworld: 0.996094
+  noise: 0.000000
+  unknown: 0.000000
+12% idle
+Timing: DSP 53 ms, inference 13 ms, anomaly 0 ms
+Classification predictions:
+  helloworld: 0.996094
+  noise: 0.000000
   unknown: 0.003906
+12% idle
 SDS playback and recording (#0) stopped
-93% idle
+====
+
+65% idle
 100% idle
-100% idle
-100% idle
-100% idle
-100% idle
-100% idle
-100% idle
-99% idle
-100% idle
-100% idle
-100% idle
-100% idle
+No more SDS data files for playback of input data!
 
 Info: /OSCI/SystemC: Simulation stopped by user.
 ```

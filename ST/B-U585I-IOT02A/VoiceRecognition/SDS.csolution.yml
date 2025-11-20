@@ -6,6 +6,8 @@ solution:
   # List of tested compilers that can be selected
   select-compiler:
     - compiler: AC6
+    - compiler: GCC
+    - compiler: IAR
 
   compiler: AC6 # select compiler for solution
 
@@ -46,12 +48,11 @@ solution:
       target-set:
         - set:
           images:
-            - project-context: DataTest.DebugPlay
+            - project-context: DataTest.DebugRec
           debugger:
-            name: AVH-FVP
+            name: Arm-FVP
             model: FVP_Corstone_SSE-300
-            config: Board/Corstone-300/fvp_config.txt
-            args: []
+            config-file: Board/Corstone-300/fvp_config.txt
 
   # List of different build configurations.
   build-types:
