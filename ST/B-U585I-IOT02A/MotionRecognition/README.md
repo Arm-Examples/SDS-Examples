@@ -211,34 +211,41 @@ The DataTest can be also executed on [AVH-FVP](https://github.com/ARM-software/A
 **Output of DebugRec**
 
 ```txt
-*  Executing task: FVP_Corstone_SSE-300_Ethos-U55 -f Board/Corstone-300/fvp_config.txt -a out\DataTest\AVH-SSE-300\DebugRec\DataTest.axf  
+*  Executing task: FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/DataTest/AVH-SSE-300/DebugRec/DataTest.axf  
 
-97% idle
+SDS I/O VSI interface initialized successfully
 97% idle
 SDS recording (#0) started
 97% idle
   :
+97% idle
 SDS recording (#0) stopped
 ====
 
-  :
+97% idle
+
 Info: /OSCI/SystemC: Simulation stopped by user.
-Stream closed: DataOutput (DataOutput.3.sds).
 ```
 
 **Output of DebugPlay**
 
 ```txt
-*  Executing task: FVP_Corstone_SSE-300_Ethos-U55 -f Board/Corstone-300/fvp_config.txt -a out\DataTest\AVH-SSE-300\DebugPlay\DataTest.axf  
+*  Executing task: FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/DataTest/AVH-SSE-300/DebugPlay/DataTest.axf  
 
+SDS I/O VSI interface initialized successfully
 100% idle
 100% idle
 SDS playback and recording (#0) started
 98% idle
   :
-SDS playback and recording (#0) stopped
 99% idle
-  :
+SDS playback and recording (#0) stopped
+====
+
+99% idle
+100% idle
+No more SDS data files for playback of input data!
+
 Info: /OSCI/SystemC: Simulation stopped by user.
 ```
 
@@ -336,49 +343,136 @@ To playback the recorded SDS data files use in VS Code the following steps:
 2. **Build solution** creates the executable image.
 3. **Load and Run** to runs the application on the simulator and uses the SDS datafiles previous captured.
 
+> NOTE
+>
+> To playback existing algorithm recordings from `./algorithm/SDS Recordings` subfolder,
+> create a file with name `sdsio.yml` in the same folder where `SDS.csolution.yml` file is
+> and add the following content into it:
+> ```
+> dir: ./algorithm/SDS Recordings         # directory that stores SDS files
+> idx-start: 0                            # start index for files (default 0)
+> idx-end: 11                             # stop index for files, if missing there is no limit; file index is incremented
+> ```
+
 **Terminal shows FVP simulation output**
 
 ```txt
-Executing task: FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out\AlgorithmTest\AVH-SSE-300\DebugPlay\AlgorithmTest.axf  
+*  Executing task: FVP_Corstone_SSE-300 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/AVH-SSE-300/DebugPlay/AlgorithmTest.axf  
 
-100% idle
-100% idle
-SDS playback and recording (#0) started
-Predictions (DSP: 3.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
-#Classification results:
-    idle: 0.527344
-    snake: 0.472656
-    updown: 0.000000
-    wave: 0.000000
-Anomaly prediction: -0.008272
-Predictions (DSP: 3.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
-#Classification results:
-    idle: 0.007812
-    snake: 0.992188
-    updown: 0.000000
-    wave: 0.000000
-Anomaly prediction: -0.185833
-Predictions (DSP: 3.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
-#Classification results:
-    idle: 0.027344
-    snake: 0.964844
-    updown: 0.003906
-    wave: 0.000000
-Anomaly prediction: -0.294227
-SDS playback and recording (#0) stopped
-93% idle
-100% idle
-100% idle
-100% idle
-100% idle
-100% idle
-100% idle
-100% idle
+SDS I/O VSI interface initialized successfully
 99% idle
-100% idle
-100% idle
-100% idle
-100% idle
+99% idle
+SDS playback and recording (#0) started
+Predictions (DSP: 9.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.432440
+Predictions (DSP: 10.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.274266
+Predictions (DSP: 10.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.183553
+Predictions (DSP: 10.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.168577
+Predictions (DSP: 10.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.180526
+SDS playback and recording (#0) stopped
+====
+
+86% idle
+99% idle
+SDS playback and recording (#1) started
+Predictions (DSP: 10.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.316274
+Predictions (DSP: 10.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.181784
+Predictions (DSP: 10.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.179727
+Predictions (DSP: 10.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.996094
+    snake: 0.000000
+    updown: 0.000000
+    wave: 0.000000
+Anomaly prediction: -0.179478
+SDS playback and recording (#1) stopped
+====
+
+  :
+97% idle
+99% idle
+SDS playback and recording (#11) started
+Predictions (DSP: 10.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.000000
+    snake: 0.000000
+    updown: 0.007812
+    wave: 0.992188
+Anomaly prediction: -0.223200
+Predictions (DSP: 10.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.000000
+    snake: 0.003906
+    updown: 0.183594
+    wave: 0.812500
+Anomaly prediction: -0.241295
+Predictions (DSP: 10.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.000000
+    snake: 0.000000
+    updown: 0.335938
+    wave: 0.664062
+Anomaly prediction: -0.227610
+Predictions (DSP: 10.000000 ms., Classification: 0 ms., Anomaly: 0ms.): 
+#Classification results:
+    idle: 0.000000
+    snake: 0.000000
+    updown: 0.082031
+    wave: 0.914062
+Anomaly prediction: -0.145931
+SDS playback and recording (#11) stopped
+====
+
+88% idle
+99% idle
+No more SDS data files for playback of input data!
 
 Info: /OSCI/SystemC: Simulation stopped by user.
 ```
