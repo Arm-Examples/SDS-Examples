@@ -54,12 +54,12 @@ jobs:
           { tool: GCC,  dir: ./ST/B-U585I-IOT02A/MotionRecognition, art_name: MotionRecognition, proj: SDS,    target_type: STM32U585AIIx,    build_type: ReleasePlay,  board: B-U585I },
           { tool: GCC,  dir: ./ST/B-U585I-IOT02A/MotionRecognition, art_name: MotionRecognition, proj: SDS,    target_type: AVH-SSE-300,      build_type: DebugPlay,    board: B-U585I },
           { tool: GCC,  dir: ./ST/B-U585I-IOT02A/MotionRecognition, art_name: MotionRecognition, proj: SDS,    target_type: AVH-SSE-300,      build_type: ReleasePlay,  board: B-U585I },
-          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/VoiceRecognition,  art_name: VoiceRecognition,  proj: SDS,    target_type: STM32U585AIIx,    build_type: DebugRec,     board: B-U585I },
-          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/VoiceRecognition,  art_name: VoiceRecognition,  proj: SDS,    target_type: STM32U585AIIx,    build_type: DebugPlay,    board: B-U585I },
-          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/VoiceRecognition,  art_name: VoiceRecognition,  proj: SDS,    target_type: STM32U585AIIx,    build_type: ReleaseRec,   board: B-U585I },
-          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/VoiceRecognition,  art_name: VoiceRecognition,  proj: SDS,    target_type: STM32U585AIIx,    build_type: ReleasePlay,  board: B-U585I },
-          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/VoiceRecognition,  art_name: VoiceRecognition,  proj: SDS,    target_type: AVH-SSE-300,      build_type: DebugPlay,    board: B-U585I },
-          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/VoiceRecognition,  art_name: VoiceRecognition,  proj: SDS,    target_type: AVH-SSE-300,      build_type: ReleasePlay,  board: B-U585I }
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/KeywordSpotting,   art_name: KeywordSpotting,   proj: SDS,    target_type: STM32U585AIIx,    build_type: DebugRec,     board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/KeywordSpotting,   art_name: KeywordSpotting,   proj: SDS,    target_type: STM32U585AIIx,    build_type: DebugPlay,    board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/KeywordSpotting,   art_name: KeywordSpotting,   proj: SDS,    target_type: STM32U585AIIx,    build_type: ReleaseRec,   board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/KeywordSpotting,   art_name: KeywordSpotting,   proj: SDS,    target_type: STM32U585AIIx,    build_type: ReleasePlay,  board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/KeywordSpotting,   art_name: KeywordSpotting,   proj: SDS,    target_type: AVH-SSE-300,      build_type: DebugPlay,    board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/KeywordSpotting,   art_name: KeywordSpotting,   proj: SDS,    target_type: AVH-SSE-300,      build_type: ReleasePlay,  board: B-U585I }
           ]
 
       fail-fast: false

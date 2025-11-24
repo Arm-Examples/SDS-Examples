@@ -1,6 +1,6 @@
 # SDS Application on STMicroelectronics B-U585I-IOT02A board with SDSIO using USB Interface
 
-This application is an example of using [**Edge Impulse Voice Recognition ML algorithm**](https://studio.edgeimpulse.com/public/547356/live) on a physical board.
+This application is an example of using [**Edge Impulse Keyword Spotting ML algorithm**](https://studio.edgeimpulse.com/public/547356/live) on a physical board.
 It enables recording and playback of real-world data streams using physical hardware or just playback using simulation models (Arm Virtual Hardware - FVP).
 The real-world data streams are captured in SDS data files.
 
@@ -23,7 +23,7 @@ The `SDS.csolution.yml` application is configured for the targets [ST B-U585I-IO
 It contains two projects:
 
 - **`DataTest.cproject.yml`**: Verifies the SDSIO interface on hardware.
-- **`AlgorithmTest.cproject.yml`**: Verifies a Voice Recognition ML algorithm with recording and playback of SDS data files.
+- **`AlgorithmTest.cproject.yml`**: Verifies a Keyword Spotting ML algorithm with recording and playback of SDS data files.
 
 ## Layer Type: Board and Layer Type: SDSIO
 
@@ -57,7 +57,7 @@ This layer contains the ML model that is used in the `AlgorithmTest.cproject.yml
 ## Projects
 
 - **`DataTest.cproject.yml`**: Verifies SDSIO interface on hardware.
-- **`AlgorithmTest.cproject.yml`**: Verifies a Voice Recognition ML algorithm with recording (on hardware only) and playback of SDS data files.
+- **`AlgorithmTest.cproject.yml`**: Verifies a Keyword Spotting ML algorithm with recording (on hardware only) and playback of SDS data files.
 
 ## Build Targets
 
@@ -251,7 +251,7 @@ Info: /OSCI/SystemC: Simulation stopped by user.
 
 ## AlgorithmTest Project on ST B-U585I-IOT02A board
 
-The **AlgorithmTest** project includes an **Edge Impulse Voice Recognition ML model** that you can verify using the SDS-Framework.
+The **AlgorithmTest** project includes an **Edge Impulse Keyword Spotting ML model** that you can verify using the SDS-Framework.
 
 Build and run this project in VS Code using the following steps:
 
