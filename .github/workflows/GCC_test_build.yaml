@@ -31,28 +31,35 @@ jobs:
     strategy:
       matrix:
         context: [
-          { tool: GCC,  dir: ./Alif/AppKit,        proj: SDS,  target_type: AE722F80F55D5LS,  build_type: DebugRec,     board: AppKit },
-          { tool: GCC,  dir: ./Alif/AppKit,        proj: SDS,  target_type: AE722F80F55D5LS,  build_type: DebugPlay,    board: AppKit },
-          { tool: GCC,  dir: ./Alif/AppKit,        proj: SDS,  target_type: AE722F80F55D5LS,  build_type: ReleaseRec,   board: AppKit },
-          { tool: GCC,  dir: ./Alif/AppKit,        proj: SDS,  target_type: AE722F80F55D5LS,  build_type: ReleasePlay,  board: AppKit },
-          { tool: GCC,  dir: ./Alif/AppKit,        proj: SDS,  target_type: AVH-SSE-300,      build_type: DebugRec,     board: AppKit },
-          { tool: GCC,  dir: ./Alif/AppKit,        proj: SDS,  target_type: AVH-SSE-300,      build_type: DebugPlay,    board: AppKit },
-          { tool: GCC,  dir: ./Alif/AppKit,        proj: SDS,  target_type: AVH-SSE-300,      build_type: ReleaseRec,   board: AppKit },
-          { tool: GCC,  dir: ./Alif/AppKit,        proj: SDS,  target_type: AVH-SSE-300,      build_type: ReleasePlay,  board: AppKit },
-          { tool: GCC,  dir: ./Alif/DevKit,        proj: SDS,  target_type: AE722F80F55D5LS,  build_type: DebugRec,     board: DevKit },
-          { tool: GCC,  dir: ./Alif/DevKit,        proj: SDS,  target_type: AE722F80F55D5LS,  build_type: DebugPlay,    board: DevKit },
-          { tool: GCC,  dir: ./Alif/DevKit,        proj: SDS,  target_type: AE722F80F55D5LS,  build_type: ReleaseRec,   board: DevKit },
-          { tool: GCC,  dir: ./Alif/DevKit,        proj: SDS,  target_type: AE722F80F55D5LS,  build_type: ReleasePlay,  board: DevKit },
-          { tool: GCC,  dir: ./Alif/DevKit,        proj: SDS,  target_type: AVH-SSE-300,      build_type: DebugRec,     board: DevKit },
-          { tool: GCC,  dir: ./Alif/DevKit,        proj: SDS,  target_type: AVH-SSE-300,      build_type: DebugPlay,    board: DevKit },
-          { tool: GCC,  dir: ./Alif/DevKit,        proj: SDS,  target_type: AVH-SSE-300,      build_type: ReleaseRec,   board: DevKit },
-          { tool: GCC,  dir: ./Alif/DevKit,        proj: SDS,  target_type: AVH-SSE-300,      build_type: ReleasePlay,  board: DevKit },
-          { tool: GCC,  dir: ./ST/B-U585I-IOT02A,  proj: SDS,  target_type: STM32U585AIIx,    build_type: DebugRec,     board: B-U585I },
-          { tool: GCC,  dir: ./ST/B-U585I-IOT02A,  proj: SDS,  target_type: STM32U585AIIx,    build_type: DebugPlay,    board: B-U585I },
-          { tool: GCC,  dir: ./ST/B-U585I-IOT02A,  proj: SDS,  target_type: STM32U585AIIx,    build_type: ReleaseRec,   board: B-U585I },
-          { tool: GCC,  dir: ./ST/B-U585I-IOT02A,  proj: SDS,  target_type: STM32U585AIIx,    build_type: ReleasePlay,  board: B-U585I },
-          { tool: GCC,  dir: ./ST/B-U585I-IOT02A,  proj: SDS,  target_type: AVH-SSE-300,      build_type: DebugPlay,    board: B-U585I },
-          { tool: GCC,  dir: ./ST/B-U585I-IOT02A,  proj: SDS,  target_type: AVH-SSE-300,      build_type: ReleasePlay,  board: B-U585I }
+          # toolchain,  example directory,                          artifact name,               project name, target type,                   build type
+          { tool: GCC,  dir: ./Alif/AppKit,                         art_name: AppKit,            proj: SDS,    target_type: AE722F80F55D5LS,  build_type: DebugRec,     board: AppKit },
+          { tool: GCC,  dir: ./Alif/AppKit,                         art_name: AppKit,            proj: SDS,    target_type: AE722F80F55D5LS,  build_type: DebugPlay,    board: AppKit },
+          { tool: GCC,  dir: ./Alif/AppKit,                         art_name: AppKit,            proj: SDS,    target_type: AE722F80F55D5LS,  build_type: ReleaseRec,   board: AppKit },
+          { tool: GCC,  dir: ./Alif/AppKit,                         art_name: AppKit,            proj: SDS,    target_type: AE722F80F55D5LS,  build_type: ReleasePlay,  board: AppKit },
+          { tool: GCC,  dir: ./Alif/AppKit,                         art_name: AppKit,            proj: SDS,    target_type: AVH-SSE-300,      build_type: DebugRec,     board: AppKit },
+          { tool: GCC,  dir: ./Alif/AppKit,                         art_name: AppKit,            proj: SDS,    target_type: AVH-SSE-300,      build_type: DebugPlay,    board: AppKit },
+          { tool: GCC,  dir: ./Alif/AppKit,                         art_name: AppKit,            proj: SDS,    target_type: AVH-SSE-300,      build_type: ReleaseRec,   board: AppKit },
+          { tool: GCC,  dir: ./Alif/AppKit,                         art_name: AppKit,            proj: SDS,    target_type: AVH-SSE-300,      build_type: ReleasePlay,  board: AppKit },
+          { tool: GCC,  dir: ./Alif/DevKit,                         art_name: DevKit,            proj: SDS,    target_type: AE722F80F55D5LS,  build_type: DebugRec,     board: DevKit },
+          { tool: GCC,  dir: ./Alif/DevKit,                         art_name: DevKit,            proj: SDS,    target_type: AE722F80F55D5LS,  build_type: DebugPlay,    board: DevKit },
+          { tool: GCC,  dir: ./Alif/DevKit,                         art_name: DevKit,            proj: SDS,    target_type: AE722F80F55D5LS,  build_type: ReleaseRec,   board: DevKit },
+          { tool: GCC,  dir: ./Alif/DevKit,                         art_name: DevKit,            proj: SDS,    target_type: AE722F80F55D5LS,  build_type: ReleasePlay,  board: DevKit },
+          { tool: GCC,  dir: ./Alif/DevKit,                         art_name: DevKit,            proj: SDS,    target_type: AVH-SSE-300,      build_type: DebugRec,     board: DevKit },
+          { tool: GCC,  dir: ./Alif/DevKit,                         art_name: DevKit,            proj: SDS,    target_type: AVH-SSE-300,      build_type: DebugPlay,    board: DevKit },
+          { tool: GCC,  dir: ./Alif/DevKit,                         art_name: DevKit,            proj: SDS,    target_type: AVH-SSE-300,      build_type: ReleaseRec,   board: DevKit },
+          { tool: GCC,  dir: ./Alif/DevKit,                         art_name: DevKit,            proj: SDS,    target_type: AVH-SSE-300,      build_type: ReleasePlay,  board: DevKit },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/MotionRecognition, art_name: MotionRecognition, proj: SDS,    target_type: STM32U585AIIx,    build_type: DebugRec,     board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/MotionRecognition, art_name: MotionRecognition, proj: SDS,    target_type: STM32U585AIIx,    build_type: DebugPlay,    board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/MotionRecognition, art_name: MotionRecognition, proj: SDS,    target_type: STM32U585AIIx,    build_type: ReleaseRec,   board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/MotionRecognition, art_name: MotionRecognition, proj: SDS,    target_type: STM32U585AIIx,    build_type: ReleasePlay,  board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/MotionRecognition, art_name: MotionRecognition, proj: SDS,    target_type: AVH-SSE-300,      build_type: DebugPlay,    board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/MotionRecognition, art_name: MotionRecognition, proj: SDS,    target_type: AVH-SSE-300,      build_type: ReleasePlay,  board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/VoiceRecognition,  art_name: VoiceRecognition,  proj: SDS,    target_type: STM32U585AIIx,    build_type: DebugRec,     board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/VoiceRecognition,  art_name: VoiceRecognition,  proj: SDS,    target_type: STM32U585AIIx,    build_type: DebugPlay,    board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/VoiceRecognition,  art_name: VoiceRecognition,  proj: SDS,    target_type: STM32U585AIIx,    build_type: ReleaseRec,   board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/VoiceRecognition,  art_name: VoiceRecognition,  proj: SDS,    target_type: STM32U585AIIx,    build_type: ReleasePlay,  board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/VoiceRecognition,  art_name: VoiceRecognition,  proj: SDS,    target_type: AVH-SSE-300,      build_type: DebugPlay,    board: B-U585I },
+          { tool: GCC,  dir: ./ST/B-U585I-IOT02A/VoiceRecognition,  art_name: VoiceRecognition,  proj: SDS,    target_type: AVH-SSE-300,      build_type: ReleasePlay,  board: B-U585I }
           ]
 
       fail-fast: false
@@ -86,6 +93,6 @@ jobs:
     - name: Upload output for context ${{matrix.context.proj}}.${{matrix.context.build_type}}+${{matrix.context.target_type}}
       uses: actions/upload-artifact@v4
       with:
-        name: ${{matrix.context.tool}}_build_${{matrix.context.proj}}.${{matrix.context.build_type}}+${{matrix.context.target_type}}.${{matrix.context.board}}
+        name: ${{matrix.context.tool}}_build_${{matrix.context.art_name}}_${{matrix.context.proj}}.${{matrix.context.build_type}}+${{matrix.context.target_type}}.${{matrix.context.board}}
         path: ${{matrix.context.dir}}/out
 
