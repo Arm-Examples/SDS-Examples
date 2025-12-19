@@ -1,0 +1,72 @@
+solution:
+  description: SDS recorder/player reference example
+  created-for: CMSIS-Toolbox@2.12.0
+  cdefault:
+
+  # List of tested compilers that can be selected
+  select-compiler:
+    - compiler: AC6
+    - compiler: GCC
+    - compiler: IAR
+
+  compiler: AC6 # select compiler for solution
+
+  # This is a CMSIS-Toolbox Reference Application that requires a compatible board layer
+  # Refer to https://open-cmsis-pack.github.io/cmsis-toolbox/ReferenceApplications/ for more information
+
+  packs:
+    - pack: ARM::SDS@^2.0.0
+    - pack: AlifSemiconductor::Ensemble@^2.0.2
+
+  # List of miscellaneous tool-specific controls
+  misc:
+    - for-compiler: AC6 # GDB requires DWARF 5, remove when using uVision Debugger
+      C-CPP:
+        - -gdwarf-5
+      ASM:
+        - -gdwarf-5
+
+  # List different hardware targets that are used to deploy the solution.
+  target-types:
+    - type: DevKit-E8-U55
+      device: AE822FA0E5597LS0
+      board: DevKit-E8:Gen 1
+      variables:
+        - Board-Layer: $SolutionDir()$/Board/DevKit-E8_M55_HP/Board_HP.clayer.yml
+        - SDSIO-Layer: $SolutionDir()$/sdsio/network/sdsio_network.clayer.yml
+        - ML-Layer: $SolutionDir()$/ML/ml_layer.clayer.yml
+      target-set:
+        - set:
+          images:
+            - project-context: AlgorithmTest.DebugRec
+          debugger:
+            name: J-Link Server
+            clock: 4000000
+            protocol: swd
+
+  # List of different build configurations.
+  build-types:
+    - type: DebugRec
+      debug: on
+      optimize: none
+
+    - type: DebugPlay
+      debug: on
+      optimize: none
+      define:
+        - SDS_PLAY: 1
+
+    - type: ReleaseRec
+      debug: off
+      optimize: balanced
+
+    - type: ReleasePlay
+      debug: off
+      optimize: balanced
+      define:
+        - SDS_PLAY: 1
+
+  # List related projects.
+  projects:
+    - project: datatest/DataTest.cproject.yml
+    - project: algorithm/AlgorithmTest.cproject.yml
