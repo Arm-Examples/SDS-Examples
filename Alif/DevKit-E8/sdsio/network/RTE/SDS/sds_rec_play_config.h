@@ -32,7 +32,7 @@
 //   <i>Default: 8192
 //   <i>Buffer size must be at least as large as
 //   <i>the largest data block size plus 8 bytes for the header.
-#define SDS_REC_PLAY_BUF_SIZE           8192U
+#define SDS_REC_PLAY_BUF_SIZE           ((192 * 192 * 3) + 8)
 
 // </h>
 
