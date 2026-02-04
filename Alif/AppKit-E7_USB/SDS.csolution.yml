@@ -1,0 +1,64 @@
+solution:
+  description: SDS recorder/player reference example
+  created-for: CMSIS-Toolbox@2.12.0
+  cdefault:
+
+  # List of tested compilers that can be selected
+  select-compiler:
+    - compiler: AC6
+    - compiler: GCC
+    - compiler: IAR
+
+  compiler: AC6 # select compiler for solution
+
+  # This is a CMSIS-Toolbox Reference Application that requires a compatible board layer
+  # Refer to https://open-cmsis-pack.github.io/cmsis-toolbox/ReferenceApplications/ for more information
+
+  packs:
+    - pack: ARM::SDS@>=2.0.1-0
+    - pack: AlifSemiconductor::Ensemble@>=2.1.0-0
+
+  # List different hardware targets that are used to deploy the solution.
+  target-types:
+    - type: AppKit-E7-AIML
+      device: AE722F80F55D5LS
+      board: AppKit-E7-AIML:Gen 2
+      variables:
+        - Board-Layer: $SolutionDir()$/Board/AppKit-E7_M55_HP/Board_HP.clayer.yml
+        - SDSIO-Layer: $SolutionDir()$/sdsio/usb/sdsio_usb.clayer.yml
+        - ML-Layer: $SolutionDir()$/ML/ml_layer.clayer.yml
+      target-set:
+        - set:
+          debugger:
+            name: J-Link Server
+            clock: 4000000
+            protocol: swd
+          images:
+            - project-context: AlgorithmTest.DebugRec
+
+  # List of different build configurations.
+  build-types:
+    - type: DebugRec
+      debug: on
+      optimize: debug
+
+    - type: DebugPlay
+      debug: on
+      optimize: debug
+      define:
+        - SDS_PLAY: 1
+
+    - type: ReleaseRec
+      debug: off
+      optimize: balanced
+
+    - type: ReleasePlay
+      debug: off
+      optimize: balanced
+      define:
+        - SDS_PLAY: 1
+
+  # List related projects.
+  projects:
+    - project: datatest/DataTest.cproject.yml
+    - project: algorithm/AlgorithmTest.cproject.yml
