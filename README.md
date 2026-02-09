@@ -35,8 +35,8 @@ Run a blinky example for the related board first to verify tool installation.
 
 | Example name                                               | Description   |
 |---                                                         |---            |
-| [Alif/AppKit](./Alif/AppKit/SDS.csolution.yml)             | [SDS Application on Alif AppKit board with SDSIO using USB interface](./Alif/AppKit/README.md). [Alif AppKit board](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e7-aiml-gen-2-140e28d/guide/)              |
-| [Alif/DevKit](./Alif/DevKit/SDS.csolution.yml)             | [SDS Application on Alif DevKit board with SDSIO using Ethernet interface](./Alif/DevKit/README.md). [Alif DevKit board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e7-gen-2-92ef25f/guide/) |
+| [Alif/AppKit-E7_USB/ObjectDetection](./Alif/AppKit-E7_USB/SDS.csolution.yml)                   | [SDS Application for object detection on Alif AppKit-E7 board with SDSIO using USB interface](./Alif/AppKit-E7_USB/README.md). [Alif AppKit-E7 board](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e7-aiml-gen-2-140e28d/projects/) |
+| [Alif/DevKit-E8_USB/ObjectDetection](./Alif/DevKit-E8_USB/SDS.csolution.yml)                   | [SDS Application for object detection on Alif DevKit-E8 board with SDSIO using USB interface](./Alif/DevKit-E8_USB/README.md). [Alif DevKit-E8 board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-gen-1-2558a7b/projects/) |
 | [ST/B-U585I-IOT02A/MotionRecognition](./ST/B-U585I-IOT02A/MotionRecognition/SDS.csolution.yml) | [SDS application for motion recognition on STMicroelectronics B-U585I-IOT02A board with SDSIO using the USB interface](./ST/B-U585I-IOT02A/MotionRecognition/README.md). [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/) |
 | [ST/B-U585I-IOT02A/KeywordSpotting](./ST/B-U585I-IOT02A/KeywordSpotting/SDS.csolution.yml)     | [SDS application for keyword spotting on STMicroelectronics B-U585I-IOT02A board with SDSIO using the USB interface](./ST/B-U585I-IOT02A/KeywordSpotting/README.md). [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/) |
 
@@ -47,8 +47,8 @@ Run a blinky example for the related board first to verify tool installation.
 |---                                        |--- |
 | [.ci](./.ci)                              | Files that are related to the Continuous Integration (CI) tests. |
 | [.github/workflows](./.github/workflows)  | [GitHub Actions](#github-actions) scripts for build and execution tests. |
-| [Alif/AppKit](./Alif/AppKit)              | SDS Framework deployed to Alif AppKit using USB communication. |
-| [Alif/DevKit](./Alif/DevKit)              | SDS Framework deployed to Alif DevKit using Ethernet communication. |
+| [Alif/AppKit-E7_USB](./Alif/AppKit-E7_USB)| SDS Framework deployed to [Alif AppKit-E7](https://alifsemi.com/support/kits/ensemble-e7appkit/) using USB communication. |
+| [Alif/DevKit-E8_USB](./Alif/DevKit-E8_USB)| SDS Framework deployed to [Alif DevKit-E8](https://alifsemi.com/support/kits/ensemble-e8devkit/) using USB communication. |
 | [ST/B-U585I-IOT02A/MotionRecognition](./ST/B-U585I-IOT02A/MotionRecognition)  | SDS Framework deployed to [ST B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599) using USB communication. |
 | [ST/B-U585I-IOT02A/KeywordSpotting](./ST/B-U585I-IOT02A/KeywordSpotting)      | SDS Framework deployed to [ST B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599) using USB communication. |
 | [Jupyter](./Jupyter)                      | Display SDS data files using a Jupyter notebook. |
