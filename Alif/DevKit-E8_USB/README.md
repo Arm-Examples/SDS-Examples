@@ -246,7 +246,7 @@ Alternatively, when configured as **Player**:
 One can use the **AlgorithmTest** project in a same way as **DataTest**. In VS Code, open
 CMSIS view and use **Manage Solution Settings** to select **AlgorithmTest** as Active Project.
 
-> [!NOTE]
+> Note:
 >
 > - connect MT9M114 camera to the J16 connector on the bottom of the DevKit-E8 board.
 > - connect display to the J21 connector on the top of the DevKit-E8 board.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Arm Limited. All rights reserved.
+ * Copyright (c) 2025-2026 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -18,15 +18,15 @@
 
 #include <stddef.h>
 #include <stdio.h>
+#include <string.h>
+
+#include "cmsis_os2.h"
+#include "cmsis_vstream.h"
 
 #include "sds_algorithm_config.h"
 #include "sds_data_in.h"
 
-#include "cmsis_vstream.h"
-#include "cmsis_os2.h"
-
 #include "app_setup.h"
-
 #include "image_processing_func.h"
 
 /* Reference to the underlying CMSIS vStream VideoIn driver */
