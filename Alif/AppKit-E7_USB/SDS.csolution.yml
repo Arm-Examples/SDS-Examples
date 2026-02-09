@@ -15,14 +15,14 @@ solution:
   # Refer to https://open-cmsis-pack.github.io/cmsis-toolbox/ReferenceApplications/ for more information
 
   packs:
-    - pack: ARM::SDS@>=2.0.1-0
-    - pack: AlifSemiconductor::Ensemble@>=2.1.0-0
+    - pack: ARM::SDS@^2.0.1-0
+    - pack: AlifSemiconductor::Ensemble@^2.1.0-0
 
   # List different hardware targets that are used to deploy the solution.
   target-types:
     - type: AppKit-E7-AIML
       device: AE722F80F55D5LS
-      board: AppKit-E7-AIML:Gen 2
+      board: AppKit-E7-AIML
       variables:
         - Board-Layer: $SolutionDir()$/Board/AppKit-E7_M55_HP/Board_HP.clayer.yml
         - SDSIO-Layer: $SolutionDir()$/sdsio/usb/sdsio_usb.clayer.yml

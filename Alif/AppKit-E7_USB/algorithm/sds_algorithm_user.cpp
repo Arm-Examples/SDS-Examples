@@ -20,6 +20,9 @@
 #include <cstdint>  // For uint8_t, int32_t, uint32_t
 #include <cstdio>   // For printf
 #include <stdio.h>
+#include <string.h>
+
+#include "cmsis_vstream.h"
 
 #include "sds_algorithm_config.h"
 #include "sds_algorithm.h"
@@ -30,7 +33,6 @@
 #include "YoloFastestModel.hpp"       /* Model API    */
 
 #include "app_setup.h"
-#include "cmsis_vstream.h"
 #include "image_processing_func.h"
 
 static void DrawBox(uint8_t *imageData, const uint32_t x0, const uint32_t y0, const uint32_t w, const uint32_t h);
@@ -80,7 +82,7 @@ extern vStreamDriver_t          Driver_vStreamVideoOut;
 
 /* Video Out Stream Event Callback */
 void VideoOut_Event_Callback (uint32_t event) {
-    (void)event;
+  (void)event;
 }
 
 /**
