@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Arm Limited. All rights reserved.
+ * Copyright (c) 2025-2026 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -18,10 +18,10 @@
 
 #include <stddef.h>
 #include <stdio.h>
-#include "sds_algorithm_config.h"
-#include "sds_data_in.h"
 #include "cmsis_os2.h"
 #include "cmsis_compiler.h"
+#include "sds_algorithm_config.h"
+#include "sds_data_in.h"
 #include "vstream_accelerometer.h"
 
 // Flag for signaling block of (accelerometer) data was captured

@@ -89,7 +89,7 @@ Ensure that SDSIO-Server is running, then restart the application!
 99% idle
 ```
 
-> NOTE
+> Note:
 >
 > It is possible to configure the input data bandwidth by editing `SDS_ALGO_TEST_BANDWIDTH` define in the `sds_algorithm_config.h` file.
 > Default bandwidth is configured to `100000U` which means approximately 100000 bytes per second.
@@ -204,7 +204,7 @@ The DataTest can be also executed on [AVH-FVP](https://github.com/ARM-software/A
 2. **Build solution** to create an executable image.
 3. **Load and Run** starts the application on the AVH-FVP simulation. The output is shown in the Terminal console.
 
-> NOTE
+> Note:
 >
 > The user button is simulated with the function `simGetSignal` in the file `sds_control.c`.
 
@@ -343,7 +343,7 @@ To playback the recorded SDS data files use in VS Code the following steps:
 2. **Build solution** creates the executable image.
 3. **Load and Run** to runs the application on the simulator and uses the SDS datafiles previous captured.
 
-> NOTE
+> Note:
 >
 > To playback existing algorithm recordings from `./algorithm/SDS Recordings` subfolder,
 > create a file with name `sdsio.yml` in the same folder where `SDS.csolution.yml` file is
