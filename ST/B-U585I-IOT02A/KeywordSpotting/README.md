@@ -89,7 +89,7 @@ Ensure that SDSIO-Server is running, then restart the application!
 99% idle
 ```
 
-> NOTE
+> Note:
 >
 > It is possible to configure the input data bandwidth by editing `SDS_ALGO_TEST_BANDWIDTH` define in the `sds_algorithm_config.h` file.
 > Default bandwidth is configured to `100000U` which means approximately 100000 bytes per second.
@@ -168,10 +168,12 @@ For executing the **playback** test, follow the steps below:
 
 The stream `DataInput.<n>.sds` is read back and the algorithm processes this data. The stream `DataOutput.<m>.sds` is written whereby `<m>` is the next available file index.
 
-To verify that the SDS component usage on hardware is reliable the two algorithm output data generated during recording and playback: the files `DataOutput.<n>.sds` and `DataOutput.<m>.sds` should be identical, e.g. `DataOutput.0.sds` and `DataOutput.1.sds` should be binary identical.
-
-> **Note:** The playback implementation replays recordings as quickly as possible and does not account for timestamp data.
->           During playback, the ML system receives the same recorded input data, so timing information is not relevant in this context.
+> **Notes:**
+>
+> - The playback algorithm output data generated during playback is different then the one recorded during recording because
+>   algorithm depends on data preceding the recording thus results are not identical.  
+> - The playback implementation replays recordings as quickly as possible and does not account for timestamp data.
+>   During playback, the ML system receives the same recorded input data, so timing information is not relevant in this context.
 
 **Output of SDSIO Server**
 

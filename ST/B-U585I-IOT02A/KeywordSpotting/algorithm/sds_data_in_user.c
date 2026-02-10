@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2025 Arm Limited. All rights reserved.
+﻿/*
+ * Copyright (c) 2025-2026 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -18,10 +18,10 @@
 
 #include <stddef.h>
 #include <stdio.h>
-#include "sds_algorithm_config.h"
-#include "sds_data_in.h"
 #include "cmsis_os2.h"
 #include "cmsis_compiler.h"
+#include "sds_algorithm_config.h"
+#include "sds_data_in.h"
 #include "vstream_audio_in.h"
 
 // Flag for signaling block of (audio in) data was captured
@@ -111,7 +111,7 @@ int32_t GetInputData (uint8_t *buf, uint32_t max_len) {
   }
 
   // Check if buffer can fit expected data
-  if (max_len < (EI_CLASSIFIER_SLICE_SIZE * sizeof(int16_t))) {
+  if (max_len < SDS_ALGO_DATA_IN_BLOCK_SIZE) {
     return -1;
   }
 

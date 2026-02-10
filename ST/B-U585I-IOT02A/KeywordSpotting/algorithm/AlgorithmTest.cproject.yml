@@ -2,7 +2,7 @@ project:
   description: Record data or playback recorded data as algorithm input and record algorithm output data
 
   packs:
-    - pack: ARM::CMSIS@^6.2.0-0
+    - pack: ARM::CMSIS@^6.2.0
     - pack: ARM::CMSIS-RTX@^5.9.0
 
   connections:
@@ -33,9 +33,9 @@ project:
         - file: sds_algorithm_user.cpp
         - file: sds_algorithm_config.h
         - file: sds_data_in_user.c
-          not-for-context:
-            - .DebugPlay
-            - .ReleasePlay
+          for-context:
+            - .DebugRec
+            - .ReleaseRec
         - file: sds_data_in_play.c
           for-context:
             - .DebugPlay
