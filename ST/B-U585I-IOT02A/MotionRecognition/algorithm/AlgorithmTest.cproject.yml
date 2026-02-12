@@ -54,7 +54,8 @@ project:
       type:  SDSIO
     - layer: $Board-Layer$
       type:  Board
-    - layer: ./ML/EI/Layer/edgeimpulse.clayer.yml
+    - layer: ML/EI/Layer/edgeimpulse.clayer.yml
+      type:  ML
 
   output:
     type:
