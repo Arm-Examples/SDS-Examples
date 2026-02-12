@@ -47,7 +47,6 @@ LR_ROM __ROM_BASE NOCOMPRESS __ROM_SIZE  {    ; load region size_region
    *mpu*.o (+RO)
    *sau_tcm_ns_setup*.o (+RO)
 
-   * (nn_model)
    .ANY (+RO)
    .ANY (+XO)
   }

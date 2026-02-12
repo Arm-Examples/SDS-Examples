@@ -86,7 +86,7 @@
     }, { 
         "label" : "CMSIS Load",
         "type" : "shell",
-        "command" : [ "echo Connect > .cmd.jlink &&", "echo LoadFile \"out/AlgorithmTest/DevKit-E8-U55/DebugRec/AlgorithmTest.hex\" >> .cmd.jlink &&", "echo Exit >> .cmd.jlink &&", "JLink.exe -device AE822FA0E5597LS0_M55_HP -if swd -speed 4000 -commandfile .cmd.jlink" ],
+        "command" : [ "echo Connect > .cmd.jlink &&", "echo LoadFile \"out/DataTest/DevKit-E8-U55/DebugRec/DataTest.hex\" >> .cmd.jlink &&", "echo Exit >> .cmd.jlink &&", "JLink.exe -device AE822FA0E5597LS0_M55_HP -if swd -speed 4000 -commandfile .cmd.jlink" ],
         "options" : { 
             "cwd" : "${workspaceFolder}/",
             "shell" : { 

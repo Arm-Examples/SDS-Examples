@@ -92,11 +92,12 @@ Now open CMSIS view in VS Code to build and run the project using the following 
 1. Use **Manage Solution Settings** and select as Active Project **DataTest** with Build Type **DebugRec**.
 2. Open `sdsio_config_socket.h` and configure SDSIO_SOCKET_SERVER_IP to the SDSIO server provided IP.
 3. **Build solution** creates the executable image.
-4. Connect the USB_PRG (J3) of the DevKit-E8 and configure SW4 switch for SETOOLS.
+4. Connect the PRG USB (J3) of the DevKit-E8 and configure SW4 switch for SETOOLS (SE position).
 5. If not already done, download debug stubs using `"Alif: Install M55_HE or M55_HP debug stubs (single core configuration)"` task
-6. **Load and Run** to download the application.
-7. Configure SW4 for UART4 and use the VS Code **Serial Monitor** to observe the output below.
-8. Reset the board with RESET (SW1) button
+6. **Load application to target** to download the application to the board.
+7. Configure SW4 for UART4 (U4 position) and use the VS Code **Serial Monitor** to observe the output below.
+8. Connect the local network Ethernet cable to the J2 (RJ45) connector on the DevKit-E8.
+9. Reset the board with RESET (SW1) button
 
 ```txt
 Initializing sockets...
@@ -173,16 +174,19 @@ Validation passed
 
 ### Playback Test
 
-Make sure that the SDSIO-Server is still running and that the Ethernet cable is still
-connected to the DevKit-E8 Ethernet connector (J5).
-
 To execute the **playback** test, follow the steps below:
 
 1. Use **Manage Solution Settings** and select as Active Project **DataTest** with Build Type **DebugPlay**.
-2. **Build solution** creates the executable image.
-3. **Load and Run** the application on the board.
-4. Press a joystick (SW2) on the board to start playback of `DataInput` and recording of `DataOutput`.
-5. Wait for playback to finish, it will finish automatically when all data from `DataInput.0.sds` SDS file was played back.
+2. Open `sdsio_config_socket.h` and configure SDSIO_SOCKET_SERVER_IP to the SDSIO server provided IP.
+3. **Build solution** creates the executable image.
+4. Connect the PRG USB (J3) of the DevKit-E8 and configure SW4 switch for SETOOLS (SE position).
+5. If not already done, download debug stubs using `"Alif: Install M55_HE or M55_HP debug stubs (single core configuration)"` task
+6. **Load application to target** to download the application to the board.
+7. Configure SW4 for UART4 (U4 position) and use the VS Code **Serial Monitor** to observe the application output (STDIO).
+8. Connect the local network Ethernet cable to the J2 (RJ45) connector on the DevKit-E8.
+9. Reset the board with RESET (SW1) button
+10. Press a joystick (SW2) on the board to start playback of `DataInput` and recording of `DataOutput`.
+11. Wait for playback to finish, it will finish automatically when all data from `DataInput.0.sds` SDS file was played back.
 
 The stream `DataInput.<n>.sds` is read back and the algorithm processes this data. The stream `DataOutput.<m>.sds` is written whereby `<m>` is the next available file index.
 

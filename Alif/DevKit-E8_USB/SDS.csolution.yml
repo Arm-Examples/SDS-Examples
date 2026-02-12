@@ -26,7 +26,6 @@ solution:
       variables:
         - Board-Layer: $SolutionDir()$/Board/DevKit-E8_M55_HP/Board_HP.clayer.yml
         - SDSIO-Layer: $SolutionDir()$/sdsio/usb/sdsio_usb.clayer.yml
-        - ML-Layer: $SolutionDir()$/ML/ml_layer.clayer.yml
       target-set:
         - set:
           debugger:
@@ -34,7 +33,7 @@ solution:
             clock: 4000000
             protocol: swd
           images:
-            - project-context: AlgorithmTest.DebugRec
+            - project-context: DataTest.DebugRec
 
   # List of different build configurations.
   build-types:

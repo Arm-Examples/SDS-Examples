@@ -50,7 +50,7 @@ project:
       type:  SDSIO
     - layer: $Board-Layer$
       type:  Board
-    - layer: $ML-Layer$
+    - layer: ML/ML.clayer.yml
       type:  ML
 
   output:
