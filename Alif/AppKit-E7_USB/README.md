@@ -9,11 +9,11 @@ them to your algorithm for testing. The data streams are stored in SDS data file
 To run this example:
 
 - Install [Keil Studio for VS Code](https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack) and run a Blinky example on the board to verify tool installation.
-- Clone, build and install development version of the SDS-Framework pack from:
-  - `https://github.com/ARM-software/SDS-Framework.git`
+- Install SDS-Framework pack v2.1.0 or later from:
+  - `https://github.com/ARM-software/SDS-Framework/releases`
 - Setup the [Python environment](https://arm-software.github.io/SDS-Framework/main/utilities.html#setup) for running the SDS Utilities.
-- Clone, build and install development version of the Alif Ensemble CMSIS DFP pack from:
-  - `git clone https://github.com/VladimirUmek/alif_ensemble-cmsis-dfp.git`
+- Install Alif Ensemble CMSIS DFP pack v2.1.0 or later with:
+  - `cpackget add AlifSemiconductor::Ensemble@2.1.0`
 
 ## Alif AppKit-E7-AIML
 
