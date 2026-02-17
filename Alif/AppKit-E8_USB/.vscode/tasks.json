@@ -132,7 +132,7 @@
             "type": "shell",
             "command": [
                 "echo Connect > .cmd.jlink &&",
-                "echo LoadFile \"out/DataTest/AppKit-E7-AIML-U55/DebugRec/DataTest.hex\" >> .cmd.jlink &&",
+                "echo LoadFile \"out/DataTest/AppKit-E8-AIML-U55/DebugRec/DataTest.hex\" >> .cmd.jlink &&",
                 "echo Exit >> .cmd.jlink &&",
                 "JLink.exe -device AE822FA0E5597BS0_M55_HP -if swd -speed 4000 -commandfile .cmd.jlink"
             ],

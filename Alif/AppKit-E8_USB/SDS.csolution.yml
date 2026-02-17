@@ -20,7 +20,7 @@ solution:
 
   # List different hardware targets that are used to deploy the solution.
   target-types:
-    - type: AppKit-E7-AIML-U55
+    - type: AppKit-E8-AIML-U55
       device: AE822FA0E5597BS0
       board: AppKit-E8-AIML
       variables:
