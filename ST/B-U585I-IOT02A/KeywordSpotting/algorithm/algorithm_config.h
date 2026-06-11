@@ -16,36 +16,19 @@
  * limitations under the License.
  */
 
-#ifndef SDS_MAIN_H_
-#define SDS_MAIN_H_
+#ifndef ALGORITHM_CONFIG_H_
+#define ALGORITHM_CONFIG_H_
 
-#include <stdint.h>
-#include "cmsis_compiler.h"
+#include "model_metadata.h"             // ML model configuration
 
-#ifdef  __cplusplus
-extern "C"
-{
+// Input Data block size, in bytes
+#ifndef ALGO_DATA_IN_BLOCK_SIZE
+#define ALGO_DATA_IN_BLOCK_SIZE         (EI_CLASSIFIER_SLICE_SIZE * sizeof(int16_t))
 #endif
 
-/**
-  \fn           int32_t OpenStreams (void)
-  \brief        Open streams used by the application.
-  \return       0 on success; -1 on error
-*/
-extern int32_t OpenStreams (void);
-
-/**
-  \fn           int32_t CloseStreams (void)
-  \brief        Close streams used by the application.
-  \return       0 on success; -1 on error
-*/
-extern int32_t CloseStreams (void);
-
-// Algorithm Thread function
-extern __NO_RETURN void AlgorithmThread (void *argument);
-
-#ifdef  __cplusplus
-}
+// Output Data block size, in bytes
+#ifndef ALGO_DATA_OUT_BLOCK_SIZE
+#define ALGO_DATA_OUT_BLOCK_SIZE        (EI_CLASSIFIER_NN_OUTPUT_COUNT * sizeof(float))
 #endif
 
 #endif
