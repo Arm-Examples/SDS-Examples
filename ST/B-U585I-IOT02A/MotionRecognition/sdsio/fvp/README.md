@@ -1,9 +1,10 @@
-# SDS Interface - Simulator (FVP)
+# SDS with SDSIO via VSI (Simulator)
 
-This SDS Interface uses the VSI Simulation interface on the Arm Virtual Hardware FVP model.
+This layer provides SDS with SDSIO using the VSI Simulation interface on the Arm Virtual Hardware FVP model.
 It is based on the following components:
 
-- [SDS Recorder and Player](https://arm-software.github.io/SDS-Framework/main/SDS_API/group__SDS__Recorder__Player.html) data streaming,
+- [SDS](https://arm-software.github.io/SDS-Framework/main/SDS_API/group__SDS__Stream__Interface.html) data streaming,
+- [SDSIO](https://arm-software.github.io/SDS-Framework/main/SDS_API/group__SDSIO__Interface.html) SDSIO interface,
 - [VSI interface](https://arm-software.github.io/AVH/main/simulation/html/group__arm__vsi.html) for simulation.
 
 ## SDS Configuration
@@ -11,52 +12,30 @@ It is based on the following components:
 The following SDS software components are required:
 
 ```yml
-  - component: SDS:Buffer
+  - component: SDS:Stream&CMSIS-RTOS2
   - component: SDS:IO:VSI
-  - component: SDS:RecPlay&CMSIS-RTOS2
 ```
 
 ## FVP Configuration
 
-The Arm Virtual Hardware is configured with the [fvp_config.txt](https://github.com/ARM-software/SDS-Framework/blob/main/template/Board/Corstone-300/fvp_config.txt). You can leave the configuration settings at their default values, a change is not necessary.
+The Arm Virtual Hardware is configured for **Corstone-300** with the [fvp_config.txt](https://github.com/ARM-software/SDS-Framework/blob/main/template/Board/Corstone-300/fvp_config.txt).
+You can leave the configuration settings at their default values, a change is not necessary.
 
 An important configuration setting is the path to the Python simulation scripts. The path refers to the solution folder:
 
-```txt
-mps3_board.v_path=Board/Corstone-300/vsi/python/
-```
+- For **Corstone-300 with Ethos-U55**:
+
+  ```txt
+  mps3_board.v_path=./Board/Corstone-300/vsi/python/
+  ```
 
 ## Project Configuration
 
-During the simulation, the SDS files are saved on or read from the Host computer. The following steps are required to configure the project for execution on the AVH-FVP simulator:
+During the simulation, the SDS files are saved on or read from the host computer. The following steps are required to configure the project for execution on the AVH-FVP simulator:
 
 - create a [New Solution](https://arm-software.github.io/SDS-Framework/main/template.html#create-new-solution) named `SDS` in an empty folder with VS Code IDE.
-- select the active target `AVH-SSE-300` and build the application.
-- open a [vcpkg-configuration.json](https://learn.arm.com/learning-paths/embedded-and-microcontrollers/vcpkg-tool-installation/config_creation/)
-  file and add the following line to the **"requires"** section:
+- select the active target `SSE-300-U55`, build and run the application.
 
-  ```json
-  "arm:models/arm/avh-fvp": "~11.29.27"
-  ```
+## Usage
 
-- open a file `tasks.json` and add a simulation task `AVH-FVP`:
-
-  ```json
-  {
-      "label": "AVH-FVP",
-      "type": "shell",
-      "command": "FVP_Corstone_SSE-300_Ethos-U55",
-      "args": [
-          "-f",
-          "Board/Corstone-300/fvp_config.txt",
-          "${command:cmsis-csolution.getBinaryFile}"
-      ],
-      "problemMatcher": []
-  }
-  ```
-
-- run the task `AVH-FVP` from the VS Code.
-
-**Note**
-
-- The installation of a stable Python version 3.9 is required.
+For more information refer to [Using FVP Simulation Models](https://arm-software.github.io/SDS-Framework/main/sdsio.html#using-fvp-simulation-models).

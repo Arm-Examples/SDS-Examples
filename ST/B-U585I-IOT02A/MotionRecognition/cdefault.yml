@@ -3,16 +3,16 @@ default:
   misc:
     - for-compiler: AC6
       C-CPP:
-        - -fno-finite-math-only
         - -Wno-macro-redefined
         - -Wno-pragma-pack
         - -Wno-parentheses-equality
         - -Wno-license-management
         - -gdwarf-5
-        - -Wno-format
-        - -Wno-deprecated-declarations
+        - -Wno-nan-infinity-disabled
       C:
         - -std=gnu11
+      CPP:
+        - -Wno-deprecated-declarations
       ASM:
         - -masm=auto
         - -gdwarf-5
@@ -28,7 +28,6 @@ default:
         - -fomit-frame-pointer
         - -ffunction-sections
         - -fdata-sections
-        - -flax-vector-conversions
       C:
         - -std=gnu11
       Link:

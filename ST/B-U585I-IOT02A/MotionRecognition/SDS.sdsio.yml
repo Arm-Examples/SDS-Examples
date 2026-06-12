@@ -1,0 +1,17 @@
+sdsio:
+  interface:
+    usb:
+  workdir: ./algorithm/SDS Recordings
+  metadir: ./algorithm/SDS Recordings
+
+  # Data stream information used by VS Code extension
+  streams:
+    - name: ML_In
+      view: audio
+    - name: ML_Out
+      view: signal
+  
+  # Defines a playback test sequence
+  play:
+    - step: "Play ML_In.0.sds"
+      labels: [ 0 ]
