@@ -82,13 +82,13 @@ int32_t InitInputData (void) {
   if (evt_id_EventFlags == NULL) {
     return -1;
   }
-  if (ptrDriver_vStreamAudioIn->Initialize(vStreamAudioInEvent) != 0) {
+  if (ptrDriver_vStreamAudioIn->Initialize(vStreamAudioInEvent) != VSTREAM_OK) {
     return -1;
   }
-  if (ptrDriver_vStreamAudioIn->SetBuf(&vstream_buf, sizeof(vstream_buf), sizeof(vstream_buf) / 2) != 0) {
+  if (ptrDriver_vStreamAudioIn->SetBuf(&vstream_buf, sizeof(vstream_buf), sizeof(vstream_buf) / 2) != VSTREAM_OK) {
     return -1;
   }
-  if (ptrDriver_vStreamAudioIn->Start(VSTREAM_MODE_CONTINUOUS) != 0) {
+  if (ptrDriver_vStreamAudioIn->Start(VSTREAM_MODE_CONTINUOUS) != VSTREAM_OK) {
     return -1;
   }
 
@@ -104,8 +104,8 @@ void DiscardInputData (void) {
   /* Check for new audio input frame */
   uint32_t flags = osEventFlagsWait(evt_id_EventFlags, DATA_BLOCK_READY_FLAG, osFlagsWaitAny, 0U);
 
-  if (((flags & osFlagsError) == 0U) && // If not an error and
-      ((flags & 0x01)         != 0U)) { // if flag is set
+  if (((flags & osFlagsError)          == 0U) &&        // If not an error and
+      ((flags & DATA_BLOCK_READY_FLAG) != 0U)) {        // if flag data block ready is set
 
     /* Release audio input frame */
     if (ptrDriver_vStreamAudioIn->ReleaseBlock() != VSTREAM_OK) {
@@ -141,7 +141,7 @@ int32_t GetInputData (uint8_t *buf, uint32_t max_len) {
   uint32_t flags = osEventFlagsWait(evt_id_EventFlags, DATA_BLOCK_READY_FLAG, osFlagsWaitAny, osWaitForever);
 
   if (((flags & osFlagsError)          == 0U) &&        // If not an error and
-      ((flags & DATA_BLOCK_READY_FLAG) != 0U)) {        // if flag is data block ready
+      ((flags & DATA_BLOCK_READY_FLAG) != 0U)) {        // if flag data block ready is set
 
     // Get pointer to captured Audio In data
     ptr_audio_in_data_raw = (int16_t *)ptrDriver_vStreamAudioIn->GetBlock();

@@ -216,9 +216,14 @@ The DataTest can be also executed on [AVH-FVP](https://github.com/ARM-software/A
 2. **Build solution** to create an executable image.
 3. **Load and Run** starts the application on the AVH-FVP simulation. The output is shown in the Terminal console.
 
-> Note:
+> **Notes:**
 >
-> The simulator target only supports playback mode.
+> - The simulator target only supports playback mode.
+> - This example includes an `SDS.sdsio.yml` configuration file that sets `algorithm/SDS Recordings` as the working directory for SDS playback.
+>   To test the previous example, either: copy recorded files `Test_In.0.sds` and `Test_Out.0.sds` into that directory, or update the
+>   `workdir` in the `SDS.sdsio.yml`.
+>   For details on the sdsio.yml configuration format and available options, refer to
+>   the [documentation](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-control-file-sdsioyml).
 
 **FVP simulation output in the terminal**
 
@@ -364,6 +369,11 @@ Classification predictions:
 >   algorithm depends on data preceding the recording thus results are not identical.  
 > - The playback implementation replays recordings as quickly as possible and does not account for timestamp data.
 >   During playback, the ML system receives the same recorded input data, so timing information is not relevant in this context.
+> - This example includes an `SDS.sdsio.yml` configuration file that sets `algorithm/SDS Recordings` as the working directory for SDS playback.
+>   To test the previous example, either: copy recorded files `ML_In.0.sds` and `ML_Out.0.sds` into that directory, or update the
+>   `workdir` in the `SDS.sdsio.yml`.
+>   For details on the sdsio.yml configuration format and available options, refer to
+>   the [documentation](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-control-file-sdsioyml).
 
 ## AlgorithmTest playback on AVH-FVP Simulation
 

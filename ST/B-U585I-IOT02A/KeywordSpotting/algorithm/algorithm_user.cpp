@@ -35,7 +35,7 @@ static signal_t slice_signal;
 int get_data (size_t offset, size_t length, float *out_ptr) {
 
   // Debug print, to check data offsets and lengths
-  // printf("ofs = %4i, len = %4i\n", offset, length);
+  // ei_printf("ofs = %4i, len = %4i\n", offset, length);
 
   if (ptr_in_data == NULL) {
     return -1;
