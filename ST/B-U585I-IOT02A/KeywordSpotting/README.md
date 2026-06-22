@@ -385,6 +385,43 @@ To playback the recorded SDS data files use in VS Code the following steps:
 2. **Build solution** creates the executable image.
 3. **Load and Run** to runs the application on the simulator and uses the SDS files previous captured.
 
+**FVP simulation output in the terminal**
+
+```txt
+Executing task: FVP_Corstone_SSE-300_Ethos-U55 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/SSE-300-U55/Debug/AlgorithmTest.hex  
+
+Ethos-U version info:
+        Arch:       v1.1.0
+        MACs/cc:    256
+        Cmd stream: v0
+SDSIO VSI interface initialized successfully
+==== SDS playback started
+0% idle
+0% idle
+==== SDS playback stopped
+```
+
+**Content of the sdsio.log file recorded during the run**
+
+```txt
+Created by ...\KeywordSpotting\Board\Corstone-300\vsi\python\arm_vsi3.py
+
+SDSIO VSI version 3.0.0
+SDSIO_FVP environment variable not set.
+Working directory: ...\KeywordSpotting\algorithm\SDS Recordings.
+SDSIO configuration YAML: ...\KeywordSpotting\SDS.sdsio.yml.
+sdsFlags = 0xB0000000.
+Playback step 1/1: Play ML_In.0.sds.
+Playback: ML_In (ML_In.0.sds)
+Record:   ML_Out (ML_Out.0.p.sds)
+Closed:   ML_In (ML_In.0.sds)
+Closed:   ML_Out (ML_Out.0.p.sds)
+Playback complete - no more steps remaining.
+sdsFlags = 0x30000000.
+sdsFlags = 0x70000000.
+sdsFlags = 0x30000000.
+```
+
 > **Notes:**
 >
 > - Simulator uses `SDS.sdsio.yml` file as configuration and script for playback.
