@@ -219,9 +219,9 @@ The DataTest can be also executed on [AVH-FVP](https://github.com/ARM-software/A
 > **Notes:**
 >
 > - The simulator target only supports playback mode.
-> - This example includes an `SDS.sdsio.yml` configuration file that sets `algorithm/SDS Recordings` as the working directory for SDS playback.
+> - This example includes an `algorithm.sdsio.yml` configuration file that sets `algorithm/SDS Recordings` as the working directory for SDS playback.
 >   To test the previous example, either: copy recorded files `Test_In.0.sds` and `Test_Out.0.sds` into that directory, or update the
->   `workdir` in the `SDS.sdsio.yml`.
+>   `workdir` in the `algorithm.sdsio.yml`.
 >   For details on the sdsio.yml configuration format and available options, refer to
 >   the [documentation](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-control-file-sdsioyml).
 
@@ -369,9 +369,9 @@ Classification predictions:
 >   algorithm depends on data preceding the recording thus results are not identical.  
 > - The playback implementation replays recordings as quickly as possible and does not account for timestamp data.
 >   During playback, the ML system receives the same recorded input data, so timing information is not relevant in this context.
-> - This example includes an `SDS.sdsio.yml` configuration file that sets `algorithm/SDS Recordings` as the working directory for SDS playback.
+> - This example includes an `algorithm.sdsio.yml` configuration file that sets `algorithm/SDS Recordings` as the working directory for SDS playback.
 >   To test the previous example, either: copy recorded files `ML_In.0.sds` and `ML_Out.0.sds` into that directory, or update the
->   `workdir` in the `SDS.sdsio.yml`.
+>   `workdir` in the `algorithm.sdsio.yml`.
 >   For details on the sdsio.yml configuration format and available options, refer to
 >   the [documentation](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-control-file-sdsioyml).
 
@@ -409,7 +409,7 @@ Created by ...\KeywordSpotting\Board\Corstone-300\vsi\python\arm_vsi3.py
 SDSIO VSI version 3.0.0
 SDSIO_FVP environment variable not set.
 Working directory: ...\KeywordSpotting\algorithm\SDS Recordings.
-SDSIO configuration YAML: ...\KeywordSpotting\SDS.sdsio.yml.
+SDSIO configuration YAML: ...\KeywordSpotting\algorithm.sdsio.yml.
 sdsFlags = 0xB0000000.
 Playback step 1/1: Play ML_In.0.sds.
 Playback: ML_In (ML_In.0.sds)
@@ -424,5 +424,5 @@ sdsFlags = 0x30000000.
 
 > **Notes:**
 >
-> - Simulator uses `SDS.sdsio.yml` file as configuration and script for playback.
+> - Simulator uses `algorithm.sdsio.yml` file as configuration and script for playback.
 > - Simulator generates the output in the file `sdsio.log`.
