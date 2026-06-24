@@ -9,7 +9,7 @@ This repository contains examples that show the usage of the [Synchronous Data S
 
 ## Quick Start
 
-1. Install [Keil Studio for VS Code](https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack) from the
+1. Install [Keil Studio](https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack) and [Arm SDS](https://marketplace.visualstudio.com/items?itemName=Arm.cmsis-sds) from the
    VS Code marketplace.
 2. Clone this Git repository into a VS Code workspace.
 3. Open the [CMSIS View](https://mdk-packs.github.io/vscode-cmsis-solution-docs/userinterface.html#2-main-area-of-the-cmsis-view)
@@ -17,39 +17,32 @@ This repository contains examples that show the usage of the [Synchronous Data S
 4. The related tools and software packs are downloaded and installed. Review progress with *View - Output - CMSIS Solution*.
 5. In the CMSIS view, use the
    [Action buttons](https://github.com/ARM-software/vscode-cmsis-csolution?tab=readme-ov-file#action-buttons) to build,
-   load and debug the example on the hardware.
+   load and debug the example on target hardware.
+6. Follow the instructions in the example README and use the SDS view to show, record, and playback data streams.
 
 ## Example Description
 
 The SDS examples are configured for various Evaluation Boards and use the [MDK-Middleware](https://www.keil.arm.com/packs/mdk-middleware-keil/overview/) for the [SDSIO Interface](https://arm-software.github.io/SDS-Framework/main/sdsio.html). New hardware targets can be added using board layers that provide the required API interfaces.
 The examples are configured for [Keil Studio for VS Code](https://www.keil.arm.com/).
 Run a blinky example for the related board first to verify tool installation.
-> IMPORTANT
->
-> - Each example has a local VS Code configuration. Use in VS Code **Open Folder** to open the folder of each project individually.
 
-| Example name                                               | Description   |
+| Example                                                | Description   |
 |---                                                         |---            |
-| [Alif/AppKit-E7_USB](./Alif/AppKit-E7_USB/SDS.csolution.yml)                   | [SDS Application on Alif AppKit-E7 board with SDSIO using USB interface](./Alif/AppKit-E7_USB/README.md).      [Alif AppKit-E7 board](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e7-aiml-d1-34b5d51/guide/) |
-| [Alif/AppKit-E8_USB](./Alif/AppKit-E8_USB/SDS.csolution.yml)                   | [SDS Application on Alif AppKit-E8 board with SDSIO using USB interface](./Alif/AppKit-E8_USB/README.md).      [Alif AppKit-E8 board](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e8-aiml-a-b437af7/features/) |
-| [Alif/DevKit-E8_ETH](./Alif/DevKit-E8_ETH/SDS.csolution.yml)                   | [SDS Application on Alif DevKit-E8 board with SDSIO using Ethernet interface](./Alif/DevKit-E8_ETH/README.md). [Alif DevKit-E8 board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-a1-c8b9599/features/) |
-| [Alif/DevKit-E8_USB](./Alif/DevKit-E8_USB/SDS.csolution.yml)                   | [SDS Application on Alif DevKit-E8 board with SDSIO using USB interface](./Alif/DevKit-E8_USB/README.md).      [Alif DevKit-E8 board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-a1-c8b9599/features/) |
-| [ST/B-U585I-IOT02A/MotionRecognition](./ST/B-U585I-IOT02A/MotionRecognition/SDS.csolution.yml) | [SDS application for motion recognition on STMicroelectronics B-U585I-IOT02A board with SDSIO using the USB interface](./ST/B-U585I-IOT02A/MotionRecognition/README.md). [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/) |
-| [ST/B-U585I-IOT02A/KeywordSpotting](./ST/B-U585I-IOT02A/KeywordSpotting/SDS.csolution.yml)     | [SDS application for keyword spotting on STMicroelectronics B-U585I-IOT02A board with SDSIO using the USB interface](./ST/B-U585I-IOT02A/KeywordSpotting/README.md). [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/) |
+| [Alif/AppKit-E7_USB](./Alif/AppKit-E7_USB/README.md)                   | SDS connecting via USB to [Alif AppKit-E7 board](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e7-aiml-d1-34b5d51/guide/). |
+| [Alif/DevKit-E8_ETH](./Alif/DevKit-E8_ETH/README.md)                   | SDS connecting via Ethernet to [Alif DevKit-E8 board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-a1-c8b9599/features/). |
+| [ST/B-U585I-IOT02A/MotionRecognition](./ST/B-U585I-IOT02A/MotionRecognition/README.md) | SDS connecting via USB to  [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/). Implements motion recognition algorithm with sensor interface.  |
+| [ST/B-U585I-IOT02A/KeywordSpotting](./ST/B-U585I-IOT02A/KeywordSpotting/README.md)     | SDS connection via USB to [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/). Implements keyword spotting algorithm with audio interface.  |
 
+> [!TIP]
+> Each example is self-contained in a directory. The tool configuration and CI workflows are in separate directories listed below.
 
-## Directory Structure
+## Tool and CI Directory Structure
 
 | File/Directory                            | Content |
 |---                                        |--- |
+| [vcpkg-configuration.json](vcpkg-configuration.json) | Setup for development tools on desktop. |
 | [.ci](./.ci)                              | Files that are related to the Continuous Integration (CI) tests. |
 | [.github/workflows](./.github/workflows)  | [GitHub Actions](#github-actions) scripts for build and execution tests. |
-| [Alif/AppKit-E7_USB](./Alif/AppKit-E7_USB)| SDS Framework deployed to [Alif AppKit-E7](https://alifsemi.com/support/kits/ensemble-e7appkit/) using USB communication. |
-| [Alif/DevKit-E8_ETH](./Alif/DevKit-E8_ETH)| SDS Framework deployed to [Alif DevKit-E8](https://alifsemi.com/support/kits/ensemble-e8devkit/) using Ethernet communication. |
-| [Alif/DevKit-E8_USB](./Alif/DevKit-E8_USB)| SDS Framework deployed to [Alif DevKit-E8](https://alifsemi.com/support/kits/ensemble-e8devkit/) using USB communication. |
-| [ST/B-U585I-IOT02A/MotionRecognition](./ST/B-U585I-IOT02A/MotionRecognition)  | SDS Framework deployed to [ST B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599) using USB communication. |
-| [ST/B-U585I-IOT02A/KeywordSpotting](./ST/B-U585I-IOT02A/KeywordSpotting)      | SDS Framework deployed to [ST B-U585I-IOT02A](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599) using USB communication. |
-| [Jupyter](./Jupyter)                      | Display SDS data files using a Jupyter notebook. |
 
 ## Webinar
 
@@ -59,7 +52,7 @@ The following webinar shows how to use the SDS framework and the examples in thi
 
 ## Continuous Integration (CI)
 
-The repository uses [GitHub Actions](.github/workflows) to test project build with AC6 and GCC and execute algorithm tests.
+The repository uses [GitHub Actions](.github/workflows) to test project build with AC6 and execute algorithm tests.
 Refer to [Understanding GitHub Actions](https://docs.github.com/en/actions/get-started/understand-github-actions) and [Arm FVPs](https://arm-software.github.io/AVH/main/infrastructure/html/avh_gh_actions.html) documentation for more information.
 
 | <div style="width:150px"> CI Workflow </div>                  | Description |
