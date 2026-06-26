@@ -66,12 +66,26 @@ SECTIONS
   .startup.at_mram : ALIGN(2048)
   {
     KEEP(*(.vectors))
+
+    *startup*(.text* .rodata*)
+    *system*(.text* .rodata*)
+    *sys_*(.text* .rodata*)
+    *pm*(.text* .rodata*)
+    *tgu*(.text* .rodata*)
+    *mpu*(.text* .rodata*)
+    *sau_tcm_ns_setup*(.text* .rodata*)
+
+    *lv_*(.text* .rodata*)
+
     . = ALIGN(16);
   } > MRAM
 
   .copy.table : ALIGN(4)
   {
     __copy_table_start__ = .;
+    LONG ( LOADADDR(.tdata.at_dtcm) )
+    LONG ( ADDR(.tdata.at_dtcm) )
+    LONG ( SIZEOF(.tdata.at_dtcm)/4 )
     LONG ( LOADADDR(.data.at_dtcm) )
     LONG ( ADDR(.data.at_dtcm) )
     LONG ( SIZEOF(.data.at_dtcm)/4 )
@@ -85,6 +99,8 @@ SECTIONS
   .zero.table : ALIGN(4)
   {
     __zero_table_start__ = .;
+    LONG (ADDR(.tbss))
+    LONG (SIZEOF(.tbss)/4)
     LONG (ADDR(.bss))
     LONG (SIZEOF(.bss)/4)
 #if __HAS_BULK_SRAM
@@ -95,21 +111,15 @@ SECTIONS
     . = ALIGN(16);
   } > MRAM
 
-  /* Caution: .got, .tdata and .tbss sections come under
-   * RELRO section. So keep it adjacent one after another.
-   */
-  .got : ALIGN(8)
+  .code.at_itcm : ALIGN(8)
   {
-    *(.got)
-    *(.got*)
-    *(.data.rel.ro)
-    *(.data.rel.ro*)
-    *(.got.plt)
+    *(.text*)
+    *(.itcm*)                             /* Object targeting ITCM */
     . = ALIGN(16);
-  } > MRAM
+  } > ITCM AT > MRAM
 
   /* Thread Local Storage sections */
-  .tdata.at_mram : ALIGN(16)
+  .tdata.at_dtcm : ALIGN(16)
   {
     /* TLS base = beginning of TLS block */
     __tls_base = .;
@@ -119,7 +129,7 @@ SECTIONS
     *(.tdata .tdata.* .gnu.linkonce.td.*)
     __tdata_end = .;
     . = ALIGN(16);
-  } > MRAM
+  } > DTCM AT > MRAM
 
   /* Thread-Local Uninitialized Data (.tbss) */
   .tbss (NOLOAD) : ALIGN(16)
@@ -129,19 +139,14 @@ SECTIONS
     *(.tcommon)
     __tbss_end = .;
     . = ALIGN(16);
-  } > MRAM
-
-  .code.at_itcm : ALIGN(8)
-  {
-    // Place here any sections that must explicitly reside in ITCM
-    . = ALIGN(16);
-  } > ITCM AT > MRAM
+  } > DTCM
 
   .data.at_dtcm : ALIGN(8)
   {
     *(vtable)
     *(.data)
     *(.data*)
+    *(.dtcm*)                             /* Objects targeting DTCM */
     *arm_common_tables*(.data* .rodata*)
 
     KEEP(*(.jcr*))
@@ -174,7 +179,7 @@ SECTIONS
 
     . = ALIGN(8);
     __bss_end__ = .;
-  } > SRAM0
+  } > DTCM
 
   .nonsecure0_region (NOLOAD) :
   {
@@ -216,8 +221,6 @@ SECTIONS
 
   .readonly.at_mram : ALIGN(8)
   {
-    *(.text*)
-
     /* Use wildcards to mop up any read-only not directed to TCM */
     KEEP(*(.init))
     KEEP(*(.fini))
