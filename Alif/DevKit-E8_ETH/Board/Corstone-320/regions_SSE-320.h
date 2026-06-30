@@ -1,8 +1,8 @@
-#ifndef REGIONS_SSE_300_H
-#define REGIONS_SSE_300_H
+#ifndef REGIONS_SSE_320_H
+#define REGIONS_SSE_320_H
 
-#include "sse300_memmap_s.h"
-#include "sse300_memmap_ns.h"
+#include "sse320_memmap_s.h"
+#include "sse320_memmap_ns.h"
 
 
 //-------- <<< Use Configuration Wizard in Context Menu >>> --------------------
@@ -14,12 +14,12 @@
 //   <y> Base address
 //   <i> Defines base address of memory region.
 //   <i> Contains Startup and Vector Table
-//   <i> Default: ITCM_S_BASE
-#define __ROM0_BASE   ITCM_S_BASE
+//   <i> Default: BOOT_ROM_S_BASE
+#define __ROM0_BASE   BOOT_ROM_S_BASE
 //   <y> Region size [bytes]
 //   <i> Defines size of memory region.
-//   <i> Default: ITCM_S_SIZE
-#define __ROM0_SIZE   ITCM_S_SIZE
+//   <i> Default: BOOT_ROM_S_SIZE
+#define __ROM0_SIZE   BOOT_ROM_S_SIZE
 // </h>
 
 // <h> __ROM1
@@ -112,4 +112,4 @@
 #define __HEAP_SIZE   0x00018000
 // </h>
 
-#endif /* REGIONS_SSE_300_H */
+#endif /* REGIONS_SSE_320_H */

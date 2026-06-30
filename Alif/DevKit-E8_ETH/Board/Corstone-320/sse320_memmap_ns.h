@@ -16,8 +16,8 @@
  * limitations under the License.
  *---------------------------------------------------------------------------*/
 
-#ifndef SSE300_MEMMAP_NS_H
-#define SSE300_MEMMAP_NS_H
+#ifndef SSE320_MEMMAP_NS_H
+#define SSE320_MEMMAP_NS_H
 
 /*============================================================================*/
 /*                           NON-SECURE MEMORY REGIONS                        */
@@ -29,13 +29,18 @@
 
 /* ITCM - Non-Secure */
 #define ITCM_NS_BASE                    0x00000000
-#define ITCM_NS_SIZE                    0x00080000    /* 512KB */
+#define ITCM_NS_SIZE                    0x00008000    /* 32KB */
 #define ITCM_NS_LIMIT                   (ITCM_NS_BASE + ITCM_NS_SIZE - 1)
 
 /* FPGA SRAM - Non-Secure */
 #define FPGA_SRAM_NS_BASE               0x01000000
-#define FPGA_SRAM_NS_SIZE               0x00100000    /* 1MB */
+#define FPGA_SRAM_NS_SIZE               0x00200000    /* 2MB */
 #define FPGA_SRAM_NS_LIMIT              (FPGA_SRAM_NS_BASE + FPGA_SRAM_NS_SIZE - 1)
+
+/* DMA ITCM - Non-Secure */
+#define DMA_ITCM_NS_BASE                0x0A000000
+#define DMA_ITCM_NS_SIZE                0x00008000    /* 32KB */
+#define DMA_ITCM_NS_LIMIT               (DMA_ITCM_NS_BASE + DMA_ITCM_NS_SIZE - 1)
 
 /*---------------------------------------------------------------------------*/
 /*                         Non-Secure SRAM Regions                           */
@@ -43,26 +48,31 @@
 
 /* DTCM - Non-Secure */
 #define DTCM_NS_BASE                    0x20000000
-#define DTCM_NS_SIZE                    0x00080000    /* 512KB */
+#define DTCM_NS_SIZE                    0x00008000    /* 32KB */
 #define DTCM_NS_LIMIT                   (DTCM_NS_BASE + DTCM_NS_SIZE - 1)
 
 /* SRAM VM0 - Non-Secure */
 #define SRAM_VM0_NS_BASE                0x21000000
-#define SRAM_VM0_NS_SIZE                0x00100000    /* 1MB */
+#define SRAM_VM0_NS_SIZE                0x00200000    /* 2MB */
 #define SRAM_VM0_NS_LIMIT               (SRAM_VM0_NS_BASE + SRAM_VM0_NS_SIZE - 1)
 
 /* SRAM VM1 - Non-Secure */
-#define SRAM_VM1_NS_BASE                0x21100000
-#define SRAM_VM1_NS_SIZE                0x00100000    /* 1MB */
+#define SRAM_VM1_NS_BASE                0x21200000
+#define SRAM_VM1_NS_SIZE                0x00200000    /* 2MB */
 #define SRAM_VM1_NS_LIMIT               (SRAM_VM1_NS_BASE + SRAM_VM1_NS_SIZE - 1)
 
+/* DMA DTCM - Non-Secure */
+#define DMA_DTCM_NS_BASE                0x24000000
+#define DMA_DTCM_NS_SIZE                0x00008000    /* 32KB */
+#define DMA_DTCM_NS_LIMIT               (DMA_DTCM_NS_BASE + DMA_DTCM_NS_SIZE - 1)
+
 /*---------------------------------------------------------------------------*/
-/*                         Secure QSPI Flash Regions                         */
+/*                       Non-Secure Flash Regions                            */
 /*---------------------------------------------------------------------------*/
 
-/* QSPI Flash - Secure */
+/* QSPI Flash - Non-Secure */
 #define QSPI_FLASH_NS_BASE              0x28000000
-#define QSPI_FLASH_NS_SIZE              0x00800000    /* 8MB */
+#define QSPI_FLASH_NS_SIZE              0x08000000    /* 128MB */
 #define QSPI_FLASH_NS_LIMIT             (QSPI_FLASH_NS_BASE + QSPI_FLASH_NS_SIZE - 1)
 
 /*---------------------------------------------------------------------------*/
@@ -89,4 +99,4 @@
 #define DDR4_6_NS_SIZE                  0x10000000    /* 256MB */
 #define DDR4_6_NS_LIMIT                 (DDR4_6_NS_BASE + DDR4_6_NS_SIZE - 1)
 
-#endif /* SSE300_MEMMAP_NS_H */
+#endif /* SSE320_MEMMAP_NS_H */

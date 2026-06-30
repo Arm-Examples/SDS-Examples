@@ -16,8 +16,8 @@
  * limitations under the License.
  *---------------------------------------------------------------------------*/
 
-#ifndef CORSTONE_300_H_
-#define CORSTONE_300_H_
+#ifndef CORSTONE_320_H_
+#define CORSTONE_320_H_
 
 #include "Driver_USART.h"
 
@@ -34,4 +34,4 @@ extern ARM_DRIVER_USART Driver_USART0;          /* Serial */
 #include CMSIS_shield_header
 #endif
 
-#endif /* CORSTONE_300_H_ */
+#endif /* CORSTONE_320_H_ */

@@ -1,12 +1,12 @@
-# Board: Arm V2M-MPS3-SSE-300-FVP
+# Board: Arm SSE-320
 
-## Board Layer for Corstone-300 FVP
+## Board Layer for Corstone-320 FVP
 
 This layer works for:
 
 ```yml
-  board: ARM::V2M-MPS3-SSE-300-FVP
-  device: ARM::SSE-300-MPS3
+  board: ARM::SSE-320
+  device: ARM::SSE-320-FVP
 ```
 
 ### System Configuration
@@ -41,4 +41,4 @@ interface for SDS data files using a [Virtual Streaming Interface](https://arm-s
 
 | File               | Description
 |:-------------------|:-------------
-| fvp_config.txt     | Corstone-300 FVP without Ethos-U or with Ethos-U55/U65
+| fvp_config.txt     | Corstone-320 FVP without Ethos-U or with Ethos-U85

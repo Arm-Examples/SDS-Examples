@@ -61,7 +61,7 @@ static uint8_t ethos_cache[ETHOS_CACHE_BUF_SIZE] ETHOS_CACHE_BUF_ATTRIBUTES;
 /*
   Ethos NPU interrupt handler.
 */
-void ETHOS_U55_Handler (void) {
+void NPU0_Handler(void) {
   ethosu_irq_handler(&EthosDriver);
 }
 
@@ -69,7 +69,7 @@ void ETHOS_U55_Handler (void) {
   Initialize the Ethos NPU driver.
 */
 void ethos_setup (void) {
-  void * const ethos_base_addr = (void *)ETHOS_U55_APB_BASE_S;
+  void * const ethos_base_addr = (void *)NPU0_APB_BASE_S;
   struct ethosu_hw_info hw_info;
   int rval;
 
@@ -89,7 +89,7 @@ void ethos_setup (void) {
     printf("Failed to initialize Arm Ethos-U driver\n");
   }
   else {
-    NVIC_EnableIRQ(ETHOS_U55_IRQn);
+    NVIC_EnableIRQ(NPU0_IRQn);
 
     ethosu_get_hw_info(&EthosDriver, &hw_info);
 

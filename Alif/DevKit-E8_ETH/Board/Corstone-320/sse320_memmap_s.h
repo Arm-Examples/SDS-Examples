@@ -16,8 +16,8 @@
  * limitations under the License.
  *---------------------------------------------------------------------------*/
 
-#ifndef SSE300_MEMMAP_S_H
-#define SSE300_MEMMAP_S_H
+#ifndef SSE320_MEMMAP_S_H
+#define SSE320_MEMMAP_S_H
 
 /*============================================================================*/
 /*                             SECURE MEMORY REGIONS                          */
@@ -27,15 +27,25 @@
 /*                          Secure Code Regions                              */
 /*---------------------------------------------------------------------------*/
 
-/* ITCM - Secure (Startup) */
+/* ITCM - Secure */
 #define ITCM_S_BASE                     0x10000000
-#define ITCM_S_SIZE                     0x00080000    /* 512KB */
+#define ITCM_S_SIZE                     0x00008000    /* 32KB */
 #define ITCM_S_LIMIT                    (ITCM_S_BASE + ITCM_S_SIZE - 1)
 
+/* Boot ROM - Secure (Startup) */
+#define BOOT_ROM_S_BASE                 0x11000000
+#define BOOT_ROM_S_SIZE                 0x00020000    /* 128KB */
+#define BOOT_ROM_S_LIMIT                (BOOT_ROM_S_BASE + BOOT_ROM_S_SIZE - 1)
+
 /* FPGA SRAM - Secure */
-#define FPGA_SRAM_S_BASE                0x11000000
-#define FPGA_SRAM_S_SIZE                0x00100000    /* 1MB */
+#define FPGA_SRAM_S_BASE                0x12000000
+#define FPGA_SRAM_S_SIZE                0x00200000    /* 2MB */
 #define FPGA_SRAM_S_LIMIT               (FPGA_SRAM_S_BASE + FPGA_SRAM_S_SIZE - 1)
+
+/* DMA ITCM - Secure */
+#define DMA_ITCM_S_BASE                 0x1A000000
+#define DMA_ITCM_S_SIZE                 0x00008000    /* 32KB */
+#define DMA_ITCM_S_LIMIT                (DMA_ITCM_S_BASE + DMA_ITCM_S_SIZE - 1)
 
 /*---------------------------------------------------------------------------*/
 /*                           Secure SRAM Regions                             */
@@ -43,18 +53,23 @@
 
 /* DTCM - Secure */
 #define DTCM_S_BASE                     0x30000000
-#define DTCM_S_SIZE                     0x00080000    /* 512KB */
+#define DTCM_S_SIZE                     0x00008000    /* 32KB */
 #define DTCM_S_LIMIT                    (DTCM_S_BASE + DTCM_S_SIZE - 1)
 
 /* SRAM VM0 - Secure */
 #define SRAM_VM0_S_BASE                 0x31000000
-#define SRAM_VM0_S_SIZE                 0x00100000    /* 1MB */
+#define SRAM_VM0_S_SIZE                 0x00200000    /* 2MB */
 #define SRAM_VM0_S_LIMIT                (SRAM_VM0_S_BASE + SRAM_VM0_S_SIZE - 1)
 
 /* SRAM VM1 - Secure */
-#define SRAM_VM1_S_BASE                 0x31100000
-#define SRAM_VM1_S_SIZE                 0x00100000    /* 1MB */
+#define SRAM_VM1_S_BASE                 0x31200000
+#define SRAM_VM1_S_SIZE                 0x00200000    /* 2MB */
 #define SRAM_VM1_S_LIMIT                (SRAM_VM1_S_BASE + SRAM_VM1_S_SIZE - 1)
+
+/* DMA DTCM - Secure */
+#define DMA_DTCM_S_BASE                 0x34000000
+#define DMA_DTCM_S_SIZE                 0x00008000    /* 32KB */
+#define DMA_DTCM_S_LIMIT                (DMA_DTCM_S_BASE + DMA_DTCM_S_SIZE - 1)
 
 /*---------------------------------------------------------------------------*/
 /*                         Secure QSPI Flash Regions                         */
@@ -62,7 +77,7 @@
 
 /* QSPI Flash - Secure */
 #define QSPI_FLASH_S_BASE               0x38000000
-#define QSPI_FLASH_S_SIZE               0x00800000    /* 8MB */
+#define QSPI_FLASH_S_SIZE               0x08000000    /* 128MB */
 #define QSPI_FLASH_S_LIMIT              (QSPI_FLASH_S_BASE + QSPI_FLASH_S_SIZE - 1)
 
 /*---------------------------------------------------------------------------*/
@@ -89,4 +104,4 @@
 #define DDR4_7_S_SIZE                   0x10000000    /* 256MB */
 #define DDR4_7_S_LIMIT                  (DDR4_7_S_BASE + DDR4_7_S_SIZE - 1)
 
-#endif /* SSE300_MEMMAP_S_H */
+#endif /* SSE320_MEMMAP_S_H */

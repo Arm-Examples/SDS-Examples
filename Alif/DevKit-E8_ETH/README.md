@@ -39,7 +39,7 @@ For Windows ensure that the Terminal default is Git Bash or PowerShell.
 
 ## Projects
 
-The `SDS.csolution.yml` application is configured for the targets [DevKit-E8-U55](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-a1-c8b9599/projects/) or [SSE-300-U55](https://github.com/ARM-software/AVH) FVP simulation models.
+The `SDS.csolution.yml` application is configured for the targets [DevKit-E8-U85](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-a1-c8b9599/projects/) or [SSE-320-U85](https://github.com/ARM-software/AVH) FVP simulation models.
 
 It contains two projects:
 
@@ -50,8 +50,8 @@ It contains two projects:
 
 The board layer implements the Hardware Abstraction Layer (HAL) layer. Depending on the selected target, a different board implementation with the appropriate I/O interfaces is used:
 
-- `Board/DevKit-E8_M55_HP/Board_HP.clayer.yml` and `sdsio_network.clayer.yml` use the development board's **Ethernet interface** for SDSIO communication.
-- `Board/Corstone-300/Board-U55.clayer.yml` and `sdsio_fvp.clayer.yml` use the **VSI Interface** to the AVH FVP simulator for SDSIO communication.
+- `Board/DevKit-E8_M55_HP/Board_HP-U85.clayer.yml` and `sdsio_network.clayer.yml` use the development board's **Ethernet interface** for SDSIO communication.
+- `Board/Corstone-320/Board-U85.clayer.yml` and `sdsio_fvp.clayer.yml` use the **VSI Interface** to the AVH FVP simulator for SDSIO communication.
 
 ## Build Targets
 
@@ -69,7 +69,7 @@ The **DataTest** project allows you to verify the SDSIO communication and it is 
 Build and run this project in VS Code by following these steps:
 
 1. Use **Manage Solution Settings** and select:
-     - Target type **DevKit-E8-U55**.
+     - Target type **DevKit-E8-U85**.
      - Project **DataTest** with Build Type **Debug**.
 2. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server socket`
 3. Open `sdsio_client_socket_config.h` and configure **SDSIO_SOCKET_SERVER_IP** to the SDSIO-Server provided IP.
@@ -217,7 +217,7 @@ sdsFlags = 0x30000000.
 The **DataTest** can be also executed on [AVH-FVP](https://github.com/ARM-software/AVH) simulation models using the steps below:
 
 1. Use **Manage Solution Settings** and select:
-     - Target type **SSE-300-U55**.
+     - Target type **SSE-320-U85**.
      - Project **DataTest** with Build Type **Debug**.
 2. **Build Solution** to create an executable image.
 3. **Load and Run** starts the application on the AVH-FVP simulation. The output is shown in the Terminal console.
@@ -235,12 +235,12 @@ The **DataTest** can be also executed on [AVH-FVP](https://github.com/ARM-softwa
 **FVP simulation output in the terminal**
 
 ```txt
-Executing task: FVP_Corstone_SSE-300_Ethos-U55 -f Board/Corstone-300/fvp_config.txt -a out/DataTest/SSE-300-U55/Debug/DataTest.hex  
+Executing task: FVP_Corstone_SSE-320 -f Board/Corstone-320/fvp_config.txt -a out/DataTest/SSE-320-U85/Debug/DataTest.hex  
 
 Ethos-U version info:
-        Arch:       v1.1.0
+        Arch:       v2.0.0
         MACs/cc:    256
-        Cmd stream: v0
+        Cmd stream: v1
 SDSIO VSI interface initialized successfully
 ==== SDS playback started
 ==== SDS playback stopped
@@ -270,7 +270,7 @@ The **AlgorithmTest** project includes an **LiteRT Object Detection (YOLO Fastes
 Build and run this project in VS Code using the following steps:
 
 1. Use **Manage Solution Settings** and select:
-     - Target type **DevKit-E8-U55**.
+     - Target type **DevKit-E8-U85**.
      - Project **AlgorithmTest** with Build Type **Debug**.
 2. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server socket`
 3. Open `sdsio_client_socket_config.h` and configure **SDSIO_SOCKET_SERVER_IP** to the SDSIO-Server provided IP.
@@ -404,7 +404,7 @@ Detected objects :: [x=109, y=69, w=43, h=58]
 The **AlgorithmTest** can be also executed on [AVH-FVP](https://github.com/ARM-software/AVH) simulation models using the steps below:
 
 1. Use **Manage Solution Settings** and select:
-     - Target type **SSE-300-U55**.
+     - Target type **SSE-320-U85**.
      - Project **AlgorithmTest** with Build Type **Debug**.
 2. **Build Solution** to create an executable image.
 3. **Load and Run** starts the application on the AVH-FVP simulation. The output is shown in the Terminal console.
@@ -412,12 +412,12 @@ The **AlgorithmTest** can be also executed on [AVH-FVP](https://github.com/ARM-s
 **FVP simulation output in the terminal**
 
 ```txt
-Executing task: FVP_Corstone_SSE-300_Ethos-U55 -f Board/Corstone-300/fvp_config.txt -a out/AlgorithmTest/SSE-300-U55/Debug/AlgorithmTest.hex  
+Executing task: FVP_Corstone_SSE-320 -f Board/Corstone-320/fvp_config.txt -a out/AlgorithmTest/SSE-320-U85/Debug/AlgorithmTest.hex  
 
 Ethos-U version info:
-        Arch:       v1.1.0
+        Arch:       v2.0.0
         MACs/cc:    256
-        Cmd stream: v0
+        Cmd stream: v1
 SDSIO VSI interface initialized successfully
 INFO - Added ethos-u support to op resolver
 INFO - Creating allocator using tensor arena at 0x31000000
@@ -438,7 +438,7 @@ Detected objects :: [x=109, y=69, w=43, h=58]
 **Content of the sdsio.log file recorded during the run**
 
 ```txt
-Created by ...\Arm-Examples\SDS-Examples\Alif\DevKit-E8_ETH\Board\Corstone-300\vsi\python\arm_vsi3.py
+Created by ...\Arm-Examples\SDS-Examples\Alif\DevKit-E8_ETH\Board\Corstone-320\vsi\python\arm_vsi3.py
 
 SDSIO VSI version 3.0.0
 SDSIO_FVP environment variable not set.

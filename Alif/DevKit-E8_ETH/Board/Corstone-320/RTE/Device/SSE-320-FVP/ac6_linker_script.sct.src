@@ -34,7 +34,6 @@ LR_ROM0 __ROM0_BASE __ROM0_SIZE  {
   ER_ROM0 __ROM0_BASE __ROM0_SIZE {
     *.o (RESET, +First)
     *(InRoot$$Sections)
-    *(+RO +XO)
   }
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
@@ -42,6 +41,16 @@ LR_ROM0 __ROM0_BASE __ROM0_SIZE  {
     *(Veneer$$CMSE)
   }
 #endif
+}
+
+LR_ROM1 __ROM1_BASE __ROM1_SIZE  {
+
+  ER_ROM1 __ROM1_BASE __ROM1_SIZE {
+    *(+RO +XO)
+  }
+}
+
+LR_RAM0 __RAM0_BASE {
 
   RW_NOINIT __RAM0_BASE UNINIT (__RAM0_SIZE - __HEAP_SIZE - __STACK_SIZE - __STACKSEAL_SIZE) {
     *.o(.bss.noinit)
@@ -89,14 +98,6 @@ LR_ROM0 __ROM0_BASE __ROM0_SIZE  {
   }
 #endif
 }
-
-#if __ROM1_SIZE > 0
-LR_ROM1 __ROM1_BASE __ROM1_SIZE  {
-  ER_ROM1 +0 __ROM1_SIZE {
-   .ANY (+RO +XO)
-  }
-}
-#endif
 
 #if __ROM2_SIZE > 0
 LR_ROM2 __ROM2_BASE __ROM2_SIZE  {

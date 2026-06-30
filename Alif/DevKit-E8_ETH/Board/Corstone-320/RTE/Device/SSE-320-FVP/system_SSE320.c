@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2023 Arm Limited. All rights reserved.
+ * Copyright (c) 2009-2024, Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -17,16 +17,16 @@
  */
 
 /*
- * This file is derivative of CMSIS V5.9.0 system_ARMCM55.c
+ * This file is derivative of CMSIS V5.9.0 system_ARMCM85.c
  * Git SHA: 2b7495b8535bdcb306dac29b9ded4cfb679d7e5c
  */
 
-#include "SSE300MPS3.h"
+#include "SSE320.h"
 
 /*----------------------------------------------------------------------------
   Define clocks
  *----------------------------------------------------------------------------*/
- #define  XTAL             (32000000UL)
+ #define  XTAL             (25000000UL)
  #define  SYSTEM_CLOCK     (XTAL)
  #define  PERIPHERAL_CLOCK (25000000UL)
 
@@ -59,19 +59,17 @@ void SystemInit (void)
     SCB->VTOR = (uint32_t)(&__VECTOR_TABLE[0]);
 #endif
 
+    /* Set CPDLPSTATE.RLPSTATE to 0
+       Set CPDLPSTATE.ELPSTATE to 0, to stop the processor from trying to switch the EPU into retention state.
+       Set CPDLPSTATE.CLPSTATE to 0, so PDCORE will not enter low-power state. */
+    PWRMODCTL->CPDLPSTATE &= ~(PWRMODCTL_CPDLPSTATE_RLPSTATE_Msk |
+                               PWRMODCTL_CPDLPSTATE_ELPSTATE_Msk |
+                               PWRMODCTL_CPDLPSTATE_CLPSTATE_Msk  );
+
 #if (defined (__FPU_USED) && (__FPU_USED == 1U)) || \
     (defined (__ARM_FEATURE_MVE) && (__ARM_FEATURE_MVE > 0U))
     SCB->CPACR |= ((3U << 10U*2U) |           /* enable CP10 Full Access */
                    (3U << 11U*2U)  );         /* enable CP11 Full Access */
-
-    /* Set low-power state for PDEPU                */
-    /*  0b00  | ON, PDEPU is not in low-power state */
-    /*  0b01  | ON, but the clock is off            */
-    /*  0b10  | RET(ention)                         */
-    /*  0b11  | OFF                                 */
-
-    /* Clear ELPSTATE, value is 0b11 on Cold reset */
-    PWRMODCTL->CPDLPSTATE &= ~(PWRMODCTL_CPDLPSTATE_ELPSTATE_Msk);
 
     /* Favor best FP/MVE performance by default, avoid EPU switch-ON delays */
     /* PDEPU ON, Clock OFF */
@@ -84,6 +82,10 @@ void SystemInit (void)
 
     /* Enable Loop and branch info cache */
     SCB->CCR |= SCB_CCR_LOB_Msk;
+
+    /* Enable Branch Prediction */
+    SCB->CCR |= SCB_CCR_BP_Msk;
+
     __DSB();
     __ISB();
 

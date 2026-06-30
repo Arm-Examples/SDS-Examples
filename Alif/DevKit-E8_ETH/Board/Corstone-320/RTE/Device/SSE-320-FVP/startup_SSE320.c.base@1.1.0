@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Arm Limited. All rights reserved.
+ * Copyright (c) 2024 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -17,11 +17,12 @@
  */
 
 /*
- * This file is derivative of CMSIS V5.9.0 startup_ARMCM55.c
+ * This file is derivative of CMSIS V5.9.0 startup_ARMCM85.c
  * Git SHA: 2b7495b8535bdcb306dac29b9ded4cfb679d7e5c
  */
 
-#include "SSE300MPS3.h"
+#include "SSE320.h"
+#include "system_SSE320.h"
 
 /*----------------------------------------------------------------------------
   External References
@@ -37,13 +38,13 @@ extern __NO_RETURN void __PROGRAM_START(void);
 /*----------------------------------------------------------------------------
   Internal References
  *----------------------------------------------------------------------------*/
-void __NO_RETURN Reset_Handler  (void);
+__NO_RETURN void Reset_Handler (void);
 
 /*----------------------------------------------------------------------------
   Exception / Interrupt Handler
  *----------------------------------------------------------------------------*/
 #define DEFAULT_IRQ_HANDLER(handler_name)  \
-void __NO_RETURN __WEAK handler_name(void); \
+__NO_RETURN void __WEAK handler_name(void); \
 void handler_name(void) { \
     while(1); \
 }
@@ -70,13 +71,17 @@ DEFAULT_IRQ_HANDLER(MPC_Handler)
 DEFAULT_IRQ_HANDLER(PPC_Handler)
 DEFAULT_IRQ_HANDLER(MSC_Handler)
 DEFAULT_IRQ_HANDLER(BRIDGE_ERROR_Handler)
-DEFAULT_IRQ_HANDLER(MGMT_PPU_Handler)
-DEFAULT_IRQ_HANDLER(SYS_PPU_Handler)
-DEFAULT_IRQ_HANDLER(CPU0_PPU_Handler)
-DEFAULT_IRQ_HANDLER(DEBUG_PPU_Handler)
+DEFAULT_IRQ_HANDLER(COMBINED_PPU_Handler)
+DEFAULT_IRQ_HANDLER(SDC_Handler)
+DEFAULT_IRQ_HANDLER(KMU_Handler)
+DEFAULT_IRQ_HANDLER(DMA_SEC_Combined_Handler)
+DEFAULT_IRQ_HANDLER(DMA_NONSEC_Combined_Handler)
+DEFAULT_IRQ_HANDLER(DMA_SECURITY_VIOLATION_Handler)
 DEFAULT_IRQ_HANDLER(TIMER3_AON_Handler)
 DEFAULT_IRQ_HANDLER(CPU0_CTI_0_Handler)
 DEFAULT_IRQ_HANDLER(CPU0_CTI_1_Handler)
+DEFAULT_IRQ_HANDLER(SAM_Critical_Severity_Fault_Handler)
+DEFAULT_IRQ_HANDLER(SAM_Severity_Fault_Handler)
 
 DEFAULT_IRQ_HANDLER(System_Timestamp_Counter_Handler)
 DEFAULT_IRQ_HANDLER(UARTRX0_Handler)
@@ -97,83 +102,18 @@ DEFAULT_IRQ_HANDLER(UART4_Combined_Handler)
 DEFAULT_IRQ_HANDLER(UARTOVF_Handler)
 DEFAULT_IRQ_HANDLER(ETHERNET_Handler)
 DEFAULT_IRQ_HANDLER(I2S_Handler)
-DEFAULT_IRQ_HANDLER(TOUCH_SCREEN_Handler)
-DEFAULT_IRQ_HANDLER(USB_Handler)
-DEFAULT_IRQ_HANDLER(SPI_ADC_Handler)
-DEFAULT_IRQ_HANDLER(SPI_SHIELD0_Handler)
-DEFAULT_IRQ_HANDLER(SPI_SHIELD1_Handler)
-DEFAULT_IRQ_HANDLER(ETHOS_U55_Handler)
-#ifdef CORSTONE300_AN547
-DEFAULT_IRQ_HANDLER(DMA_Ch_1_Error_Handler)
-DEFAULT_IRQ_HANDLER(DMA_Ch_1_Terminal_Count_Handler)
-DEFAULT_IRQ_HANDLER(DMA_Ch_1_Combined_Handler)
-DEFAULT_IRQ_HANDLER(DMA_Ch_2_Error_Handler)
-DEFAULT_IRQ_HANDLER(DMA_Ch_2_Terminal_Count_Handler)
-DEFAULT_IRQ_HANDLER(DMA_Ch_2_Combined_Handler)
-DEFAULT_IRQ_HANDLER(DMA_Ch_3_Error_Handler)
-DEFAULT_IRQ_HANDLER(DMA_Ch_3_Terminal_Count_Handler)
-DEFAULT_IRQ_HANDLER(DMA_Ch_3_Combined_Handler)
-#endif
+DEFAULT_IRQ_HANDLER(DMA_Channel_0_Handler)
+DEFAULT_IRQ_HANDLER(DMA_Channel_1_Handler)
+DEFAULT_IRQ_HANDLER(NPU0_Handler)
 DEFAULT_IRQ_HANDLER(GPIO0_Combined_Handler)
 DEFAULT_IRQ_HANDLER(GPIO1_Combined_Handler)
 DEFAULT_IRQ_HANDLER(GPIO2_Combined_Handler)
 DEFAULT_IRQ_HANDLER(GPIO3_Combined_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_0_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_1_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_2_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_3_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_4_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_5_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_6_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_7_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_8_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_9_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_10_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_11_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_12_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_13_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_14_Handler)
-DEFAULT_IRQ_HANDLER(GPIO0_15_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_0_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_1_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_2_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_3_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_4_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_5_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_6_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_7_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_8_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_9_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_10_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_11_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_12_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_13_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_14_Handler)
-DEFAULT_IRQ_HANDLER(GPIO1_15_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_0_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_1_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_2_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_3_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_4_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_5_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_6_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_7_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_8_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_9_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_10_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_11_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_12_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_13_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_14_Handler)
-DEFAULT_IRQ_HANDLER(GPIO2_15_Handler)
-DEFAULT_IRQ_HANDLER(GPIO3_0_Handler)
-DEFAULT_IRQ_HANDLER(GPIO3_1_Handler)
-DEFAULT_IRQ_HANDLER(GPIO3_2_Handler)
-DEFAULT_IRQ_HANDLER(GPIO3_3_Handler)
 DEFAULT_IRQ_HANDLER(UARTRX5_Handler)
 DEFAULT_IRQ_HANDLER(UARTTX5_Handler)
-DEFAULT_IRQ_HANDLER(UART5_Handler)
-#ifdef CORSTONE300_FVP
+DEFAULT_IRQ_HANDLER(RTC_Handler)
+DEFAULT_IRQ_HANDLER(ISP_C55_Handler)
+DEFAULT_IRQ_HANDLER(HDLCD_Handler)
 DEFAULT_IRQ_HANDLER(ARM_VSI0_Handler)
 DEFAULT_IRQ_HANDLER(ARM_VSI1_Handler)
 DEFAULT_IRQ_HANDLER(ARM_VSI2_Handler)
@@ -182,7 +122,7 @@ DEFAULT_IRQ_HANDLER(ARM_VSI4_Handler)
 DEFAULT_IRQ_HANDLER(ARM_VSI5_Handler)
 DEFAULT_IRQ_HANDLER(ARM_VSI6_Handler)
 DEFAULT_IRQ_HANDLER(ARM_VSI7_Handler)
-#endif
+
 /*----------------------------------------------------------------------------
   Exception / Interrupt Vector table
  *----------------------------------------------------------------------------*/
@@ -195,57 +135,57 @@ DEFAULT_IRQ_HANDLER(ARM_VSI7_Handler)
 extern const VECTOR_TABLE_Type __VECTOR_TABLE[];
        const VECTOR_TABLE_Type __VECTOR_TABLE[] __VECTOR_TABLE_ATTRIBUTE = {
   (VECTOR_TABLE_Type)(&__INITIAL_SP),            /*      Initial Stack Pointer */
-  Reset_Handler,                     /*      Reset Handler */
-  NMI_Handler,                       /* -14: NMI Handler */
-  HardFault_Handler,                 /* -13: Hard Fault Handler */
-  MemManage_Handler,                 /* -12: MPU Fault Handler */
-  BusFault_Handler,                  /* -11: Bus Fault Handler */
-  UsageFault_Handler,                /* -10: Usage Fault Handler */
-  SecureFault_Handler,               /*  -9: Secure Fault Handler */
-  0,                                 /*      Reserved */
-  0,                                 /*      Reserved */
-  0,                                 /*      Reserved */
-  SVC_Handler,                       /*  -5: SVCall Handler */
-  DebugMon_Handler,                  /*  -4: Debug Monitor Handler */
-  0,                                 /*      Reserved */
-  PendSV_Handler,                    /*  -2: PendSV Handler */
-  SysTick_Handler,                   /*  -1: SysTick Handler */
+  Reset_Handler,                       /*      Reset Handler */
+  NMI_Handler,                         /* -14: NMI Handler */
+  HardFault_Handler,                   /* -13: Hard Fault Handler */
+  MemManage_Handler,                   /* -12: MPU Fault Handler */
+  BusFault_Handler,                    /* -11: Bus Fault Handler */
+  UsageFault_Handler,                  /* -10: Usage Fault Handler */
+  SecureFault_Handler,                 /*  -9: Secure Fault Handler */
+  0,                                   /*      Reserved */
+  0,                                   /*      Reserved */
+  0,                                   /*      Reserved */
+  SVC_Handler,                         /*  -5: SVCall Handler */
+  DebugMon_Handler,                    /*  -4: Debug Monitor Handler */
+  0,                                   /*      Reserved */
+  PendSV_Handler,                      /*  -2: PendSV Handler */
+  SysTick_Handler,                     /*  -1: SysTick Handler */
 
-  NONSEC_WATCHDOG_RESET_REQ_Handler, /*   0: Non-Secure Watchdog Reset Request Handler */
-  NONSEC_WATCHDOG_Handler,           /*   1: Non-Secure Watchdog Handler */
-  SLOWCLK_Timer_Handler,             /*   2: SLOWCLK Timer Handler */
-  TFM_TIMER0_IRQ_Handler,            /*   3: TIMER 0 Handler */
-  TIMER1_Handler,                    /*   4: TIMER 1 Handler */
-  TIMER2_Handler,                    /*   5: TIMER 2 Handler */
-  0,                                 /*   6: Reserved */
-  0,                                 /*   7: Reserved */
-  0,                                 /*   8: Reserved */
-  MPC_Handler,                       /*   9: MPC Combined (Secure) Handler */
-  PPC_Handler,                       /*  10: PPC Combined (Secure) Handler */
-  MSC_Handler,                       /*  11: MSC Combined (Secure) Handler */
-  BRIDGE_ERROR_Handler,              /*  12: Bridge Error (Secure) Handler */
-  0,                                 /*  13: Reserved */
-  MGMT_PPU_Handler,                  /*  14: MGMT PPU Handler */
-  SYS_PPU_Handler,                   /*  15: SYS PPU Handler */
-  CPU0_PPU_Handler,                  /*  16: CPU0 PPU Handler */
-  0,                                 /*  17: Reserved */
-  0,                                 /*  18: Reserved */
-  0,                                 /*  19: Reserved */
-  0,                                 /*  20: Reserved */
-  0,                                 /*  21: Reserved */
-  0,                                 /*  22: Reserved */
-  0,                                 /*  23: Reserved */
-  0,                                 /*  24: Reserved */
-  0,                                 /*  25: Reserved */
-  DEBUG_PPU_Handler,                 /*  26: DEBUG PPU Handler */
-  TIMER3_AON_Handler,                /*  27: TIMER 3 AON Handler */
-  CPU0_CTI_0_Handler,                /*  28: CPU0 CTI IRQ 0 Handler */
-  CPU0_CTI_1_Handler,                /*  29: CPU0 CTI IRQ 1 Handler */
-  0,                                 /*  30: Reserved */
-  0,                                 /*  31: Reserved */
+  NONSEC_WATCHDOG_RESET_REQ_Handler,   /*   0: Non-Secure Watchdog Reset Request Handler */
+  NONSEC_WATCHDOG_Handler,             /*   1: Non-Secure Watchdog Handler */
+  SLOWCLK_Timer_Handler,               /*   2: SLOWCLK Timer Handler */
+  TFM_TIMER0_IRQ_Handler,              /*   3: TIMER 0 Handler */
+  TIMER1_Handler,                      /*   4: TIMER 1 Handler */
+  TIMER2_Handler,                      /*   5: TIMER 2 Handler */
+  0,                                   /*   6: Reserved */
+  0,                                   /*   7: Reserved */
+  0,                                   /*   8: Reserved */
+  MPC_Handler,                         /*   9: MPC Combined (Secure) Handler */
+  PPC_Handler,                         /*  10: PPC Combined (Secure) Handler */
+  MSC_Handler,                         /*  11: MSC Combined (Secure) Handler */
+  BRIDGE_ERROR_Handler,                /*  12: Bridge Error (Secure) Handler */
+  0,                                   /*  13: Reserved */
+  COMBINED_PPU_Handler,                /*  14: Combined PPU Handler */
+  SDC_Handler,                         /*  15: Secure Debug Channel Handler */
+  NPU0_Handler,                        /*  16: NPU0 Handler */
+  0,                                   /*  17: Reserved */
+  0,                                   /*  18: Reserved */
+  0,                                   /*  19: Reserved */
+  KMU_Handler,                         /*  20: KMU Handler */
+  0,                                   /*  21: Reserved */
+  0,                                   /*  22: Reserved */
+  0,                                   /*  23: Reserved */
+  DMA_SEC_Combined_Handler,            /*  24: DMA Secure Combined Handler */
+  DMA_NONSEC_Combined_Handler,         /*  25: DMA Non-Secure Combined Handler */
+  DMA_SECURITY_VIOLATION_Handler,      /*  26: DMA Security Violation Handler */
+  TIMER3_AON_Handler,                  /*  27: TIMER 3 AON Handler */
+  CPU0_CTI_0_Handler,                  /*  28: CPU0 CTI IRQ 0 Handler */
+  CPU0_CTI_1_Handler,                  /*  29: CPU0 CTI IRQ 1 Handler */
+  SAM_Critical_Severity_Fault_Handler, /*  30: SAM Critical Severity Fault Handler */
+  SAM_Severity_Fault_Handler,          /*  31: SAM Severity Fault Handler */
 
   /* External interrupts */
-  System_Timestamp_Counter_Handler,  /*  32: System timestamp counter Handler */
+  0,                                 /*  32: Reserved */
   UARTRX0_Handler,                   /*  33: UART 0 RX Handler */
   UARTTX0_Handler,                   /*  34: UART 0 TX Handler */
   UARTRX1_Handler,                   /*  35: UART 1 RX Handler */
@@ -264,28 +204,14 @@ extern const VECTOR_TABLE_Type __VECTOR_TABLE[];
   UARTOVF_Handler,                   /*  48: UART 0, 1, 2, 3, 4 & 5 Overflow Handler */
   ETHERNET_Handler,                  /*  49: Ethernet Handler */
   I2S_Handler,                       /*  50: Audio I2S Handler */
-  TOUCH_SCREEN_Handler,              /*  51: Touch Screen Handler */
-  USB_Handler,                       /*  52: USB Handler */
-  SPI_ADC_Handler,                   /*  53: SPI ADC Handler */
-  SPI_SHIELD0_Handler,               /*  54: SPI (Shield 0) Handler */
-  SPI_SHIELD1_Handler,               /*  55: SPI (Shield 0) Handler */
-  ETHOS_U55_Handler,                 /*  56: Ethos-U55 Handler */
-#ifdef CORSTONE300_AN547
-  0,                                 /*  57: Reserved */
-  0,                                 /*  58: Reserved */
-  0,                                 /*  59: Reserved */
-  DMA_Ch_1_Error_Handler,            /*  60: DMA Ch1 Error Handler */
-  DMA_Ch_1_Terminal_Count_Handler,   /*  61: DMA Ch1 Terminal Count Handler */
-  DMA_Ch_1_Combined_Handler,         /*  62: DMA Ch1 Combined Handler */
-  DMA_Ch_2_Error_Handler,            /*  63: DMA Ch2 Error Handler */
-  DMA_Ch_2_Terminal_Count_Handler,   /*  64: DMA Ch2 Terminal Count Handler */
-  DMA_Ch_2_Combined_Handler,         /*  65: DMA Ch2 Combined Handler */
-  DMA_Ch_3_Error_Handler,            /*  66: DMA Ch3 Error Handler */
-  DMA_Ch_3_Terminal_Count_Handler,   /*  67: DMA Ch3 Terminal Count Handler */
-  DMA_Ch_3_Combined_Handler,         /*  68: DMA Ch3 Combined Handler */
-#else
-  0,                                 /*  57: Reserved */
-  0,                                 /*  58: Reserved */
+  0,                                 /*  51: Reserved */
+  0,                                 /*  52: Reserved */
+  0,                                 /*  53: Reserved */
+  0,                                 /*  54: Reserved */
+  0,                                 /*  55: Reserved */
+  0,                                 /*  56: Reserved */
+  DMA_Channel_0_Handler,             /*  57: DMA (DMA350) Channel 0 Handler */
+  DMA_Channel_1_Handler,             /*  58: DMA (DMA350) Channel 1 Handler */
   0,                                 /*  59: Reserved */
   0,                                 /*  60: Reserved */
   0,                                 /*  61: Reserved */
@@ -296,73 +222,71 @@ extern const VECTOR_TABLE_Type __VECTOR_TABLE[];
   0,                                 /*  66: Reserved */
   0,                                 /*  67: Reserved */
   0,                                 /*  68: Reserved */
-#endif
   GPIO0_Combined_Handler,            /*  69: GPIO 0 Combined Handler */
   GPIO1_Combined_Handler,            /*  70: GPIO 1 Combined Handler */
   GPIO2_Combined_Handler,            /*  71: GPIO 2 Combined Handler */
   GPIO3_Combined_Handler,            /*  72: GPIO 3 Combined Handler */
-  GPIO0_0_Handler,                   /*  73: GPIO0 Pin 0 Handler */
-  GPIO0_1_Handler,                   /*  74: GPIO0 Pin 1 Handler */
-  GPIO0_2_Handler,                   /*  75: GPIO0 Pin 2 Handler */
-  GPIO0_3_Handler,                   /*  76: GPIO0 Pin 3 Handler */
-  GPIO0_4_Handler,                   /*  77: GPIO0 Pin 4 Handler */
-  GPIO0_5_Handler,                   /*  78: GPIO0 Pin 5 Handler */
-  GPIO0_6_Handler,                   /*  79: GPIO0 Pin 6 Handler */
-  GPIO0_7_Handler,                   /*  80: GPIO0 Pin 7 Handler */
-  GPIO0_8_Handler,                   /*  81: GPIO0 Pin 8 Handler */
-  GPIO0_9_Handler,                   /*  82: GPIO0 Pin 9 Handler */
-  GPIO0_10_Handler,                  /*  83: GPIO0 Pin 10 Handler */
-  GPIO0_11_Handler,                  /*  84: GPIO0 Pin 11 Handler */
-  GPIO0_12_Handler,                  /*  85: GPIO0 Pin 12 Handler */
-  GPIO0_13_Handler,                  /*  86: GPIO0 Pin 13 Handler */
-  GPIO0_14_Handler,                  /*  87: GPIO0 Pin 14 Handler */
-  GPIO0_15_Handler,                  /*  88: GPIO0 Pin 15 Handler */
-  GPIO1_0_Handler,                   /*  89: GPIO1 Pin 0 Handler */
-  GPIO1_1_Handler,                   /*  90: GPIO1 Pin 1 Handler */
-  GPIO1_2_Handler,                   /*  91: GPIO1 Pin 2 Handler */
-  GPIO1_3_Handler,                   /*  92: GPIO1 Pin 3 Handler */
-  GPIO1_4_Handler,                   /*  93: GPIO1 Pin 4 Handler */
-  GPIO1_5_Handler,                   /*  94: GPIO1 Pin 5 Handler */
-  GPIO1_6_Handler,                   /*  95: GPIO1 Pin 6 Handler */
-  GPIO1_7_Handler,                   /*  96: GPIO1 Pin 7 Handler */
-  GPIO1_8_Handler,                   /*  97: GPIO1 Pin 8 Handler */
-  GPIO1_9_Handler,                   /*  98: GPIO1 Pin 9 Handler */
-  GPIO1_10_Handler,                  /*  99: GPIO1 Pin 10 Handler */
-  GPIO1_11_Handler,                  /*  100: GPIO1 Pin 11 Handler */
-  GPIO1_12_Handler,                  /*  101: GPIO1 Pin 12 Handler */
-  GPIO1_13_Handler,                  /*  102: GPIO1 Pin 13 Handler */
-  GPIO1_14_Handler,                  /*  103: GPIO1 Pin 14 Handler */
-  GPIO1_15_Handler,                  /*  104: GPIO1 Pin 15 Handler */
-  GPIO2_0_Handler,                   /*  105: GPIO2 Pin 0 Handler */
-  GPIO2_1_Handler,                   /*  106: GPIO2 Pin 1 Handler */
-  GPIO2_2_Handler,                   /*  107: GPIO2 Pin 2 Handler */
-  GPIO2_3_Handler,                   /*  108: GPIO2 Pin 3 Handler */
-  GPIO2_4_Handler,                   /*  109: GPIO2 Pin 4 Handler */
-  GPIO2_5_Handler,                   /*  110: GPIO2 Pin 5 Handler */
-  GPIO2_6_Handler,                   /*  111: GPIO2 Pin 6 Handler */
-  GPIO2_7_Handler,                   /*  112: GPIO2 Pin 7 Handler */
-  GPIO2_8_Handler,                   /*  113: GPIO2 Pin 8 Handler */
-  GPIO2_9_Handler,                   /*  114: GPIO2 Pin 9 Handler */
-  GPIO2_10_Handler,                  /*  115: GPIO2 Pin 10 Handler */
-  GPIO2_11_Handler,                  /*  116: GPIO2 Pin 11 Handler */
-  GPIO2_12_Handler,                  /*  117: GPIO2 Pin 12 Handler */
-  GPIO2_13_Handler,                  /*  118: GPIO2 Pin 13 Handler */
-  GPIO2_14_Handler,                  /*  119: GPIO2 Pin 14 Handler */
-  GPIO2_15_Handler,                  /*  120: GPIO2 Pin 15 Handler */
-  GPIO3_0_Handler,                   /*  121: GPIO3 Pin 0 Handler */
-  GPIO3_1_Handler,                   /*  122: GPIO3 Pin 1 Handler */
-  GPIO3_2_Handler,                   /*  123: GPIO3 Pin 2 Handler */
-  GPIO3_3_Handler,                   /*  124: GPIO3 Pin 3 Handler */
+  0,                                 /*  73: Reserved */
+  0,                                 /*  74: Reserved */
+  0,                                 /*  75: Reserved */
+  0,                                 /*  76: Reserved */
+  0,                                 /*  77: Reserved */
+  0,                                 /*  78: Reserved */
+  0,                                 /*  79: Reserved */
+  0,                                 /*  80: Reserved */
+  0,                                 /*  81: Reserved */
+  0,                                 /*  82: Reserved */
+  0,                                 /*  83: Reserved */
+  0,                                 /*  84: Reserved */
+  0,                                 /*  85: Reserved */
+  0,                                 /*  86: Reserved */
+  0,                                 /*  87: Reserved */
+  0,                                 /*  88: Reserved */
+  0,                                 /*  89: Reserved */
+  0,                                 /*  90: Reserved */
+  0,                                 /*  91: Reserved */
+  0,                                 /*  92: Reserved */
+  0,                                 /*  93: Reserved */
+  0,                                 /*  94: Reserved */
+  0,                                 /*  95: Reserved */
+  0,                                 /*  96: Reserved */
+  0,                                 /*  97: Reserved */
+  0,                                 /*  98: Reserved */
+  0,                                 /*  99: Reserved */
+  0,                                 /*  100: Reserved */
+  0,                                 /*  101: Reserved */
+  0,                                 /*  102: Reserved */
+  0,                                 /*  103: Reserved */
+  0,                                 /*  104: Reserved */
+  0,                                 /*  105: Reserved */
+  0,                                 /*  106: Reserved */
+  0,                                 /*  107: Reserved */
+  0,                                 /*  108: Reserved */
+  0,                                 /*  109: Reserved */
+  0,                                 /*  110: Reserved */
+  0,                                 /*  111: Reserved */
+  0,                                 /*  112: Reserved */
+  0,                                 /*  113: Reserved */
+  0,                                 /*  114: Reserved */
+  0,                                 /*  115: Reserved */
+  0,                                 /*  116: Reserved */
+  0,                                 /*  117: Reserved */
+  0,                                 /*  118: Reserved */
+  0,                                 /*  119: Reserved */
+  0,                                 /*  120: Reserved */
+  0,                                 /*  121: Reserved */
+  0,                                 /*  122: Reserved */
+  0,                                 /*  123: Reserved */
+  0,                                 /*  124: Reserved */
   UARTRX5_Handler,                   /*  125: UART 5 RX Interrupt */
   UARTTX5_Handler,                   /*  126: UART 5 TX Interrupt */
-  UART5_Handler,                     /*  127: UART 5 combined Interrupt */
-  0,                                 /*  128: Reserved */
+  0,                                 /*  127: Reserved */
+  RTC_Handler,                       /*  128: UART 5 combined Interrupt */
   0,                                 /*  129: Reserved */
   0,                                 /*  130: Reserved */
-#ifdef CORSTONE300_FVP
   0,                                 /*  131: Reserved */
-  0,                                 /*  132: Reserved */
-  0,                                 /*  133: Reserved */
+  ISP_C55_Handler,                   /*  132: ISP C55 Handler */
+  HDLCD_Handler,                     /*  133: HDLCD Handler */
   0,                                 /*  134: Reserved */
   0,                                 /*  135: Reserved */
   0,                                 /*  136: Reserved */
@@ -461,7 +385,6 @@ extern const VECTOR_TABLE_Type __VECTOR_TABLE[];
   ARM_VSI5_Handler,                  /*  229: VSI 5 Handler */
   ARM_VSI6_Handler,                  /*  230: VSI 6 Handler */
   ARM_VSI7_Handler,                  /*  231: VSI 7 Handler */
-#endif
 };
 
 #if defined ( __GNUC__ )
