@@ -1,0 +1,12 @@
+sds:
+  name: ML input
+  description: RGB888 video frames from camera
+  frequency: 12
+  content:
+    - value: Frame
+      type: uint8_t
+      image:
+        pixel_format: RGB888
+        width: 192
+        height: 192
+        stride_bytes: 576   # 3 bytes per pixel

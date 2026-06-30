@@ -15,8 +15,9 @@ solution:
   # Refer to https://open-cmsis-pack.github.io/cmsis-toolbox/ReferenceApplications/ for more information
 
   packs:
-    - pack: ARM::SDS@^2.0.1-0
-    - pack: AlifSemiconductor::Ensemble@^2.1.0-0
+    - pack: ARM::SDS@^3.0.0-0
+    - pack: AlifSemiconductor::Ensemble@^2.2.0-0
+    - pack: ARM::V2M_MPS3_SSE_300_BSP@^1.5.0
 
   # List different hardware targets that are used to deploy the solution.
   target-types:
@@ -32,30 +33,38 @@ solution:
             name: J-Link Server
             clock: 4000000
             protocol: swd
+            start-pname: M55_HP
           images:
-            - project-context: DataTest.DebugRec
+            - project-context: AlgorithmTest.Debug
+
+    - type: SSE-300-U55
+      board: V2M-MPS3-SSE-300-FVP
+      device: SSE-300-MPS3
+      define:
+        - SIMULATOR
+      variables:
+        - Board-Layer: $SolutionDir()$/Board/Corstone-300/Board-U55.clayer.yml
+        - SDSIO-Layer: $SolutionDir()$/sdsio/fvp/sdsio_fvp.clayer.yml
+      target-set:
+        - set:
+          images:
+            - project-context: AlgorithmTest.Debug
+          debugger:
+            name: Arm-FVP
+            model: FVP_Corstone_SSE-300_Ethos-U55
+            config-file: Board/Corstone-300/fvp_config.txt
 
   # List of different build configurations.
   build-types:
-    - type: DebugRec
+    - type: Debug
       debug: on
       optimize: debug
 
-    - type: DebugPlay
-      debug: on
-      optimize: debug
-      define:
-        - SDS_PLAY: 1
-
-    - type: ReleaseRec
-      debug: off
-      optimize: balanced
-
-    - type: ReleasePlay
+    - type: Release
       debug: off
       optimize: balanced
       define:
-        - SDS_PLAY: 1
+        - SDS_STDIO: 0
 
   # List related projects.
   projects:
