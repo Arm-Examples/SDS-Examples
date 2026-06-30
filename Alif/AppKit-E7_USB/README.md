@@ -69,19 +69,26 @@ Build and run this project in VS Code by following these steps:
 1. Use **Manage Solution Settings** and select:
      - Target type **AppKit-E7-U55**.
      - Project **DataTest** with Build Type **Debug**.
-2. **Build Solution** to create an executable image.
-3. Configure **J15** for **UART4 (U4 position)** used for the application output (STDIO).
-4. Connect a **USB cable** between the host **PC** and the **PRG USB (J2)** connector on the **AppKit-E7-AIML** board.
-5. Connect a second **USB cable** between host **PC** and the **SOC USB (J1)** connector on the **AppKit-E7-AIML** board.
-6. Open the VS Code **Serial Monitor** and start monitoring the application output (STDIO) on the J-Link Virtual COM port.
-7. **Load Application to Target** to download the application to the board.
-8. Reset the board with **RESET (SW1)** button and observe the application output (STDIO) like below
-9. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server usb`
+2. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server usb`
+3. **Build Solution** to create an executable image.
+4. Configure **J15** for **UART4 (U4 position)** used for the application output (STDIO).
+5. Connect a **USB cable** between the host **PC** and the **PRG USB (J2)** connector on the **AppKit-E7-AIML** board.
+6. Connect a second **USB cable** between host **PC** and the **SOC USB (J1)** connector on the **AppKit-E7-AIML** board.
+7. Open the VS Code **Serial Monitor** and start monitoring the application output (STDIO) on the J-Link Virtual COM port.
+8. **Load Application to Target** to download the application to the board.
+9. Reset the board with **RESET (SW1)** button and observe the application output (STDIO) like below
 
 ```txt
 SDSIO-Client USB interface initialized successfully
 99% idle
 99% idle
+```
+
+alternatively if SDSIO-Server is not reachable or not running you will see the output:
+
+```txt
+SDSIO-Client USB interface initialization failed!
+Ensure that device is connected via USB to the host PC running SDSIO-Server, then restart the application!
 ```
 
 > **Note:**
@@ -123,12 +130,12 @@ Closed:   Test_Out (Test_Out.0.sds)
 **Application output in the Serial Monitor**
 
 ```txt
-90% idle
+99% idle
 ==== SDS recording started
-90% idle
-90% idle
+99% idle
+99% idle
 ==== SDS recording stopped
-90% idle
+99% idle
 ```
 
 Each run records two files: `Test_In.<n>.sds` and `Test_Out.<n>.sds` in the folder where SDSIO-Server was started. `<n>` is a sequential number.
@@ -184,11 +191,11 @@ sdsFlags = 0x30000000.
 **Application output in the Serial Monitor**
 
 ```txt
-90% idle
+99% idle
 ==== SDS playback started
-90% idle
+99% idle
 ==== SDS playback stopped
-90% idle
+99% idle
 ```
 
 ## DataTest Project on the AVH-FVP Simulator
@@ -251,14 +258,14 @@ Build and run this project in VS Code using the following steps:
 1. Use **Manage Solution Settings** and select:
      - Target type **AppKit-E7-U55**.
      - Project **AlgorithmTest** with Build Type **Debug**.
-2. **Build Solution** to create an executable image.
-3. Configure **J15** for **UART4 (U4 position)** used for the application output (STDIO).
-4. Connect a **USB cable** between the host **PC** and the **PRG USB (J2)** connector on the **AppKit-E7-AIML** board.
-5. Connect a second **USB cable** between host **PC** and the **SOC USB (J1)** connector on the **AppKit-E7-AIML** board.
-6. Open the VS Code **Serial Monitor** and start monitoring the UART output.
-7. **Load Application to Target** to download the application to the board.
-8. Reset the board with **RESET (SW1)** button and observe the application output (STDIO) like below
-9. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server usb`
+2. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server usb`
+3. **Build Solution** to create an executable image.
+4. Configure **J15** for **UART4 (U4 position)** used for the application output (STDIO).
+5. Connect a **USB cable** between the host **PC** and the **PRG USB (J2)** connector on the **AppKit-E7-AIML** board.
+6. Connect a second **USB cable** between host **PC** and the **SOC USB (J1)** connector on the **AppKit-E7-AIML** board.
+7. Open the VS Code **Serial Monitor** and start monitoring the UART output.
+8. **Load Application to Target** to download the application to the board.
+9. Reset the board with **RESET (SW1)** button and observe the application output (STDIO) like below
 
 ### Recording
 
@@ -341,17 +348,17 @@ Working directory: ...\Arm-Examples\SDS-Examples\Alif\AppKit-E7_USB
 SDSIO command input: R=Record, P=playback, S/s=stop, T/t=reset, X/x=exit, A-H=set flags 0-7, a-h=clear flags 0-7.
 SDSIO-Client USB device connected.
 sdsFlags = 0x10000000.
-34% idle.
-39% idle.
+41% idle.
+43% idle.
 SDSIO command: start playback ('P').
 sdsFlags = 0xB0000000.
 Playback: ML_In (ML_In.0.sds)
 Record:   ML_Out (ML_Out.0.p.sds)
-58% idle.
+62% idle.
 Closed:   ML_In (ML_In.0.sds)
 Closed:   ML_Out (ML_Out.0.p.sds)
 sdsFlags = 0x30000000.
-56% idle.
+64% idle.
 ```
 
 **Application output in the Serial Monitor**
@@ -364,11 +371,11 @@ No object detected
 No object detected
 Detected objects :: [x=143, y=9, w=40, h=55]
 Detected objects :: [x=137, y=9, w=33, h=55]
-58% idle
+62% idle
   :
 Detected objects :: [x=109, y=69, w=43, h=58]
 ==== SDS playback stopped
-56% idle
+64% idle
 ```
 
 > **Notes:**

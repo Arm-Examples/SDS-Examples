@@ -77,7 +77,7 @@ object_detection::PostProcessParams postProcessParams;
 DetectorPreProcess  *preProcess  = nullptr;
 DetectorPostProcess *postProcess = nullptr;
 
-#ifndef  SIMULATOR                      // If hardware target is selected
+#ifndef SIMULATOR                       // If hardware target is selected
 /* Reference to the underlying CMSIS vStream VideoOut driver */
 extern vStreamDriver_t          Driver_vStreamVideoOut;
 #define vStream_VideoOut      (&Driver_vStreamVideoOut)
@@ -122,7 +122,7 @@ int32_t InitAlgorithm (void) {
 
   postProcess = new DetectorPostProcess(outputTensor0, outputTensor1, results, postProcessParams);
 
-#ifndef  SIMULATOR                      // If hardware target is selected
+#ifndef SIMULATOR                       // If hardware target is selected
   vStreamStatus_t status;
 
   /* Initialize Video Output Stream */
@@ -203,7 +203,7 @@ int32_t ExecuteAlgorithm (uint8_t *in_buf, uint32_t in_num, uint8_t *out_buf, ui
       /* Copy result into output buffer */
       memcpy (out_buf + n * sizeof(object_detection::DetectionResult), &result, sizeof(object_detection::DetectionResult));
 
-#ifndef  SIMULATOR                      // If hardware target is selected
+#ifndef SIMULATOR                       // If hardware target is selected
       /* Draw a box around detected object */
       DrawBox(img_buf, result.m_x0, result.m_y0, result.m_w, result.m_h);
 #endif
@@ -214,7 +214,7 @@ int32_t ExecuteAlgorithm (uint8_t *in_buf, uint32_t in_num, uint8_t *out_buf, ui
     printf("\n");
   }
 
-#ifndef  SIMULATOR                      // If hardware target is selected
+#ifndef SIMULATOR                       // If hardware target is selected
   vStreamStatus_t status;
 
   /* Wait for video output frame to be released */
