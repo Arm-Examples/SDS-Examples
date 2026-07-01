@@ -17,7 +17,8 @@ To run this example:
 ## Alif DevKit-E8 board
 
 The [Alif DevKit-E8](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-a1-c8b9599/projects/)
-features a dual-core Cortex-M55 each paired with an Ethos-U55 NPU. Ethos-U85 NPU is also available on Alif Ensemble E8 devices.
+features a dual-core Cortex-M55 each paired with an Ethos-U55 NPU.
+Ethos-U85 NPU is also available on Alif Ensemble E8 devices.
 
 Before using this SDS example on the board it is required to program the ATOC of the device using the Alif SETOOLS.  
 Refer to the section [Usage](https://www.keil.arm.com/packs/ensemble-alifsemiconductor/overview/)
@@ -71,7 +72,7 @@ Build and run this project in VS Code by following these steps:
 1. Use **Manage Solution Settings** and select:
      - Target type **DevKit-E8-U85**.
      - Project **DataTest** with Build Type **Debug**.
-2. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server socket`
+2. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server socket` .
 3. Open `sdsio_client_socket_config.h` and configure **SDSIO_SOCKET_SERVER_IP** to the SDSIO-Server provided IP.
 4. **Build Solution** to create an executable image.
 5. Configure **SW4** switch for **UART4 (U4 position)** used for the application output (STDIO).
@@ -106,11 +107,12 @@ Ensure that SDSIO-Server is running, then restart the application!
 >   Therefore, after terminating the SDSIO-Server, it is recommended to wait for this timeout to expire before starting a new instance of the SDSIO-Server.
 > - If the SDSIO-Server is not found, verify your [SDS Utilities Setup](https://arm-software.github.io/SDS-Framework/main/utilities.html#setup).
 > - IP address 192.168.0.129 serves as example - it will be different on your local network.
+> - It is possible to configure the input data bandwidth by editing `ALGO_TEST_BANDWIDTH` define in the `algorithm_config.h` file.
+>   Default bandwidth is configured to `100000U` which means approximately 100000 bytes per second.
 
 ### Recording/playback testing
 
 For executing the **recording** or **playback** test, follow the steps below:
-
 
 ### Recording
 
@@ -252,11 +254,11 @@ The **AlgorithmTest** project includes an **LiteRT Object Detection (YOLO Fastes
 
 #### Key Components
 
-**Video Frame Capture** (`data_in_user.c`):
+**Video Capture** (`data_in_user.c`):
 
-- Initializes the on-board camera input stream using the CMSIS vStream driver
+- Initializes the on-board camera using the CMSIS vStream driver
 - Captures video frames and prepares them for ML inference by converting them to RGB format and resizing them to the model's input dimensions
-- Provides the processed frame data for SDS recording
+- Provides the processed video data for SDS recording
 
 **Algorithm Processing** (`algorithm_user.cpp`):
 
@@ -272,7 +274,7 @@ Build and run this project in VS Code using the following steps:
 1. Use **Manage Solution Settings** and select:
      - Target type **DevKit-E8-U85**.
      - Project **AlgorithmTest** with Build Type **Debug**.
-2. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server socket`
+2. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server socket` .
 3. Open `sdsio_client_socket_config.h` and configure **SDSIO_SOCKET_SERVER_IP** to the SDSIO-Server provided IP.
 4. **Build Solution** to create an executable image.
 5. Configure **SW4** switch for **UART4 (U4 position)** used for the application output (STDIO).
@@ -280,7 +282,7 @@ Build and run this project in VS Code using the following steps:
 7. Connect an **Ethernet cable** between the **J2 (RJ45)** connector on the **DevKit-E8** board and the same local network that the **PC** is connected to.
 8. Open the VS Code **Serial Monitor** and start monitoring the application output (STDIO) on the J-Link Virtual COM port.
 9. **Load Application to Target** to download the application to the board.
-10. Reset the board with **RESET (SW1)** button and observe the application output (STDIO) like below
+10. Reset the board with **RESET (SW1)** button.
 
 ### Recording
 
@@ -398,6 +400,10 @@ Detected objects :: [x=109, y=69, w=43, h=58]
 >
 > - The playback implementation replays recordings as quickly as possible and does not account for timeslot data.
 >   During playback, the ML system receives the same recorded input data, so timing information is not relevant in this context.
+> - This example includes an `algorithm.sdsio.yml` configuration file that sets `algorithm/SDS Recordings` as the working directory for SDS playback.  
+>   To test the previous example, either: copy recorded files `ML_In.0.sds` and `ML_Out.0.sds` into that directory, or update the `workdir` in the `algorithm.sdsio.yml`.  
+>   For details on the **sdsio.yml** configuration format and available options, refer to
+>   the [documentation](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-control-file-sdsioyml).
 
 ## AlgorithmTest playback on the AVH-FVP Simulator
 

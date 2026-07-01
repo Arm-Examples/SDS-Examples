@@ -69,7 +69,7 @@ Build and run this project in VS Code by following these steps:
 1. Use **Manage Solution Settings** and select:
      - Target type **AppKit-E7-U55**.
      - Project **DataTest** with Build Type **Debug**.
-2. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server usb`
+2. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server usb` .
 3. **Build Solution** to create an executable image.
 4. Configure **J15** for **UART4 (U4 position)** used for the application output (STDIO).
 5. Connect a **USB cable** between the host **PC** and the **PRG USB (J2)** connector on the **AppKit-E7-AIML** board.
@@ -91,14 +91,15 @@ SDSIO-Client USB interface initialization failed!
 Ensure that device is connected via USB to the host PC running SDSIO-Server, then restart the application!
 ```
 
-> **Note:**
+> **Notes:**
 >
->   If the SDSIO-Server is not found, verify your [SDS Utilities Setup](https://arm-software.github.io/SDS-Framework/main/utilities.html#setup).
+> - If the SDSIO-Server is not found, verify your [SDS Utilities Setup](https://arm-software.github.io/SDS-Framework/main/utilities.html#setup).
+> - It is possible to configure the input data bandwidth by editing `ALGO_TEST_BANDWIDTH` define in the `algorithm_config.h` file.
+>   Default bandwidth is configured to `100000U` which means approximately 100000 bytes per second.
 
 ### Recording/playback testing
 
 For executing the **recording** or **playback** test, follow the steps below:
-
 
 ### Recording
 
@@ -114,6 +115,7 @@ SDSIO-Server v3.0.0
 Press 'Ctrl+C' or 'X' to exit.
 Working directory: ...\Arm-Examples\SDS-Examples\Alif\AppKit-E7_USB
 SDSIO command input: R=Record, P=playback, S/s=stop, T/t=reset, X/x=exit, A-H=set flags 0-7, a-h=clear flags 0-7.
+SDSIO-Server waiting for USB SDSIO-Client...
 SDSIO-Client USB device connected.
 sdsFlags = 0x10000000.
 99% idle.
@@ -238,11 +240,11 @@ The **AlgorithmTest** project includes an **LiteRT Object Detection (YOLO Fastes
 
 #### Key Components
 
-**Video Frame Capture** (`data_in_user.c`):
+**Video Capture** (`data_in_user.c`):
 
-- Initializes the on-board camera input stream using the CMSIS vStream driver
+- Initializes the on-board camera using the CMSIS vStream driver
 - Captures video frames and prepares them for ML inference by converting them to RGB format and resizing them to the model's input dimensions
-- Provides the processed frame data for SDS recording
+- Provides the processed video data for SDS recording
 
 **Algorithm Processing** (`algorithm_user.cpp`):
 
@@ -258,14 +260,14 @@ Build and run this project in VS Code using the following steps:
 1. Use **Manage Solution Settings** and select:
      - Target type **AppKit-E7-U55**.
      - Project **AlgorithmTest** with Build Type **Debug**.
-2. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server usb`
+2. Open in VS Code a Terminal window and start the [SDSIO-Server](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server) with `sdsio-server usb` .
 3. **Build Solution** to create an executable image.
 4. Configure **J15** for **UART4 (U4 position)** used for the application output (STDIO).
 5. Connect a **USB cable** between the host **PC** and the **PRG USB (J2)** connector on the **AppKit-E7-AIML** board.
 6. Connect a second **USB cable** between host **PC** and the **SOC USB (J1)** connector on the **AppKit-E7-AIML** board.
 7. Open the VS Code **Serial Monitor** and start monitoring the UART output.
 8. **Load Application to Target** to download the application to the board.
-9. Reset the board with **RESET (SW1)** button and observe the application output (STDIO) like below
+9. Reset the board with **RESET (SW1)** button.
 
 ### Recording
 
@@ -281,6 +283,7 @@ SDSIO-Server v3.0.0
 Press 'Ctrl+C' or 'X' to exit.
 Working directory: ...\Arm-Examples\SDS-Examples\Alif\AppKit-E7_USB
 SDSIO command input: R=Record, P=playback, S/s=stop, T/t=reset, X/x=exit, A-H=set flags 0-7, a-h=clear flags 0-7.
+SDSIO-Server waiting for USB SDSIO-Client...
 SDSIO-Client USB device connected.
 sdsFlags = 0x10000000.
 41% idle.
@@ -346,6 +349,7 @@ SDSIO-Server v3.0.0
 Press 'Ctrl+C' or 'X' to exit.
 Working directory: ...\Arm-Examples\SDS-Examples\Alif\AppKit-E7_USB
 SDSIO command input: R=Record, P=playback, S/s=stop, T/t=reset, X/x=exit, A-H=set flags 0-7, a-h=clear flags 0-7.
+SDSIO-Server waiting for USB SDSIO-Client...
 SDSIO-Client USB device connected.
 sdsFlags = 0x10000000.
 41% idle.
@@ -382,6 +386,10 @@ Detected objects :: [x=109, y=69, w=43, h=58]
 >
 > - The playback implementation replays recordings as quickly as possible and does not account for timeslot data.
 >   During playback, the ML system receives the same recorded input data, so timing information is not relevant in this context.
+> - This example includes an `algorithm.sdsio.yml` configuration file that sets `algorithm/SDS Recordings` as the working directory for SDS playback.  
+>   To test the previous example, either: copy recorded files `ML_In.0.sds` and `ML_Out.0.sds` into that directory, or update the `workdir` in the `algorithm.sdsio.yml`.  
+>   For details on the **sdsio.yml** configuration format and available options, refer to
+>   the [documentation](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-control-file-sdsioyml).
 
 ## AlgorithmTest playback on the AVH-FVP Simulator
 
