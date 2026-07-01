@@ -116,7 +116,7 @@ int32_t CloseStreams (void) {
     }
   }
 
-  if (status == 0U) {
+  if (status == 0) {
     SDS_PRINTF("==== SDS %s stopped\n", SDS_MODE[play]);
   } else {
     SDS_PRINTF("==== SDS %s stop failed\n", SDS_MODE[play]);

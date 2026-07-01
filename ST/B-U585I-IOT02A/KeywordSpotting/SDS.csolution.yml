@@ -15,9 +15,10 @@ solution:
   # Refer to https://open-cmsis-pack.github.io/cmsis-toolbox/ReferenceApplications/ for more information
 
   packs:
-    - pack: ARM::SDS
+    - pack: ARM::SDS@^3.0.0-0
     - pack: Keil::B-U585I-IOT02A_BSP
     - pack: Keil::STM32U5xx_DFP
+    - pack: ARM::V2M_MPS3_SSE_300_BSP@^1.5.0
 
   # List different hardware targets that are used to deploy the solution.
   target-types:
@@ -29,17 +30,17 @@ solution:
         - SDSIO-Layer: $SolutionDir()$/sdsio/usb/sdsio_usb.clayer.yml
       target-set:
         - set:
-          images:
-            - project-context: DataTest.Debug
           debugger:
             name: ST-Link@pyOCD
             port: 3333
             protocol: swd
             clock: 10000000
+          images:
+            - project-context: AlgorithmTest.Debug
 
     - type: SSE-300-U55
-      board: ARM::V2M-MPS3-SSE-300-FVP
-      device: ARM::SSE-300-MPS3
+      board: V2M-MPS3-SSE-300-FVP
+      device: SSE-300-MPS3
       define:
         - SIMULATOR
       variables:
@@ -48,7 +49,7 @@ solution:
       target-set:
         - set:
           images:
-            - project-context: DataTest.Debug
+            - project-context: AlgorithmTest.Debug
           debugger:
             name: Arm-FVP
             model: FVP_Corstone_SSE-300_Ethos-U55
