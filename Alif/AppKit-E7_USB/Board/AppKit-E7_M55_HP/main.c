@@ -139,15 +139,6 @@ void vbat_init(void)
         ~(VBAT_PWR_CTRL_TX_DPHY_ISO | VBAT_PWR_CTRL_RX_DPHY_ISO | VBAT_PWR_CTRL_DPHY_PLL_ISO);
 }
 
-static void CpuCacheEnable(void)
-{
-    /* Enable I-Cache */
-    SCB_EnableICache();
-
-    /* Enable D-Cache */
-    SCB_EnableDCache();
-}
-
 int main(void)
 {
 
@@ -177,9 +168,6 @@ int main(void)
 #ifdef CMSIS_shield_header
     shield_setup();
 #endif
-
-    /* Enable the CPU Cache */
-    CpuCacheEnable();
 
     return app_main();
 }
