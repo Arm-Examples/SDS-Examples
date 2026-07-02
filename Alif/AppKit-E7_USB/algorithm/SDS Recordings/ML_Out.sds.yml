@@ -1,6 +1,6 @@
 sds:
   name: ML output
-  description: Results of object detection (10 objects: confidence + bounding box coordinates)
+  description: Results of object detection (10 objects - confidence + bounding box coordinates)
   frequency: 12.5
   content:
     - value: Obj_0_conf
