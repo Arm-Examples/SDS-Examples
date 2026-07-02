@@ -1,0 +1,105 @@
+sds:
+  name: ML output
+  description: Results of object detection (10 objects: confidence + bounding box coordinates)
+  frequency: 12.5
+  content:
+    - value: Obj_0_conf
+      type:  double
+    - value: Obj_0_x
+      type:  uint32_t
+    - value: Obj_0_y
+      type:  uint32_t
+    - value: Obj_0_w
+      type:  uint32_t
+    - value: Obj_0_h
+      type:  uint32_t
+    - value: Obj_1_conf
+      type:  double
+    - value: Obj_1_x
+      type:  uint32_t
+    - value: Obj_1_y
+      type:  uint32_t
+    - value: Obj_1_w
+      type:  uint32_t
+    - value: Obj_1_h
+      type:  uint32_t
+    - value: Obj_2_conf
+      type:  double
+    - value: Obj_2_x
+      type:  uint32_t
+    - value: Obj_2_y
+      type:  uint32_t
+    - value: Obj_2_w
+      type:  uint32_t
+    - value: Obj_2_h
+      type:  uint32_t
+    - value: Obj_3_conf
+      type:  double
+    - value: Obj_3_x
+      type:  uint32_t
+    - value: Obj_3_y
+      type:  uint32_t
+    - value: Obj_3_w
+      type:  uint32_t
+    - value: Obj_3_h
+      type:  uint32_t
+    - value: Obj_4_conf
+      type:  double
+    - value: Obj_4_x
+      type:  uint32_t
+    - value: Obj_4_y
+      type:  uint32_t
+    - value: Obj_4_w
+      type:  uint32_t
+    - value: Obj_4_h
+      type:  uint32_t
+    - value: Obj_5_conf
+      type:  double
+    - value: Obj_5_x
+      type:  uint32_t
+    - value: Obj_5_y
+      type:  uint32_t
+    - value: Obj_5_w
+      type:  uint32_t
+    - value: Obj_5_h
+      type:  uint32_t
+    - value: Obj_6_conf
+      type:  double
+    - value: Obj_6_x
+      type:  uint32_t
+    - value: Obj_6_y
+      type:  uint32_t
+    - value: Obj_6_w
+      type:  uint32_t
+    - value: Obj_6_h
+      type:  uint32_t
+    - value: Obj_7_conf
+      type:  double
+    - value: Obj_7_x
+      type:  uint32_t
+    - value: Obj_7_y
+      type:  uint32_t
+    - value: Obj_7_w
+      type:  uint32_t
+    - value: Obj_7_h
+      type:  uint32_t
+    - value: Obj_8_conf
+      type:  double
+    - value: Obj_8_x
+      type:  uint32_t
+    - value: Obj_8_y
+      type:  uint32_t
+    - value: Obj_8_w
+      type:  uint32_t
+    - value: Obj_8_h
+      type:  uint32_t
+    - value: Obj_9_conf
+      type:  double
+    - value: Obj_9_x
+      type:  uint32_t
+    - value: Obj_9_y
+      type:  uint32_t
+    - value: Obj_9_w
+      type:  uint32_t
+    - value: Obj_9_h
+      type:  uint32_t
