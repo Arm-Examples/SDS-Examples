@@ -5,7 +5,11 @@
 
 # SDS-Examples
 
+[<img src="./images/SDS_FW_Thumbnail.png" alt="SDS-Framework: Workbench for AI model and DSP development" width="318" height="201" align="left">](https://armkeil.blob.core.windows.net/developer/Files/videos/KeilStudio/DevOps_With_Keil_MDK_Webinar.mp4#t=11:27 "SDS-Framework: Workbench for AI model and DSP development")
+
 This repository contains examples that show the usage of the [Synchronous Data Streaming (SDS) Framework](https://github.com/ARM-software/SDS-Framework).
+
+**[Watch this video](https://armkeil.blob.core.windows.net/developer/Files/videos/KeilStudio/DevOps_With_Keil_MDK_Webinar.mp4#t=11:27 "SDS-Framework: Workbench for AI model and DSP development")** and explore the projects below.
 
 ## Quick Start
 
@@ -44,11 +48,13 @@ Run a blinky example for the related board first to verify tool installation.
 | [.ci](./.ci)                              | Files that are related to the Continuous Integration (CI) tests. |
 | [.github/workflows](./.github/workflows)  | [GitHub Actions](#github-actions) scripts for build and execution tests. |
 
+<!--
 ## Webinar
 
 The following webinar shows how to use the SDS framework and the examples in this repository:
 
 [![Watch the video](SDS_preview.png)](https://armkeil.blob.core.windows.net/developer/Files/videos/KeilStudio/20250916_SDS_Webinar.mp4)
+-->
 
 ## Continuous Integration (CI)
 
