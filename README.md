@@ -5,7 +5,7 @@
 
 # SDS-Examples
 
-[<img src="./images/SDS_FW_Thumbnail.png" alt="SDS-Framework: Workbench for AI model and DSP development" width="318" height="201" align="left">](https://armkeil.blob.core.windows.net/developer/Files/videos/KeilStudio/DevOps_With_Keil_MDK_Webinar.mp4#t=11:27 "SDS-Framework: Workbench for AI model and DSP development")
+[<img src="./images/SDS_FW_Thumbnail.png" alt="SDS-Framework: Workbench for AI model and DSP development" width="318" height="202" align="left">](https://armkeil.blob.core.windows.net/developer/Files/videos/KeilStudio/DevOps_With_Keil_MDK_Webinar.mp4#t=11:27 "SDS-Framework: Workbench for AI model and DSP development")
 
 This repository contains examples that show the usage of the [Synchronous Data Streaming (SDS) Framework](https://github.com/ARM-software/SDS-Framework).
 
