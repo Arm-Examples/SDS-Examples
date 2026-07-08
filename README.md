@@ -65,11 +65,13 @@ The following webinar shows how to use the SDS framework and the examples in thi
 The repository uses [GitHub Actions](.github/workflows) to test project build with AC6 and execute algorithm tests.
 Refer to [Understanding GitHub Actions](https://docs.github.com/en/actions/get-started/understand-github-actions) and [Arm FVPs](https://arm-software.github.io/AVH/main/infrastructure/html/avh_gh_actions.html) documentation for more information.
 
-| <div style="width:150px"> CI Workflow </div>                  | Description |
-|---                                                            |---  |
-| [AC6_test_build](./.github/workflows/AC6_test_build.yaml)     | Use Arm Compiler for Embedded (AC6) to create binaries for different configuration of targets, build types, and boards. After successful generation these are stored as artifacts. |
-| [GCC_test_build](./.github/workflows/GCC_test_build.yaml)     | Use GCC build tools to create binaries for different configuration of targets, build types, and boards. After successful generation these are stored as artifacts. |
-| [AlgorithmTest_ST_B-U585I-IOT02A_MR](./.github/workflows/AlgorithmTest_ST_B-U585I-IOT02A_MR.yaml)  | Build the binary of a motion recognition algorithm and execute a regression test by using an FVP model and prerecorded SDS files. Regressions are stored as artifacts. |
+| <div style="width:150px"> CI Workflow </div>                                   | Description |
+|---                                                                             |---  |
+| [Build_AC6](./.github/workflows/Build_AC6.yml)                                 | Use Arm Compiler for Embedded (AC6) to create binaries for different configuration of targets, build types, and boards. |
+| [Test_Alif_E7](./.github/workflows/Test_Alif_E7.yml)                           | Build the binary for an object detection algorithm and execute a regression test using an FVP model. Compare the original SDS recording with the newly generated recording produced during the simulator run. Store the build outputs and SDS recordings as workflow artifacts.  |
+| [Test_Alif_E8](./.github/workflows/Test_Alif_E8.yml)                           | Build the binary for an object detection algorithm and execute a regression test using an FVP model. Compare the original SDS recording with the newly generated recording produced during the simulator run. Store the build outputs and SDS recordings as workflow artifacts.  |
+| [Test_ST_KeywordSpotting](./.github/workflows/Test_ST_KeywordSpotting.yml)     | Build the binary for a keyword spotting algorithm and execute a regression test using an FVP model. Compare the original SDS recording with the newly generated recording produced during the simulator run. Store the build outputs and SDS recordings as workflow artifacts.   |
+| [Test_ST_MotionRecognition](./.github/workflows/Test_ST_MotionRecognition.yml) | Build the binary for a motion recognition algorithm and execute a regression test using an FVP model. Compare the original SDS recording with the newly generated recording produced during the simulator run. Store the build outputs and SDS recordings as workflow artifacts. |
 
 ## Issues or Questions
 
