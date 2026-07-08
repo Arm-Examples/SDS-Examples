@@ -14,13 +14,19 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-name: Build and run AppKit-E7_USB example on simulator
+name: Test Alif AppKit-E7 example
 on:
   workflow_dispatch:
   pull_request:
     branches: [main]
+    paths:
+      - ".github/workflows/Test_Alif_E7.yml"
+      - "Alif/AppKit-E7_USB/**"
   push:
     branches: [main]
+    paths:
+      - ".github/workflows/Test_Alif_E7.yml"
+      - "Alif/AppKit-E7_USB/**"
 
 env:
   DIR: ./Alif/AppKit-E7_USB
@@ -97,7 +103,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: Run_on_sim_AppKit-E7_USB
+          name: Test_Alif_E7
           path: |
             ${{env.DIR}}/out
             ${{env.DIR}}/algorithm/SDS Recordings
