@@ -3,7 +3,7 @@
 [![Test_Alif_E7](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/Test_Alif_E7.yml?logo=arm&logoColor=0091bd&label=Test%20Alif%20AppKit-E7%20example)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/Test_Alif_E7.yml)
 [![Test_Alif_E8](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/Test_Alif_E8.yml?logo=arm&logoColor=0091bd&label=Test%20Alif%20DevKit-E8%20example)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/Test_Alif_E8.yml)
 [![Test_ST_KeywordSpotting](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/Test_ST_KeywordSpotting.yml?logo=arm&logoColor=0091bd&label=Test%20ST%20Keyword%20Spotting)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/Test_ST_KeywordSpotting.yml)
-[![Test_ST_MotionRecognition](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/Test_ST_MotionRecognition.yml?logo=arm&logoColor=0091bd&label=Test%20ST%Motion%20Recognition)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/Test_ST_MotionRecognition.yml)
+[![Test_ST_MotionRecognition](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/Test_ST_MotionRecognition.yml?logo=arm&logoColor=0091bd&label=Test%20ST%20Motion%20Recognition)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/Test_ST_MotionRecognition.yml)
 
 # SDS-Examples
 
