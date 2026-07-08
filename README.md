@@ -1,4 +1,6 @@
 [![License](https://img.shields.io/github/license/Arm-Examples/Safety-Example-STM32?label)](https://github.com/Arm-Examples/Safety-Example-STM32/blob/main/LICENSE)
+[![Build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/build.yml?logo=arm&logoColor=0091bd&label=Build)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/build.yml)
+[![Run on sim AppKit-E7_USB](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/run_on_sim_AppKit-E7_USB.yml?logo=arm&logoColor=0091bd&label=Run%20on%20sim%20AppKit-E7_USB)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/run_on_sim_AppKit-E7_USB.yml)
 [![Algorithm Test ST/B-U585I-IOT02A/MotionRecognition](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/AlgorithmTest_ST_B-U585I-IOT02A_MR.yaml?logo=arm&logoColor=0091bd&label=Algorithm%20Test%20ST/B-U585I-IOT02A/MotionRecognition)](./.github/workflows/AlgorithmTest_ST_B-U585I-IOT02A_MR.yaml)
 [![AC6 Test build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/ac6_test_build.yaml?logo=arm&logoColor=0091bd&label=AC6_Test_build)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/ac6_test_build.yaml)
 [![GCC Test build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/gcc_test_build.yaml?logo=arm&logoColor=0091bd&label=GCC_Test_build)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/gcc_test_build.yaml)
@@ -30,7 +32,7 @@ This repository contains examples that show the usage of the [Synchronous Data S
 
 The SDS examples are configured for various Evaluation Boards and use the [MDK-Middleware](https://www.keil.arm.com/packs/mdk-middleware-keil/overview/) for the [SDSIO Interface](https://arm-software.github.io/SDS-Framework/main/sdsio.html). New hardware targets can be added using board layers that provide the required API interfaces.
 The examples are configured for [Keil Studio for VS Code](https://www.keil.arm.com/).
-Run a blinky example for the related board first to verify tool installation.
+Run a Blinky example for the related board first to verify tool installation.
 
 | Example                                                | Description   |
 |---                                                         |---            |
@@ -48,7 +50,7 @@ Run a blinky example for the related board first to verify tool installation.
 |---                                        |--- |
 | [vcpkg-configuration.json](vcpkg-configuration.json) | Setup for development tools on desktop. |
 | [.ci](./.ci)                              | Files that are related to the Continuous Integration (CI) tests. |
-| [.github/workflows](./.github/workflows)  | [GitHub Actions](#github-actions) scripts for build and execution tests. |
+| [.github/workflows](./.github/workflows)  | GitHub Actions scripts for build and execution tests. |
 
 <!--
 ## Webinar
