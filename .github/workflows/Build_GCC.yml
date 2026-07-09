@@ -1,0 +1,82 @@
+# Copyright (c) 2026 Arm Limited (or its affiliates). All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+name: Build examples with GCC
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  CI:
+    runs-on: ubuntu-24.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config: 
+          [ # example directory,         project,                build-type,          target-type,                toolchain
+            { dir: ./Alif/AppKit-E7_USB, project: DataTest,      build-type: Debug,   target-type: AppKit-E7-U55, toolchain: GCC },
+            { dir: ./Alif/AppKit-E7_USB, project: DataTest,      build-type: Release, target-type: AppKit-E7-U55, toolchain: GCC },
+            { dir: ./Alif/AppKit-E7_USB, project: AlgorithmTest, build-type: Debug,   target-type: AppKit-E7-U55, toolchain: GCC },
+            { dir: ./Alif/AppKit-E7_USB, project: DataTest,      build-type: Debug,   target-type: SSE-300-U55,   toolchain: GCC },
+            { dir: ./Alif/AppKit-E7_USB, project: DataTest,      build-type: Release, target-type: SSE-300-U55,   toolchain: GCC },
+            { dir: ./Alif/AppKit-E7_USB, project: AlgorithmTest, build-type: Debug,   target-type: SSE-300-U55,   toolchain: GCC },
+            { dir: ./Alif/DevKit-E8_ETH, project: DataTest,      build-type: Debug,   target-type: DevKit-E8-U85, toolchain: GCC },
+            { dir: ./Alif/DevKit-E8_ETH, project: DataTest,      build-type: Release, target-type: DevKit-E8-U85, toolchain: GCC },
+            { dir: ./Alif/DevKit-E8_ETH, project: AlgorithmTest, build-type: Debug,   target-type: DevKit-E8-U85, toolchain: GCC },
+            { dir: ./Alif/DevKit-E8_ETH, project: DataTest,      build-type: Debug,   target-type: SSE-320-U85,   toolchain: GCC },
+            { dir: ./Alif/DevKit-E8_ETH, project: DataTest,      build-type: Release, target-type: SSE-320-U85,   toolchain: GCC },
+            { dir: ./Alif/DevKit-E8_ETH, project: AlgorithmTest, build-type: Debug,   target-type: SSE-320-U85,   toolchain: GCC }
+          ]
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Install vcpkg
+        uses: ARM-software/cmsis-actions/setup-vcpkg@v1
+        with:
+          version: 2026.04.27
+
+      - name: Install required tools
+        uses: ARM-software/cmsis-actions/vcpkg@8a50b77681a484568e08f31fb7c2285c4735f682 # v1.3
+        with:
+          config: "./vcpkg-configuration.json"
+          cache:  "Tools"
+
+      - name: Activate Arm tool license
+        uses: ARM-software/cmsis-actions/armlm@8a50b77681a484568e08f31fb7c2285c4735f682 # v1.3
+
+      - name: Initialize CMSIS pack root folder
+        run: |
+          cpackget init https://www.keil.com/pack/index.pidx
+          cpackget update-index
+
+      - name: Cache CMSIS packs
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          key: cmsis-packs-${{ hashFiles('**/*.csolution.yml', '**/*.cproject.yml', '**/*.clayer.yml') }}
+          restore-keys: |
+            cmsis-packs-
+          path: /home/runner/.cache/arm/packs
+
+      - name: Build example in ${{matrix.config.dir}} for context ${{matrix.config.project}}.${{matrix.config.build-type}}+${{matrix.config.target-type}} with ${{matrix.config.toolchain}} toolchain
+        working-directory: ${{matrix.config.dir}}
+        run: |
+          cbuild SDS.csolution.yml --context ${{matrix.config.project}}.${{matrix.config.build-type}}+${{matrix.config.target-type}} --toolchain ${{matrix.config.toolchain}} --packs --update-rte
