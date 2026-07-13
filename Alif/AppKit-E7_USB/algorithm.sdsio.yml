@@ -7,7 +7,7 @@ sdsio:
   # Data stream information used by VS Code extension
   streams:
     - name: ML_In
-      view: video
+      view: image
     - name: ML_Out
       view: signal
   
