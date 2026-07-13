@@ -1,13 +1,13 @@
 sds:
-  name: ML Model Data Output
+  name: ML output
   description: Classification results
-  frequency: 0.417
+  sample-frequency: 0.417
   content:
-  - value: idle
-    type:  float
-  - value: snake
-    type:  float
-  - value: updown
-    type:  float
-  - value: wave
-    type:  float
+    - value: idle
+      type:  float
+    - value: snake
+      type:  float
+    - value: updown
+      type:  float
+    - value: wave
+      type:  float

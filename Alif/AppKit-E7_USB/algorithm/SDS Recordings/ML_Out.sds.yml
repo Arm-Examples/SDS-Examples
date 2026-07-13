@@ -1,7 +1,7 @@
 sds:
   name: ML output
   description: Results of object detection
-  frequency: 12.5
+  sample-frequency: 12.5
   content:
     - value: confidence
       type:  double
@@ -9,7 +9,7 @@ sds:
       type:  uint32_t
     - value: y
       type:  uint32_t
-    - value: w
+    - value: width
       type:  uint32_t
-    - value: h
+    - value: height
       type:  uint32_t
