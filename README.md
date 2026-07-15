@@ -40,9 +40,17 @@ Run a Blinky example for the related board first to verify tool installation.
 | [Alif/DevKit-E8_ETH](./Alif/DevKit-E8_ETH/README.md)                   | SDS connecting via Ethernet to [Alif DevKit-E8 board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-a1-c8b9599/features/). |
 | [ST/B-U585I-IOT02A/MotionRecognition](./ST/B-U585I-IOT02A/MotionRecognition/README.md) | SDS connecting via USB to  [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/). Implements motion recognition algorithm with sensor interface.  |
 | [ST/B-U585I-IOT02A/KeywordSpotting](./ST/B-U585I-IOT02A/KeywordSpotting/README.md)     | SDS connection via USB to [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/). Implements keyword spotting algorithm with audio interface.  |
+| [SDS-STM32N6](https://github.com/arm-examples/SDS-STM32N6)              | SDS connecting via USB to [STM32N6570-DK board](https://www.keil.arm.com/boards/stmicroelectronics-stm32n6570-dk-revc-f2017e0/guide/) |
 
 > [!TIP]
 > Each example is self-contained in a directory. The tool configuration and CI workflows are in separate directories listed below.
+
+| More                                                 | Description   |
+|---                                                         |---            |
+| [Alif/AppKit-E7_USB](https://github.com/arm-examples/SDS-STM32N6)                   | SDS connecting via USB to [Alif AppKit-E7 board](https://www.keil.arm.com/boards/alif-semiconductor-appkit-e7-aiml-d1-34b5d51/guide/). |
+| [Alif/DevKit-E8_ETH](./Alif/DevKit-E8_ETH/README.md)                   | SDS connecting via Ethernet to [Alif DevKit-E8 board](https://www.keil.arm.com/boards/alif-semiconductor-devkit-e8-a1-c8b9599/features/). |
+| [ST/B-U585I-IOT02A/MotionRecognition](./ST/B-U585I-IOT02A/MotionRecognition/README.md) | SDS connecting via USB to  [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/). Implements motion recognition algorithm with sensor interface.  |
+| [ST/B-U585I-IOT02A/KeywordSpotting](./ST/B-U585I-IOT02A/KeywordSpotting/README.md)     | SDS connection via USB to [STMicroelectronics B-U585I-IOT02A board](https://www.keil.arm.com/boards/stmicroelectronics-b-u585i-iot02a-revc-c3bc599/features/). Implements keyword spotting algorithm with audio interface.  |
 
 ## Tool and CI Directory Structure
 
