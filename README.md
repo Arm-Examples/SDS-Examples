@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/github/license/Arm-Examples/Safety-Example-STM32?label)](https://github.com/Arm-Examples/Safety-Example-STM32/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/Arm-Examples/SDS-Examples?label)](https://github.com/Arm-Examples/SDS-Examples/blob/main/LICENSE)
 [![Build_AC6](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/Build_AC6.yml?logo=arm&logoColor=0091bd&label=Build%20examples%20with%20AC6)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/Build_AC6.yml)
 [![Test_Alif_E7](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/Test_Alif_E7.yml?logo=arm&logoColor=0091bd&label=Test%20Alif%20AppKit-E7%20example)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/Test_Alif_E7.yml)
 [![Test_Alif_E8](https://img.shields.io/github/actions/workflow/status/Arm-Examples/SDS-Examples/Test_Alif_E8.yml?logo=arm&logoColor=0091bd&label=Test%20Alif%20DevKit-E8%20example)](https://github.com/Arm-Examples/SDS-Examples/tree/main/.github/workflows/Test_Alif_E8.yml)
