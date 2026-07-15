@@ -24,7 +24,7 @@ This repository contains examples that show the usage of the [Synchronous Data S
    in VS Code and use the ... menu to choose an example via *Select Active Solution from workspace*.
 4. The related tools and software packs are downloaded and installed. Review progress with *View - Output - CMSIS Solution*.
 5. In the CMSIS view, use the
-   [Action buttons](https://github.com/ARM-software/vscode-cmsis-csolution?tab=readme-ov-file#action-buttons) to build,
+   [Action buttons](https://github.com/Open-CMSIS-Pack/vscode-cmsis-solution?taq=readme#action-buttons) to build,
    load and debug the example on target hardware.
 6. Follow the instructions in the example README and use the SDS view to show, record, and playback data streams.
 
@@ -73,6 +73,8 @@ Refer to [Understanding GitHub Actions](https://docs.github.com/en/actions/get-s
 | [Test_ST_KeywordSpotting](./.github/workflows/Test_ST_KeywordSpotting.yml)     | Build the binary for a keyword spotting algorithm and execute a regression test using an FVP model. Compare the original SDS recording with the newly generated recording produced during the simulator run. Store the build outputs and SDS recordings as workflow artifacts.   |
 | [Test_ST_MotionRecognition](./.github/workflows/Test_ST_MotionRecognition.yml) | Build the binary for a motion recognition algorithm and execute a regression test using an FVP model. Compare the original SDS recording with the newly generated recording produced during the simulator run. Store the build outputs and SDS recordings as workflow artifacts. |
 
-## Issues or Questions
+## Related
 
-Raise questions or issues for these examples on the repository [github.com/ARM-software/SDS-Framework](https://github.com/ARM-software/SDS-Framework/tree/main?tab=readme-ov-file#issues-and-labels).
+- Raise questions or issues for these examples on the repository [github.com/ARM-software/SDS-Framework](https://github.com/ARM-software/SDS-Framework/tree/main?tab=readme-ov-file#issues-and-labels).
+- [Arm Examples - Edge AI and Machine Learning](https://github.com/Arm-Examples#edge-ai-and-machine-learning) contains several other examples that use SDS.
+- [SDS Framework - Documentation](https://arm-software.github.io/SDS-Framework/main/index.html).
