@@ -1,9 +1,9 @@
 sds:
   name: ML input
   description: Mono audio from microphone
+  sample-frequency: 16000
   content:
     - audio:
-        sample-frequency: 16000
         bit-depth: 16
         channels: 1
         format: pcm
