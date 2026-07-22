@@ -24,7 +24,7 @@ This repository contains examples that show the usage of the [Synchronous Data S
    in VS Code and use the ... menu to choose an example via *Select Active Solution from workspace*.
 4. The related tools and software packs are downloaded and installed. Review progress with *View - Output - CMSIS Solution*.
 5. In the CMSIS view, use the
-   [Action buttons](https://github.com/Open-CMSIS-Pack/vscode-cmsis-solution?tag=readme#action-buttons) to build,
+   [Action buttons](https://github.com/Open-CMSIS-Pack/vscode-cmsis-solution#action-buttons) to build,
    load and debug the example on target hardware.
 6. Follow the instructions in the example README and use the SDS view to show, record, and playback data streams.
 
