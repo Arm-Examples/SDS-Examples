@@ -113,7 +113,6 @@ SECTIONS
 
   .code.at_itcm : ALIGN(8)
   {
-    *(.text*)
     *(.itcm*)                             /* Object targeting ITCM */
     . = ALIGN(16);
   } > ITCM AT > MRAM
@@ -167,6 +166,7 @@ SECTIONS
     *(.bss.lcd_frame_buf)                 /* LCD frame Buffer. */
     *(.bss.camera_frame_buf)              /* Camer Frame Buffer */
     *(.bss.camera_frame_bayer_to_rgb_buf) /* (Optional) Camera Frame Buffer for Bayer to RGB Conversion. */
+    *(.bss.*)
   } > SRAM0
 #endif
 
@@ -174,7 +174,6 @@ SECTIONS
   {
     __bss_start__ = .;
     *(.bss)
-    *(.bss.*)
     *(COMMON)
 
     . = ALIGN(8);
@@ -261,6 +260,7 @@ SECTIONS
     *(SORT(.dtors.*))
     *(.dtors)
 
+    *(.text*)
     *(.rodata*)
 
     KEEP(*(.eh_frame*))
