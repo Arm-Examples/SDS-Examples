@@ -118,7 +118,7 @@ To perform a recording, follow these steps:
 
 ```txt
 >sdsio-server usb 
-SDSIO-Server v3.0.0
+SDSIO-Server v3.1.0
 Press 'Ctrl+C' or 'X' to exit.
 Working directory: ...\Arm-Examples\SDS-Examples\ST\B-U585I-IOT02A\MotionRecognition
 SDSIO command input: R=Record, P=playback, S/s=stop, T/t=reset, X/x=exit, A-H=set flags 0-7, a-h=clear flags 0-7.
@@ -183,7 +183,7 @@ The SDS file `Test_Out.<n>.p.sds` created during playback should be identical to
 
 ```txt
 >sdsio-server usb
-SDSIO-Server v3.0.0
+SDSIO-Server v3.1.0
 Press 'Ctrl+C' or 'X' to exit.
 Working directory: ...\Arm-Examples\SDS-Examples\ST\B-U585I-IOT02A\MotionRecognition
 SDSIO command input: R=Record, P=playback, S/s=stop, T/t=reset, X/x=exit, A-H=set flags 0-7, a-h=clear flags 0-7.
@@ -286,7 +286,7 @@ To perform a recording, follow these steps:
 
 ```txt
 >sdsio-server usb 
-SDSIO-Server v3.0.0
+SDSIO-Server v3.1.0
 Press 'Ctrl+C' or 'X' to exit.
 Working directory: ...\Arm-Examples\SDS-Examples\ST\B-U585I-IOT02A\MotionRecognition
 SDSIO command input: R=Record, P=playback, S/s=stop, T/t=reset, X/x=exit, A-H=set flags 0-7, a-h=clear flags 0-7.
@@ -349,7 +349,7 @@ The SDS file `ML_Out.<n>.p.sds` created during playback should be identical to t
 
 ```txt
 >sdsio-server usb
-SDSIO-Server v3.0.0
+SDSIO-Server v3.1.0
 Press 'Ctrl+C' or 'X' to exit.
 Working directory: ...\Arm-Examples\SDS-Examples\ST\B-U585I-IOT02A\MotionRecognition
 SDSIO command input: R=Record, P=playback, S/s=stop, T/t=reset, X/x=exit, A-H=set flags 0-7, a-h=clear flags 0-7.
@@ -455,7 +455,7 @@ Anomaly prediction: -0.180526
 ```txt
 Created by ...\Arm-Examples\SDS-Examples\ST\B-U585I-IOT02A\MotionRecognition\Board\Corstone-300\vsi\python\arm_vsi3.py
 
-SDSIO VSI version 3.0.0
+SDSIO VSI version 3.1.0
 SDSIO_FVP environment variable not set.
 Working directory: ...\Arm-Examples\SDS-Examples\ST\B-U585I-IOT02A\MotionRecognition\algorithm\SDS Recordings.
 SDSIO configuration YAML: ...\Arm-Examples\SDS-Examples\ST\B-U585I-IOT02A\MotionRecognition\algorithm.sdsio.yml.
