@@ -11,8 +11,8 @@ To run this example:
 - Install [Keil Studio for VS Code](https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack) and run a Blinky example on the board to verify tool installation.
 - Use `cpackget add ARM::SDS` to add the SDS Framework and [Setup the SDS Python utilities](https://arm-software.github.io/SDS-Framework/main/utilities.html#sdsio-server).
 - Setup the [Python environment](https://arm-software.github.io/SDS-Framework/main/utilities.html#setup) for running the SDS Utilities.
-- Install Alif Ensemble CMSIS DFP pack v2.2.0 or later with:
-  - `cpackget add AlifSemiconductor::Ensemble@2.2.0`
+- Install Alif Ensemble CMSIS DFP pack v2.2.1 or later with:
+  - `cpackget add AlifSemiconductor::Ensemble@2.2.1`
 
 ## Alif DevKit-E8 board
 
