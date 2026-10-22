@@ -18,6 +18,7 @@ layer:
 
   define:
     - CMSIS_target_header: \"Corstone-320.h\"
+    - ETHOS_CACHE_SIZE: 393216
 
   packs:
     - pack: ARM::CMSIS
@@ -47,6 +48,8 @@ layer:
     - component: Machine Learning:NPU Support:Ethos-U Driver&Generic U85
       define:
         - ETHOSU_MACS: 256
+        # Dedicated SRAM: normal scratch uses AXI_EXT; fast scratch uses AXI_SRAM
+        - NPU_REGIONCFG_1: 3
 
   groups:
     - group: Board

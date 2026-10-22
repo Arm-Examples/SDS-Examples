@@ -98,11 +98,16 @@ if (!isempty(RAM0_region))
 }
 
 /* Ethos-U writable area */
-#if __RAM1_SIZE > 0
   do not initialize { section ethos_arena };
-  define block ETHOS_ARENA with alignment = 32
-    { section ethos_arena };
-  place in RAM1_region { block ETHOS_ARENA };
+  define block ETHOS_ARENA with alignment = 32 { section ethos_arena };
+  place in RAM0_region { block ETHOS_ARENA };
+
+/* Ethos-U arena cache */
+#if __RAM1_SIZE > 0
+  do not initialize { section ethos_cache };
+  define block ETHOS_CACHE with alignment = 32
+    { section ethos_cache };
+  place in RAM1_region { block ETHOS_CACHE };
 #endif
 
 /* Ethos-U model, command stream and constants */

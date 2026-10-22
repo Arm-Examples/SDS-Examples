@@ -55,6 +55,9 @@ LR_ROM1 __ROM1_BASE __ROM1_SIZE  {
   }
 
   RW_RAM0 AlignExpr(+0, 8) (__RAM0_SIZE - __HEAP_SIZE - __STACK_SIZE - __STACKSEAL_SIZE - AlignExpr(ImageLength(RW_NOINIT), 8)) {
+    ; Ethos-U writable area
+    *.o (ethos_arena)
+
     *(+RW +ZI)
   }
 
@@ -73,8 +76,8 @@ LR_ROM1 __ROM1_BASE __ROM1_SIZE  {
 
 #if __RAM1_SIZE > 0
   RW_RAM1 __RAM1_BASE __RAM1_SIZE  {
-    ; Ethos-U writable area
-    *.o (ethos_arena)
+    ; Ethos-U arena cache
+    *.o (ethos_cache)
 
    .ANY (+RW +ZI)
   }

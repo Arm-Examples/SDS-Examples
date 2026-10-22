@@ -281,6 +281,12 @@ SECTIONS
     __noinit_end = .;
   } > RAM0
 
+  /* Ethos-U writable area */
+  .ethos_arena (NOLOAD) : ALIGN(32)
+  {
+    *(ethos_arena)
+  } > RAM0
+
   .heap (NOLOAD) :
   {
     . = ALIGN(8);
@@ -318,7 +324,7 @@ SECTIONS
   .cache (NOLOAD):
   {
     . = ALIGN(32);
-    *(ethos_arena)  /* Ethos-U writable area */
+    *(ethos_cache)  /* Ethos-U arena cache */
   } > RAM1
 
   /* Initialized buffers in fast access RAM */
