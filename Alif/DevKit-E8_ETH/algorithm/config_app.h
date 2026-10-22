@@ -33,9 +33,9 @@
 
 //  <s>Activation Buffer Section Name
 //  <i> Define the name of the activation buffer section
-//  <i> Default: ".bss.activation_buf"
+//  <i> Default: "ethos_arena"
 #ifndef ACTIVATION_BUF_SECTION
-#define ACTIVATION_BUF_SECTION      ".bss.activation_buf"
+#define ACTIVATION_BUF_SECTION      "ethos_arena"
 #endif
 
 //  <o>Activation Buffer Alignment
@@ -47,9 +47,9 @@
 
 //  <s>NN Model Buffer Section Name
 //  <i> Define the name of the NN model buffer section
-//  <i> Default: "nn_model"
+//  <i> Default: "ethos_model"
 #ifndef NN_MODEL_BUF_SECTION
-#define NN_MODEL_BUF_SECTION        "nn_model"
+#define NN_MODEL_BUF_SECTION        "ethos_model"
 #endif
 //  <o>NN Model Buffer Alignment
 //  <i> Define the NN model buffer alignment in bytes
