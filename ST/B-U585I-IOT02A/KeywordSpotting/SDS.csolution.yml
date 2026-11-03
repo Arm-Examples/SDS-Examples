@@ -53,7 +53,7 @@ solution:
           debugger:
             name: Arm-FVP
             model: FVP_Corstone_SSE-300_Ethos-U55
-            config-file: Board/Corstone-300/fvp_config.txt
+            config-file: Board/Corstone-300/fvp_config_u55.txt
 
   # List of different build configurations.
   build-types:

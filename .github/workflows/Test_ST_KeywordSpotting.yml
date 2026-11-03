@@ -82,7 +82,7 @@ jobs:
       - name: Run on simulator
         working-directory: ${{env.DIR}}
         run: |
-          FVP_Corstone_SSE-300_Ethos-U55 -f ./Board/Corstone-300/fvp_config.txt -a ./out/AlgorithmTest/SSE-300-U55/Debug/AlgorithmTest.hex --simlimit 120 || true
+          FVP_Corstone_SSE-300_Ethos-U55 -f ./Board/Corstone-300/fvp_config_u55.txt -a ./out/AlgorithmTest/SSE-300-U55/Debug/AlgorithmTest.hex --simlimit 120 || true
 
       - name: Print sdsio.log file
         working-directory: ${{env.DIR}}/algorithm/SDS Recordings
