@@ -30,7 +30,7 @@
 
 #define __STACK_SIZE             APP_HP_STACK_SIZE
 #define __HEAP_SIZE              APP_HP_HEAP_SIZE
-#define __APP_HEAP_SIZE          0x00004000
+#define __APP_HEAP_SIZE          0x00008000
 #define __ROM_BASE               APP_MRAM_HP_BASE
 #define __ROM_SIZE               APP_MRAM_HP_SIZE
 
@@ -77,6 +77,8 @@ SECTIONS
 
     *lv_*(.text* .rodata*)
 
+    *(.text*)
+
     . = ALIGN(16);
   } > MRAM
 
@@ -113,7 +115,6 @@ SECTIONS
 
   .code.at_itcm : ALIGN(8)
   {
-    *(.text*)
     *(.itcm*)                             /* Object targeting ITCM */
     . = ALIGN(16);
   } > ITCM AT > MRAM
@@ -163,10 +164,12 @@ SECTIONS
 #if __HAS_BULK_SRAM
   .bss.at_sram0 (NOLOAD) : ALIGN(8)
   {
+    *(ethos_arena)                        /* Writable activation arena. */
     *(.bss.lcd_crop_and_interpolate_buf)  /* LCD crop and intrepolate image processing buffer. */
     *(.bss.lcd_frame_buf)                 /* LCD frame Buffer. */
-    *(.bss.camera_frame_buf)              /* Camer Frame Buffer */
+    *(.bss.camera_frame_buf)              /* Camera Frame Buffer */
     *(.bss.camera_frame_bayer_to_rgb_buf) /* (Optional) Camera Frame Buffer for Bayer to RGB Conversion. */
+    *(.bss.*)
   } > SRAM0
 #endif
 
@@ -174,7 +177,6 @@ SECTIONS
   {
     __bss_start__ = .;
     *(.bss)
-    *(.bss.*)
     *(COMMON)
 
     . = ALIGN(8);
@@ -191,7 +193,7 @@ SECTIONS
     * (.driver.usbd0)
     . = ALIGN(TGU_BLOCK_SIZE);
     __ns_region_0_end = .;
-  } > DTCM
+  } > SRAM0
 
   .__app_heap (NOLOAD) : ALIGN(8)
   {
