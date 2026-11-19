@@ -28,20 +28,20 @@ extern "C"
 
 /**
   \fn           int32_t InitAlgorithm (void)
-  \brief        Initialize algorithm under test.
+  \brief        Initialize the algorithm under test.
   \return       0 on success; -1 on error
 */
 extern int32_t InitAlgorithm (void);
 
 /**
   \fn           void ResetAlgorithm (void)
-  \brief        Reset algorithm under test before starting a playback run.
+  \brief        Reset the algorithm under test before initiating recording or playback.
 */
 extern void ResetAlgorithm (void);
 
 /**
   \fn           int32_t ExecuteAlgorithm (uint8_t *in_buf, uint32_t in_num, uint8_t *out_buf, uint32_t out_num)
-  \brief        Execute algorithm under test.
+  \brief        Execute the algorithm under test.
   \param[in]    in_buf          pointer to memory buffer containing input data for algorithm
   \param[in]    in_num          number of data bytes in input data buffer (in bytes)
   \param[out]   out_buf         pointer to memory buffer for returning algorithm output

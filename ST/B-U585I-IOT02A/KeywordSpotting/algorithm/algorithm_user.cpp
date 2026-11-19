@@ -41,12 +41,12 @@ int get_data (size_t offset, size_t length, float *out_ptr) {
     return -1;
   }
 
-  return numpy::int16_to_float((int16_t *)ptr_in_data + (offset * sizeof(int16_t)), out_ptr, length);
+  return numpy::int16_to_float(reinterpret_cast<const int16_t *>(ptr_in_data) + offset,out_ptr, length);
 }
 
 /**
   \fn           int32_t InitAlgorithm (void)
-  \brief        Initialize algorithm under test.
+  \brief        Initialize the algorithm under test.
   \return       0 on success; -1 on error
 */
 int32_t InitAlgorithm (void) {
@@ -62,14 +62,15 @@ int32_t InitAlgorithm (void) {
 
 /**
   \fn           void ResetAlgorithm (void)
-  \brief        Reset algorithm under test before starting a playback run.
+  \brief        Reset the algorithm under test before initiating recording or playback.
 */
 void ResetAlgorithm (void) {
+  run_classifier_init();
 }
 
 /**
   \fn           int32_t ExecuteAlgorithm (uint8_t *in_buf, uint32_t in_num, uint8_t *out_buf, uint32_t out_num)
-  \brief        Execute algorithm under test.
+  \brief        Execute the algorithm under test.
   \param[in]    in_buf          pointer to memory buffer containing input data for algorithm
   \param[in]    in_num          number of data bytes in input data buffer (in bytes)
   \param[out]   out_buf         pointer to memory buffer for returning algorithm output

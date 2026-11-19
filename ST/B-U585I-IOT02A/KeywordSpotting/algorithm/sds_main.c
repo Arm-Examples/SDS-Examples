@@ -36,6 +36,9 @@ static uint8_t sds_data_out_buf[(ALGO_DATA_OUT_BLOCK_SIZE * 2) + 2048] __ALIGNED
 static sdsId_t sds_data_in_id  = NULL;
 static sdsId_t sds_data_out_id = NULL;
 
+// Algorithm reset request
+static volatile uint8_t reset_algo = 0U;
+
 // Recording/playback mode text
 static const char *SDS_MODE[] = { "recording", "playback" };
 
@@ -53,9 +56,10 @@ int32_t OpenStreams (void) {
   if ((sdsFlags & SDS_FLAG_PLAYBACK) != 0U) {   // If open for playback requested
     play = 1U;
 
-    // Reset algorithm under test before starting a playback run
-    ResetAlgorithm();
   }
+
+  // Activate the algorithm reset request before starting recording or playback
+  reset_algo = 1U;
 
   // Open stream for playback or recording of input data, depending on the mode
   if (play != 0U) {                             // -- Playback
@@ -195,6 +199,12 @@ __NO_RETURN void AlgorithmThread (void *argument) {
         } while (ret == SDS_NO_SPACE);
         SDS_ASSERT(ret == sizeof(algo_data_in_buf));
       }
+    }
+
+    // If the algorithm reset request is active and the state is ACTIVE, call the ResetAlgorithm() function
+    if ((sds_state == SDS_STATE_ACTIVE) && (reset_algo != 0U)) {
+      reset_algo = 0U;
+      ResetAlgorithm();
     }
 
     // Execute algorithm under test
