@@ -36,7 +36,7 @@ You can graphically represent SDS files using the **SDS-View** utility.
    ```
    Example visualization:
 
-   ![ML_Out.3.sds](ML_Out.0.sds.png)
+   ![ML_Out.0.sds](ML_Out.0.sds.png)
 
 ## Audio data
 You can convert recorded microphone data with **SDS-Convert** utility into a .wav format.

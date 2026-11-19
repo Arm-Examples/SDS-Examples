@@ -1,6 +1,6 @@
 sds:
   name: ML input
-  description: Mono audio from microphone
+  description: Mono audio from microphone sampled at 16kHz
   sample-frequency: 16000
   content:
     - audio:
